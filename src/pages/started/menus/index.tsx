@@ -50,6 +50,7 @@ class Started extends Component {
     menus: [
       { label: 'State & Props', path: PATH_CONFIG.started.stateProps },
       { label: '事件处理', path: PATH_CONFIG.started.event },
+      { label: '网络请求', path: PATH_CONFIG.started.request },
     ],
   }
 
@@ -85,7 +86,7 @@ class Started extends Component {
               return (
                 <View
                   className='menu-item'
-                  key={idx}
+                  key={item.path}
                   onClick={() => this.handleGotoPage(item)}
                 >
                   {item.label}

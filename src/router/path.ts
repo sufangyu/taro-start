@@ -8,5 +8,6 @@ export default {
   started: {
     stateProps: '/pages/started/state-props/index',
     event: '/pages/started/event/index',
+    request: '/pages/started/request/index',
   },
 };
