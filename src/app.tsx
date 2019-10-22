@@ -1,8 +1,10 @@
 import Taro, { Component, Config } from '@tarojs/taro'
+import '@tarojs/async-await'
 import { Provider } from '@tarojs/mobx'
 import Index from './pages/home/index'
 
-import counterStore from './store/counter'
+import counterStore from './store/counter';
+import globalStore from './store/global';
 
 import './app.scss'
 
@@ -12,8 +14,10 @@ import './app.scss'
 //   require('nerv-devtools')
 // }
 
+// @TODO: store 整合对外统一暴露
 const store = {
-  counterStore
+  counterStore,
+  globalStore,
 }
 
 class App extends Component {
@@ -31,6 +35,7 @@ class App extends Component {
 
       'pages/started/menus/index',
       'pages/started/state-props/index',
+      'pages/started/request/index',
     ],
     window: {
       backgroundTextStyle: 'light',
