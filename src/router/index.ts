@@ -1,23 +1,23 @@
 import Taro from '@tarojs/taro';
-import PATH_CONFIG from './path';
+// import PATH_CONFIG from './path';
 
 
 // tabbar 的路径
-const PATH_TABBAR: Array<String> = [
+const PATH_TABBAR: Array<string> = [
   '/pages/home/index',
   '/pages/messages/list/index',
   '/pages/mine/index',
 ];
 
 // 跳转的方式
-const ACTIONS: Object = {
+const ACTIONS: object = {
   push: 'navigateTo',
   replace: 'redirectTo',
 };
 
 
 // 跳转页面的错误处理
-const errorDeal = (error = {errMsg: ''}) => {
+const errorDeal = (error = { errMsg: '' }): void => {
   const { errMsg } = error;
   Taro.showToast({
     title: errMsg,
@@ -29,11 +29,11 @@ interface IPage {
   /**
    * 页面路径
    */
-  url: String,
+  url: string,
   /**
    * 查询参数
    */
-  query? : Object,
+  query? : object,
   /**
    * 页面跳转方式
    */
@@ -41,12 +41,12 @@ interface IPage {
 }
 
 
-export function gotoPage(opionts: IPage) {
+export function gotoPage(opionts: IPage): void {
   const { url, action } = Object.assign({}, {
     url: '',
     query: {},
     action: 'push',
-  },opionts);
+  }, opionts);
 
   // 是否 tabBar 页面
   const isSwitchTab = PATH_TABBAR.includes(url);
@@ -65,5 +65,4 @@ export function gotoPage(opionts: IPage) {
       errorDeal(error);
     });
   }
-
 }

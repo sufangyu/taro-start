@@ -6,19 +6,13 @@ import { observer, inject } from '@tarojs/mobx'
 import './index.scss'
 
 type PageStateProps = {
-  counterStore: {
-    counter: number,
-    increment: Function,
-    decrement: Function,
-    incrementAsync: Function
-  }
 }
 
 interface Index {
   props: PageStateProps;
 }
 
-@inject('counterStore')
+@inject()
 @observer
 class Index extends Component {
 

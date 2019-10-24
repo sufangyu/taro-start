@@ -62,7 +62,7 @@ const defaults: IRequest = {
   loadingText: '',
 };
 
-function request(options: IRequest) {
+function request(options: IRequest): Promise<object> {
   const {
     url,
     data,
@@ -88,16 +88,16 @@ function request(options: IRequest) {
       .then((res) => {
         Taro.hideLoading();
 
-        const { success, error_msg } = res.data;
+        const { success, error_msg: errorMsg } = res.data;
         if (success) {
           return resolve(res.data);
-        } else {
-          Taro.showToast({
-            title: error_msg || '请求失败, 请重试',
-            icon: 'none',
-          });
-          return reject(res.data);
         }
+
+        Taro.showToast({
+          title: errorMsg || '请求失败, 请重试',
+          icon: 'none',
+        });
+        return reject(res.data);
       })
       .catch((error) => {
         Taro.hideLoading();
@@ -107,28 +107,28 @@ function request(options: IRequest) {
           icon: 'none',
         });
         return reject(error);
-      })
+      });
   });
 }
 
 const http = {
-  get(options: IRequest): Promise<any> {
+  get(options: IRequest): Promise<object> {
     const mergetOptions: IRequest = Object.assign(defaults, options);
     return request(mergetOptions);
   },
-  post(options: IRequest): Promise<any> {
-    const mergetOptions: IRequest = Object.assign(defaults, { method: 'POST'}, options);
+  post(options: IRequest): Promise<object> {
+    const mergetOptions: IRequest = Object.assign(defaults, { method: 'POST' }, options);
     return request(mergetOptions);
   },
-  put(options: IRequest): Promise<any> {
-    const mergetOptions: IRequest = Object.assign(defaults, { method: 'PUT'}, options);
+  put(options: IRequest): Promise<object> {
+    const mergetOptions: IRequest = Object.assign(defaults, { method: 'PUT' }, options);
     return request(mergetOptions);
   },
-  delete(options: IRequest): Promise<any> {
-    const mergetOptions: IRequest = Object.assign(defaults, { method: 'DELETE'}, options);
+  delete(options: IRequest): Promise<object> {
+    const mergetOptions: IRequest = Object.assign(defaults, { method: 'DELETE' }, options);
     return request(mergetOptions);
   },
-  base(options: IRequest): Promise<any> {
+  base(options: IRequest): Promise<object> {
     return request(options);
   },
 };

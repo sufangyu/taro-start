@@ -3,7 +3,6 @@ import '@tarojs/async-await'
 import { Provider } from '@tarojs/mobx'
 import Index from './pages/home/index'
 
-import counterStore from './store/counter';
 import globalStore from './store/global';
 
 import './app.scss'
@@ -16,7 +15,6 @@ import './app.scss'
 
 // @TODO: store 整合对外统一暴露
 const store = {
-  counterStore,
   globalStore,
 }
 
