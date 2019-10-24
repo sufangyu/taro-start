@@ -3,10 +3,10 @@ import Taro, { Component, Config } from '@tarojs/taro';
 import { View, Button, Text } from '@tarojs/components';
 import { observer, inject } from '@tarojs/mobx';
 
-import { getFn, postFn } from '@/api/test';
+import { getFn, postFn, putFn, deleteFn } from '@/api/test';
 import './index.scss';
 
-interface IProps {} 
+interface IProps {}
 
 interface IState {}
 
@@ -36,12 +36,21 @@ class Index extends Component {
 
   componentDidHide() { }
 
-  handleGet() {
-    getFn();
+  async handleGet() {
+    const res = await getFn();
+    console.log(res);
   }
 
   handlePost() {
     postFn();
+  }
+
+  handlePut() {
+    putFn();
+  }
+
+  handleDelete() {
+    deleteFn();
   }
 
   render () {
@@ -51,6 +60,8 @@ class Index extends Component {
         <View>
           <Button type='primary' onClick={this.handleGet}>GET 请求</Button>
           <Button type='primary' onClick={this.handlePost}>POST 请求</Button>
+          <Button type='primary' onClick={this.handlePut}>PUT 请求</Button>
+          <Button type='primary' onClick={this.handleDelete}>DELETE 请求</Button>
         </View>
       </View>
     )

@@ -33,7 +33,7 @@ interface IRequest {
    * @memberof IRequest
    */
   header?: object,
-  
+
   /**
    * 是否显示 loading
    *
@@ -44,7 +44,7 @@ interface IRequest {
 
 
   /**
-   * loading 提示语 
+   * loading 提示语
    *
    * @type {string}
    * @memberof IRequest
@@ -120,13 +120,17 @@ const http = {
     const mergetOptions: IRequest = Object.assign(defaults, { method: 'POST'}, options);
     return request(mergetOptions);
   },
-  put() {
-    console.log('put');
+  put(options: IRequest): Promise<any> {
+    const mergetOptions: IRequest = Object.assign(defaults, { method: 'PUT'}, options);
+    return request(mergetOptions);
   },
-  delete() {
-    console.log('delete');
+  delete(options: IRequest): Promise<any> {
+    const mergetOptions: IRequest = Object.assign(defaults, { method: 'DELETE'}, options);
+    return request(mergetOptions);
   },
-  base() {},
+  base(options: IRequest): Promise<any> {
+    return request(options);
+  },
 };
 
 export default http;
