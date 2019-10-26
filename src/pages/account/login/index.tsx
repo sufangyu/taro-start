@@ -1,23 +1,30 @@
 import { ComponentType } from 'react';
 import Taro, { Component, Config } from '@tarojs/taro';
-import { View, Text } from '@tarojs/components';
+import { View, Button, Text } from '@tarojs/components';
 import { observer, inject } from '@tarojs/mobx';
-import withLogin from '@/decorators/withLogin';
 
 import './index.scss';
 
 type Props = {}
 
+type State = {}
+
 interface Index {
   props: Props,
+  state: State,
 }
 
-@withLogin()
 @inject('globalStore')
 @observer
 class Index extends Component {
   config: Config = {
-    navigationBarTitleText: '首页',
+    navigationBarTitleText: '绑定账号',
+  }
+
+  constructor(props) {
+    super(props);
+
+    this.state = {};
   }
 
   componentWillMount() {}
@@ -32,10 +39,12 @@ class Index extends Component {
 
   componentWillReact() {}
 
-  render() {
+  render(): object {
     return (
       <View className="container">
-        <Text>Home page</Text>
+        <Button>
+          <Text>Empty template</Text>
+        </Button>
       </View>
     );
   }

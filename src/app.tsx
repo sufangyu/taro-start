@@ -25,6 +25,9 @@ class App extends Component {
     pages: [
       'pages/home/index',
 
+      'pages/account/welcome/index',
+      'pages/account/login/index',
+
       'pages/started/menus/index',
       'pages/started/state-props/index',
       'pages/started/request/index',

@@ -1,5 +1,5 @@
 import { observable } from 'mobx';
 
-const globalStore = observable({});
+const store = observable({});
 
-export default globalStore;
+export default store;

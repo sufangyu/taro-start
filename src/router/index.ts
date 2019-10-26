@@ -1,5 +1,35 @@
 import Taro from '@tarojs/taro';
-// import PATH_CONFIG from './path';
+import PATH_CONFIG from './path';
+
+
+interface IPage {
+  /**
+   * 页面路径
+   */
+  url: string,
+
+  /**
+   * 查询参数
+   */
+  query? : object,
+
+  /**
+   * 页面跳转方式
+   */
+  mode? : 'push' | 'replace',
+}
+
+interface ICurrentPage {
+  /**
+   * 路由地址
+   */
+  route: string,
+
+  /**
+   * 页面参数
+   */
+  options: object,
+}
 
 
 // tabbar 的路径
@@ -10,7 +40,7 @@ const PATH_TABBAR: Array<string> = [
 ];
 
 // 跳转的方式
-const MODES: object = {
+const MODE_MAP: object = {
   push: 'navigateTo',
   replace: 'redirectTo',
 };
@@ -25,19 +55,53 @@ const errorDeal = (error = { errMsg: '' }): void => {
   });
 };
 
-interface IPage {
-  /**
-   * 页面路径
-   */
-  url: string,
-  /**
-   * 查询参数
-   */
-  query? : object,
-  /**
-   * 页面跳转方式
-   */
-  mode? : 'push' | 'replace',
+
+/**
+ * 获取当前页面对象
+ *
+ * @export
+ * @param {number} [offset=0] 相对当前偏移页面数量
+ * @returns {object}
+ */
+export function getCurrentPage(offset: number = 0): object {
+  const pages = Taro.getCurrentPages();
+  const pageLeng = pages.length;
+  let index = pageLeng - 1 - offset;
+
+  // 超出历史记录的个数, 则默认返回最初的第一页
+  if (offset > pageLeng - 1) {
+    index = 0;
+  }
+
+  return pages[index];
+}
+
+
+/**
+ * 获取完整的路径
+ *
+ * @export
+ * @param {string} [url=''] 页面地址
+ * @param {object} [query={}] 查询参数
+ * @returns
+ */
+export function getFullpath(url: string = '', query: object = {}) {
+  if (JSON.stringify(query) === '{}') {
+    return url;
+  }
+
+  // 是否已有查询参数
+  const hasSearch = url.includes('?');
+  const queries: string[] = [];
+
+  Object.keys(query).forEach((key) => {
+    const value = query[key];
+    queries.push(`${key}=${value}`);
+  });
+
+  const separator = hasSearch ? '&' : '?';
+  const fullpath = `${url}${separator}${queries.join('&')}`;
+  return fullpath;
 }
 
 
@@ -47,16 +111,11 @@ interface IPage {
  * @export
  * @param {IPage} opionts 页面信息
  */
-export function gotoPage(opionts: IPage): void {
-  const { url, mode, query } = Object.assign({}, {
-    url: '',
-    query: {},
-    mode: 'push',
-  }, opionts);
-
+export function gotoPage(opionts: IPage = {url: '', query: {}, mode: 'push'}): void {
+  const { url, mode, query } = opionts;
+  const fullpath = getFullpath(url, query);
   // 是否 tabBar 页面
   const isSwitchTab = PATH_TABBAR.includes(url);
-  const fullpath = getFullpath(url, query);
 
   if (isSwitchTab) {
     Taro.switchTab({
@@ -65,7 +124,7 @@ export function gotoPage(opionts: IPage): void {
       errorDeal(error);
     });
   } else {
-    const key = MODES[mode];
+    const key = MODE_MAP[mode || 'push'];
     Taro[key]({
       url: fullpath,
     }).catch((error) => {
@@ -107,49 +166,16 @@ export function reLaunch(opionts: IPage): void {
 
 
 /**
- * 获取当前页面对象
+ * 跳转/重定向 登录页面
  *
  * @export
- * @param {number} [offset=0] 相对当前偏移页面数量
- * @returns {object}
+ * @param {string} [mode='push'] 跳转的方式
  */
-export function getCurrentPage(offset: number = 0): object {
-  const pages = Taro.getCurrentPages();
-  const pageLeng = pages.length;
-  let index = pageLeng - 1 - offset;
+export function gotoLoginPage(mode: string = 'push'): void {
+  const { route } = getCurrentPage() as ICurrentPage;
+  const fullpath = getFullpath(`/${route}`);
+  const fromUrl = encodeURIComponent(fullpath);
+  const url = `${PATH_CONFIG.account.welcome}?from=${fromUrl}`;
 
-  // 超出历史记录的个数, 则默认返回最初的第一页
-  if (offset > pageLeng - 1) {
-    index = 0;
-  }
-
-  return pages[index];
-}
-
-
-/**
- * 获取完整的路径
- *
- * @export
- * @param {string} [url=''] 页面地址
- * @param {object} [query={}] 查询参数
- * @returns
- */
-export function getFullpath(url: string = '', query: object = {}) {
-  if (JSON.stringify(query) === '{}') {
-    return url;
-  }
-
-  // 是否已有查询参数
-  const hasSearch = url.includes('?');
-  const queryArr: string[] = [];
-
-  Object.keys(query).forEach((key) => {
-    const value = query[key];
-    queryArr.push(`${key}=${value}`);
-  });
-
-  const separator = hasSearch ? '&' : '?';
-  const fullpath = `${url}${separator}${queryArr.join('&')}`;
-  return fullpath;
+  gotoPage({ url, mode } as IPage);
 }
