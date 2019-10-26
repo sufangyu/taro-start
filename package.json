@@ -16,15 +16,15 @@
     "build:tt": "taro build --type tt",
     "build:h5": "taro build --type h5",
     "build:rn": "taro build --type rn",
+    "dev": "npm run dev:weapp & npm run lint:watch",
     "dev:weapp": "npm run build:weapp -- --watch",
     "dev:swan": "npm run build:swan -- --watch",
     "dev:alipay": "npm run build:alipay -- --watch",
     "dev:tt": "npm run build:tt -- --watch",
     "dev:h5": "npm run build:h5 -- --watch",
     "dev:rn": "npm run build:rn -- --watch",
-    "lint": "./node_modules/.bin/eslint src --ext .ts,tsx",
-    "lint:watch": "watch \"npm run lint\" src",
-    "lintesw": "esw src --ext .ts,tsx --w"
+    "lint": "./node_modules/.bin/eslint src --ext .ts,.tsx",
+    "lint:watch": "esw src --ext .ts,.tsx --w --quiet --changed --cache"
   },
   "author": "",
   "license": "MIT",
