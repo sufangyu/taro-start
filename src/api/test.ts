@@ -11,7 +11,7 @@ export function getFn() {
       name: '张三疯',
       age: 18,
     },
-  })
+  });
 }
 
 
@@ -27,7 +27,7 @@ export function postFn() {
       age: 18,
     },
     loadingText: '正在提交...',
-  })
+  });
 }
 
 
@@ -43,9 +43,8 @@ export function putFn() {
       age: 18,
     },
     loadingText: '正在提交...',
-  })
+  });
 }
-
 
 
 /**
@@ -60,5 +59,5 @@ export function deleteFn() {
       age: 18,
     },
     loadingText: '正在提交...',
-  })
+  });
 }

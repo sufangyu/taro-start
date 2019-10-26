@@ -5,46 +5,49 @@ import { observer, inject } from '@tarojs/mobx';
 
 import './index.scss';
 
-interface IProps {} 
+type Props = {}
 
-interface IState {}
+type State = {}
 
 interface Index {
-  props: IProps;
-  state: IState;
+  props: Props,
+  state: State,
 }
 
-@inject()
+@inject('globalStore')
 @observer
 class Index extends Component {
   config: Config = {
-    navigationBarTitleText: '入门'
+    navigationBarTitleText: '入门',
   }
 
-  state: IState = {}
+  constructor(props) {
+    super(props);
 
-  componentWillMount() { }
+    this.state = {};
+  }
+
+  componentWillMount() {}
+
+  componentDidMount() {}
+
+  componentWillUnmount() {}
+
+  componentDidShow() {}
+
+  componentDidHide() {}
 
   componentWillReact() {}
 
-  componentDidMount() { }
-
-  componentWillUnmount() { }
-
-  componentDidShow() { }
-
-  componentDidHide() { }
-
-  render () {
-
+  render(): object {
     return (
-      <View className='container'>
+      <View className="container">
         <Button>
-          <Text>counter</Text>
+          <Text>Empty template</Text>
         </Button>
       </View>
-    )
+    );
   }
 }
 
-export default Index  as ComponentType
+export default Index as ComponentType;

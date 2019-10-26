@@ -1,14 +1,12 @@
-import { ComponentType } from 'react'
-import Taro, { Component, Config } from '@tarojs/taro'
-import { View, Button, Text } from '@tarojs/components'
+import { ComponentType } from 'react';
+import Taro, { Component, Config } from '@tarojs/taro';
+import { View } from '@tarojs/components';
+import { gotoPage } from '@/router';
+import PATH_CONFIG from '@/router/path';
 
-import { gotoPage } from '../../../router'
-import PATH_CONFIG from '../../../router/path'
+import './index.scss';
 
-import './index.scss'
-
-
-interface IPage {
+type Page = {
   /**
    * 名称
    */
@@ -19,78 +17,72 @@ interface IPage {
   path: string,
 }
 
-interface IProps {} 
+type Props = {}
 
-interface IState {
+type State = {
   /**
    * 导航菜单
    */
-  menus: Array<IPage>,
+  menus: Array<Page>,
 }
 
-interface Started {
-  props: IProps;
-  state: IState;
+interface Index {
+  props: Props,
+  state: State,
 }
 
-class Started extends Component {
-
-  /**
-   * 指定config的类型声明为: Taro.Config
-   *
-   * 由于 typescript 对于 object 类型推导只能推出 Key 的基本类型
-   * 对于像 navigationBarTextStyle: 'black' 这样的推导出的类型是 string
-   * 提示和声明 navigationBarTextStyle: 'black' | 'white' 类型冲突, 需要显示声明类型
-   */
+class Index extends Component {
   config: Config = {
-    navigationBarTitleText: '入门'
+    navigationBarTitleText: '入门',
+    disableScroll: true,
   }
 
-  state: IState = {
-    menus: [
-      { label: 'State & Props', path: PATH_CONFIG.started.stateProps },
-      { label: '事件处理', path: PATH_CONFIG.started.event },
-      { label: '网络请求', path: PATH_CONFIG.started.request },
+  constructor(props) {
+    super(props);
 
-
-      
-    ],
+    this.state = {
+      menus: [
+        { label: 'State & Props', path: PATH_CONFIG.started.stateProps },
+        { label: '事件处理', path: PATH_CONFIG.started.event },
+        { label: '网络请求', path: PATH_CONFIG.started.request },
+        { label: '页面跳转', path: PATH_CONFIG.started.navigation },
+      ],
+    };
   }
 
-  componentWillMount () { }
+  componentWillMount() {}
 
-  componentWillReact () {}
+  componentDidMount() {}
 
-  componentDidMount () { }
+  componentWillUnmount() {}
 
-  componentWillUnmount () { }
+  componentDidShow() {}
 
-  componentDidShow () { }
+  componentDidHide() {}
 
-  componentDidHide () { }
+  componentWillReact() {}
 
-  handleGotoPage(page: IPage) {
+  handlegotoPage(page: Page): void {
     console.log(page);
     gotoPage({
       url: page.path,
     });
   }
 
-  render () {
-    const { menus } = this.state
-    console.log(menus);
+  render() {
+    const { menus } = this.state;
 
     return (
-      <View className='container'>
-        <View className='page-title'>入门教程</View>
-        <View className='menu'>
+      <View className="container">
+        <View className="page-title">入门教程</View>
+        <View className="menu">
           {
-            menus.map((item, idx) => {
+            menus.map(item => {
               return (
                 <View
-                  className='menu-item'
+                  className="menu-item"
                   key={item.path}
-                  onClick={() => this.handleGotoPage(item)}
+                  onClick={() => this.handlegotoPage(item)}
                 >
                   {item.label}
                 </View>
@@ -99,8 +91,8 @@ class Started extends Component {
           }
         </View>
       </View>
-    )
+    );
   }
 }
 
-export default Started  as ComponentType
+export default Index as ComponentType;

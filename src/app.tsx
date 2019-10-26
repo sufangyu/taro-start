@@ -1,11 +1,10 @@
-import Taro, { Component, Config } from '@tarojs/taro'
-import '@tarojs/async-await'
-import { Provider } from '@tarojs/mobx'
-import Index from './pages/home/index'
+import Taro, { Component, Config } from '@tarojs/taro';
+import '@tarojs/async-await';
+import { Provider } from '@tarojs/mobx';
+import Index from './pages/home/index';
+import store from './store';
 
-import globalStore from './store/global';
-
-import './app.scss'
+import './app.scss';
 
 // 如果需要在 h5 环境中开启 React Devtools
 // 取消以下注释：
@@ -13,13 +12,8 @@ import './app.scss'
 //   require('nerv-devtools')
 // }
 
-// @TODO: store 整合对外统一暴露
-const store = {
-  globalStore,
-}
 
 class App extends Component {
-
   /**
    * 指定config的类型声明为: Taro.Config
    *
@@ -34,12 +28,13 @@ class App extends Component {
       'pages/started/menus/index',
       'pages/started/state-props/index',
       'pages/started/request/index',
+      'pages/started/navigation/index',
     ],
     window: {
       backgroundTextStyle: 'light',
       navigationBarBackgroundColor: '#5677fc',
       navigationBarTitleText: 'Taro',
-      navigationBarTextStyle: 'white'
+      navigationBarTextStyle: 'white',
     },
     tabBar: {
       color: '#808080',
@@ -63,23 +58,23 @@ class App extends Component {
     },
   }
 
-  componentDidMount () {}
+  componentDidMount() {}
 
-  componentDidShow () {}
+  componentDidShow() {}
 
-  componentDidHide () {}
+  componentDidHide() {}
 
-  componentDidCatchError () {}
+  componentDidCatchError() {}
 
   // 在 App 类中的 render() 函数没有实际作用
   // 请勿修改此函数
-  render () {
+  render() {
     return (
       <Provider store={store}>
         <Index />
       </Provider>
-    )
+    );
   }
 }
 
-Taro.render(<App />, document.getElementById('app'))
+Taro.render(<App />, document.getElementById('app'));

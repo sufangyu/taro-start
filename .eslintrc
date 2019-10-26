@@ -16,13 +16,26 @@
   "plugins": ["@typescript-eslint", "jsx-a11y"],
   "rules": {
     "no-unused-vars": ["error", { "varsIgnorePattern": "Taro" }],
-    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx", ".tsx"] }],
+    "no-console": "off",
+    "jsx-quotes": ["error", "prefer-double"],
+    "class-methods-use-this": "off",
     "linebreak-style": "off", // 回车换行风格
+    "arrow-parens": "off",
+    "arrow-body-style": "off", // 箭头函数不强制以用块体（用花括号表示）
     "prefer-object-spread": "off",
+    "import/no-unresolved": "off",
     "import/prefer-default-export": "off",
-
-    "@typescript-eslint/interface-name-prefix": "off",
     "import/no-extraneous-dependencies": "off",
+
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx", ".tsx"] }],
+    "react/react-in-jsx-scope": "off",
+    "react/no-deprecated": "off",
+
+    "@typescript-eslint/no-unused-vars": ["error", { "varsIgnorePattern": "Taro" }],
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "@typescript-eslint/interface-name-prefix": "off",
+    "@typescript-eslint/no-empty-function": "off",
+    "@typescript-eslint/no-inferrable-types": "off",
     "@typescript-eslint/member-delimiter-style": ["error", {
       "multiline": {
         "delimiter": "comma",

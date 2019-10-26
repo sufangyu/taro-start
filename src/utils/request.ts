@@ -1,7 +1,7 @@
 import Taro from '@tarojs/taro';
+import interceptors from './request-help';
 
-
-interface IRequest {
+export interface IRequest {
   /**
    * 接口地址
    *
@@ -52,7 +52,6 @@ interface IRequest {
   loadingText?: string,
 }
 
-
 const defaults: IRequest = {
   url: '',
   data: {},
@@ -62,7 +61,16 @@ const defaults: IRequest = {
   loadingText: '',
 };
 
+
+/**
+ * 请求函数
+ *
+ * @param {IRequest} options
+ * @returns {Promise<object>}
+ */
 function request(options: IRequest): Promise<object> {
+  interceptors.request(options);
+
   const {
     url,
     data,
@@ -86,27 +94,10 @@ function request(options: IRequest): Promise<object> {
         header,
       })
       .then((res) => {
-        Taro.hideLoading();
-
-        const { success, error_msg: errorMsg } = res.data;
-        if (success) {
-          return resolve(res.data);
-        }
-
-        Taro.showToast({
-          title: errorMsg || '请求失败, 请重试',
-          icon: 'none',
-        });
-        return reject(res.data);
+        interceptors.response.resolve(res, resolve, reject);
       })
       .catch((error) => {
-        Taro.hideLoading();
-
-        Taro.showToast({
-          title: error.errMsg || '请求失败, 请重试',
-          icon: 'none',
-        });
-        return reject(error);
+        interceptors.response.reject(error, reject);
       });
   });
 }

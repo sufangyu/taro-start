@@ -1,7 +1,6 @@
 export default {
-  home: {
-    path: '/pages/home/index',
-  },
+  home: '/pages/home/index',
+
   /**
    * 入门教程
    */
@@ -9,5 +8,6 @@ export default {
     stateProps: '/pages/started/state-props/index',
     event: '/pages/started/event/index',
     request: '/pages/started/request/index',
+    navigation: '/pages/started/navigation/index',
   },
 };

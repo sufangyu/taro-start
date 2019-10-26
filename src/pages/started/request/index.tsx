@@ -1,40 +1,46 @@
 import { ComponentType } from 'react';
 import Taro, { Component, Config } from '@tarojs/taro';
-import { View, Button, Text } from '@tarojs/components';
+import { View, Button } from '@tarojs/components';
 import { observer, inject } from '@tarojs/mobx';
+import {
+  getFn, postFn, putFn, deleteFn,
+} from '@/api/test';
 
-import { getFn, postFn, putFn, deleteFn } from '@/api/test';
 import './index.scss';
 
-interface IProps {}
+type Props = {}
 
-interface IState {}
+type State = {}
 
 interface Index {
-  props: IProps;
-  state: IState;
+  props: Props,
+  state: State,
 }
 
 @inject('globalStore')
 @observer
 class Index extends Component {
   config: Config = {
-    navigationBarTitleText: '入门'
+    navigationBarTitleText: '网络请求',
   }
 
-  state: IState = {}
+  constructor(props) {
+    super(props);
 
-  componentWillMount() { }
+    this.state = {};
+  }
 
-  componentWillReact () {}
+  componentWillMount() {}
 
-  componentDidMount() { }
+  componentDidMount() {}
 
-  componentWillUnmount() { }
+  componentWillUnmount() {}
 
-  componentDidShow() { }
+  componentDidShow() {}
 
-  componentDidHide() { }
+  componentDidHide() {}
+
+  componentWillReact() {}
 
   async handleGet() {
     const res = await getFn();
@@ -53,19 +59,18 @@ class Index extends Component {
     deleteFn();
   }
 
-  render () {
-
+  render() {
     return (
-      <View className='container'>
+      <View className="container">
         <View>
-          <Button type='primary' onClick={this.handleGet}>GET 请求</Button>
-          <Button type='primary' onClick={this.handlePost}>POST 请求</Button>
-          <Button type='primary' onClick={this.handlePut}>PUT 请求</Button>
-          <Button type='primary' onClick={this.handleDelete}>DELETE 请求</Button>
+          <Button type="primary" onClick={this.handleGet}>GET 请求</Button>
+          <Button type="primary" onClick={this.handlePost}>POST 请求</Button>
+          <Button type="primary" onClick={this.handlePut}>PUT 请求</Button>
+          <Button type="primary" onClick={this.handleDelete}>DELETE 请求</Button>
         </View>
       </View>
-    )
+    );
   }
 }
 
-export default Index  as ComponentType
+export default Index as ComponentType;
