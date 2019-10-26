@@ -2,6 +2,7 @@ import { ComponentType } from 'react';
 import Taro, { Component, Config } from '@tarojs/taro';
 import { View, Button, Text } from '@tarojs/components';
 import { observer, inject } from '@tarojs/mobx';
+import checkLogin from '@/decorators/checkLogin';
 
 import './index.scss';
 
@@ -39,13 +40,18 @@ class Index extends Component {
 
   componentWillReact() {}
 
+  @checkLogin
+  handleBind() {
+    console.log('handleBind Func');
+  }
+
   render(): object {
     return (
       <View className="container">
         <View>
           <Text>欢迎绑定账号</Text>
         </View>
-        <Button>立即绑定</Button>
+        <Button onClick={() => this.handleBind()}>立即绑定</Button>
       </View>
     );
   }
