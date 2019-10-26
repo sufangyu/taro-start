@@ -111,7 +111,7 @@ export function getFullpath(url: string = '', query: object = {}) {
  * @export
  * @param {IPage} opionts 页面信息
  */
-export function gotoPage(opionts: IPage = {url: '', query: {}, mode: 'push'}): void {
+export function gotoPage(opionts: IPage = { url: '', query: {}, mode: 'push' }): void {
   const { url, mode, query } = opionts;
   const fullpath = getFullpath(url, query);
   // 是否 tabBar 页面
