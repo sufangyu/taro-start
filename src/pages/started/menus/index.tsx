@@ -1,8 +1,7 @@
 import { ComponentType } from 'react';
 import Taro, { Component, Config } from '@tarojs/taro';
 import { View } from '@tarojs/components';
-import { gotoPage } from '@/router';
-import PATH_CONFIG from '@/router/path';
+import { gotoPage, PATH_CONFIG } from '@/router';
 
 import './index.scss';
 

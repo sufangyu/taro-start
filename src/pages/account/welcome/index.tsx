@@ -1,8 +1,7 @@
 import { ComponentType } from 'react';
 import Taro, { Component, Config } from '@tarojs/taro';
 import { View, Button, Text } from '@tarojs/components';
-import { observer, inject } from '@tarojs/mobx';
-import checkLogin from '@/decorators/checkLogin';
+import { gotoPage, PATH_CONFIG } from '@/router';
 
 import './index.scss';
 
@@ -15,8 +14,7 @@ interface Index {
   state: State,
 }
 
-@inject('globalStore')
-@observer
+
 class Index extends Component {
   config: Config = {
     navigationBarTitleText: '欢迎',
@@ -40,9 +38,14 @@ class Index extends Component {
 
   componentWillReact() {}
 
-  @checkLogin
+  // @checkLogin
   handleBind() {
-    console.log('handleBind Func');
+    const { params } = this.$router;
+    gotoPage({
+      url: PATH_CONFIG.account.login,
+      query: params,
+      mode: 'replace',
+    });
   }
 
   render(): object {
