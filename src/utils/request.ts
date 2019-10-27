@@ -3,6 +3,14 @@ import interceptors from './request-help';
 
 export interface IRequest {
   /**
+   * 接口地址对应的后台服务
+   *
+   * @type {string}
+   * @memberof IRequest
+   */
+  server?: 'base' | 'open' | 'baibu',
+
+  /**
    * 接口地址
    *
    * @type {string}
@@ -53,6 +61,7 @@ export interface IRequest {
 }
 
 const defaults: IRequest = {
+  server: '',
   url: '',
   data: {},
   header: {},

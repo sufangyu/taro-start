@@ -3,10 +3,16 @@ import Taro, { Component, Config } from '@tarojs/taro';
 import { View, Button, Text } from '@tarojs/components';
 import { observer, inject } from '@tarojs/mobx';
 import { gotoPage, PATH_CONFIG } from '@/router';
+import { IAccountStore, IAccount } from '@/store/account';
 
 import './index.scss';
 
-type Props = {}
+type Props = {
+  /**
+   * 用户信息的公共操作
+   */
+  accountStore: IAccountStore,
+}
 
 type State = {
   timer: any,
@@ -17,14 +23,14 @@ interface Index {
   state: State,
 }
 
-@inject('globalStore')
+@inject('globalStore', 'accountStore')
 @observer
-class Index extends Component {
+class Index extends Component<Props, State> {
   config: Config = {
     navigationBarTitleText: '绑定账号',
   }
 
-  constructor(props) {
+  constructor(props?: Props) {
     super(props);
 
     this.state = {
@@ -46,7 +52,16 @@ class Index extends Component {
 
   private handleLogin(): void {
     console.log('登录成功逻辑 =>>');
-    clearTimeout(this.state.timer);
+    const { timer } = this.state;
+    clearTimeout(timer);
+    const { accountStore } = this.props;
+    const account: IAccount = {
+      id: `${+new Date()}`,
+      name: '张三疯',
+    };
+    // 函数调用前加 !, 是为了避免可选参数为空时失去断言的作用
+    accountStore.setAccount!(account);
+
     Taro.showToast({
       title: '登录成功',
       icon: 'success',

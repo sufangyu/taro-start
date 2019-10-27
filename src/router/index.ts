@@ -181,3 +181,13 @@ export function gotoLoginPage(mode: string = 'push'): void {
 
   gotoPage({ url, mode } as IPage);
 }
+
+
+/**
+ * 打开登录页面, 关闭其他页面
+ *
+ * @export
+ */
+export function reLaunchLoginPage(): void {
+  reLaunch({ url: PATH_CONFIG.account.welcome });
+}

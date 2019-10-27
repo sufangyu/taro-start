@@ -25,6 +25,8 @@ class App extends Component {
     pages: [
       'pages/home/index',
 
+      'pages/mine/index',
+
       'pages/account/welcome/index',
       'pages/account/login/index',
 
@@ -54,6 +56,12 @@ class App extends Component {
         {
           text: '入门',
           pagePath: 'pages/started/menus/index',
+          iconPath: 'assets/images/tabbar/started.png',
+          selectedIconPath: 'assets/images/tabbar/started-selected.png',
+        },
+        {
+          text: '我的',
+          pagePath: 'pages/mine/index',
           iconPath: 'assets/images/tabbar/started.png',
           selectedIconPath: 'assets/images/tabbar/started-selected.png',
         },

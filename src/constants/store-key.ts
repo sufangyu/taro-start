@@ -1,7 +1,14 @@
-// 账户信息
+/**
+ * 账户信息
+ */
 export const ACCOUNT_KEY = 'ACCOUNT';
 
-// 环境
+/**
+ * API 环境 key
+ */
 export const API_ENV_KEY = 'API_ENV';
-// 显示切换环境
+
+/**
+ * 是否显示切换环境 key
+ */
 export const SWITCH_API_ENV_SHOW_KEY = 'SWITCH_API_ENV_SHOW';

@@ -1,5 +1,5 @@
 import Taro from '@tarojs/taro';
-
+import { API_BASE_MAP } from '@/config';
 import { IRequest } from './request';
 
 type SuccessData = {
@@ -17,12 +17,10 @@ type errorData = {
 interface IResponse {
   /**
    * 响应数据实体
-   *
-   * @type {object}
-   * @memberof IResponse
    */
   data? : SuccessData,
 }
+
 
 const interceptors = {
   /**
@@ -31,7 +29,10 @@ const interceptors = {
    * @param {IRequest} options 网络请求配置
    */
   request(options: IRequest) {
-    console.log('request =>>', options);
+    // 为接口加上对应服务的前缀, 拼接成完整的路径
+    const { server, url } = options as IRequest;
+    const API_BASE = server ? API_BASE_MAP[server] : '';
+    options.url = `${API_BASE}${url}`;
   },
 
   // 响应拦截
@@ -44,7 +45,7 @@ const interceptors = {
      * @param {*} reject 失败处理函数
      * @returns
      */
-    resolve(res: IResponse, resolve, reject): Promise<any> {
+    resolve(res: IResponse, resolve: any, reject: any): Promise<any> {
       Taro.hideLoading();
 
       const { data } = res;
@@ -54,7 +55,7 @@ const interceptors = {
         return resolve(data);
       }
 
-      return this.$_error(errorMsg, data, reject);
+      return this.error(errorMsg, data, reject);
     },
 
     /**
@@ -63,10 +64,10 @@ const interceptors = {
      * @param {errorData} error 失败响应结果
      * @param {*} reject 失败处理函数
      */
-    reject(error: errorData, reject): Promise<any> {
+    reject(error: errorData, reject: any): Promise<any> {
       Taro.hideLoading();
 
-      return this.$_error(error.errMsg, error, reject);
+      return this.error(error.errMsg, error, reject);
     },
 
     /**
@@ -77,7 +78,7 @@ const interceptors = {
      * @param {*} reject 错误处理函数
      * @returns
      */
-    error(msg: string, error: object, reject): Promise<any> {
+    error(msg: string, error: object, reject: any): Promise<any> {
       Taro.showToast({
         title: msg || '请求失败, 请重试',
         icon: 'none',

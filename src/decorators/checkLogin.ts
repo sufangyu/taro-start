@@ -1,6 +1,5 @@
 import Taro from '@tarojs/taro';
 import accountStore from '@/store/account';
-import { ACCOUNT_KEY } from '@/constants/store-key';
 
 /**
  * 检查是否登录
