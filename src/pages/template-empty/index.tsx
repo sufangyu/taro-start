@@ -16,7 +16,7 @@ interface Index {
 
 @inject('globalStore')
 @observer
-class Index extends Component {
+class Index extends Component<Props, State> {
   config: Config = {
     navigationBarTitleText: '入门',
   }
