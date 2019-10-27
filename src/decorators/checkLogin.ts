@@ -1,4 +1,5 @@
 import Taro from '@tarojs/taro';
+import accountStore from '@/store/account';
 import { ACCOUNT_KEY } from '@/constants/store-key';
 
 /**
@@ -15,7 +16,7 @@ import { ACCOUNT_KEY } from '@/constants/store-key';
 function checkLogin(target, name, descriptor) {
   const raw = descriptor.value;
   descriptor.value = function cb(...args: any[]) {
-    const account = Taro.getStorageSync(ACCOUNT_KEY) || null;
+    const { account } = accountStore;
     if (!account) {
       Taro.showToast({
         title: '请先登录',
