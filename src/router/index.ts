@@ -31,6 +31,8 @@ interface ICurrentPage {
   options: object,
 }
 
+// 导出 路由配置
+export { PATH_CONFIG };
 
 // tabbar 的路径
 const PATH_TABBAR: Array<string> = [
