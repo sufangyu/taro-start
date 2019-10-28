@@ -1,6 +1,23 @@
-## TODO
-- defaultProps  
-- 环境切换(小程序环境控制是否显示触发的按钮)
+## Taro-start
+Taro 小程序通用模板， 开箱即用
+
+
+## 安装、开发、构建
+
+```bash
+# install with npm
+npm install
+
+# install with yarn
+yarn install
+
+# 开发
+npm run dev:weapp
+npm run lint:watch
+
+# 构建
+npm run build:weapp
+```
 
 
 ## 目录结构
@@ -17,6 +34,7 @@
 │   │   └─ images                 # 图片资源
 │   │       ├─ tabbar             # tabbar 的图标
 │   │       └─ ...
+│   ├─ components                 # 公用组件
 │   ├─ config                     # 项目开发配置
 │   │   └─ index.ts
 │   ├─ constants                  # 公用常量的统一管理
@@ -48,11 +66,78 @@
 │   ├─ app.scss                  # 全局样式
 │   ├─ app.tsx                   # 项目入口文件
 │   └─ index.html                # H5的开始文件
-├─ .eslintignore
-├─ .eslintrc
+├─ .eslintignore                 # eslint 校验忽略配置
+├─ .eslintrc                     # eslint 校验规则
 ├─ package.json
 ├─ project.config.json           # 项目配置
 ├─ README.md
 ├─ tsconfig.json
 └─ yarn.lock
 ```
+
+
+## 推荐规范
+
+### 命名
+
+**文件后缀**
+
+普通 JS 文件的后缀为 `.ts`, 页面和组件文件的后缀为 `.tsx` 
+
+**目录、文件命名**
+
+全部采用小写方式， 以中划线分隔。
+例: scripts, retina-sprites.scss, data.js, actionsheet.ts, actionsheet.tsx
+
+> **注意: 除了页面外的 `tsx` 组件文件采取首字母大写的驼峰命名, 例如：**
+> ```
+> Menu.tsx
+> ```
+
+
+**css 变量命名规范**
+统一使用kebab-case(小写短横线)命名规范。
+
+```html
+<!-- tsx 文件 -->
+<div className="app-home-vue">
+</div>
+
+<!-- 样式文件 -->
+.app-home-vue {}
+```
+
+**js 变量命名规范**
+统一使用camelCase（小写驼峰式）命名规范。
+
+```js
+let myName = 'zhangsanfeng';
+```
+
+### 属性书写
+- 少于2个, 一行书写
+- 超过2个则每个写一行, 最后一个尖括号占一行
+ 
+```html
+<!-- 少于 2 个 -->
+<MenuItem :url="item.url" :actived="item.actived"></MenuItem>
+
+<!-- 3 个以上 -->
+<MenuItem
+  :key="item.id"
+  :url="item.url"
+  :isLast="item.isLast"
+  :actived="item.actived"
+>{item.label}</MenuItem>
+```
+
+
+### 组件组织
+
+- 基础 UI 组件统一放在 src/components
+- 页面业务组件放在对于页面下的components文件.
+
+
+## TODO
+- defaultProps  
+- 环境切换(小程序环境控制是否显示触发的按钮)
