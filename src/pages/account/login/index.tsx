@@ -4,6 +4,7 @@ import { View, Button, Text } from '@tarojs/components';
 import { observer, inject } from '@tarojs/mobx';
 import { gotoPage, PATH_CONFIG } from '@/router';
 import { IAccountStore, IAccount } from '@/store/account';
+import ButtonCountDown from '@/components/button-count-down';
 
 import './index.scss';
 
@@ -30,8 +31,12 @@ class Index extends Component<Props, State> {
     navigationBarTitleText: '绑定账号',
   }
 
+  refCountDown: Taro.RefObject<any>;
+
   constructor(props?: Props) {
     super(props);
+
+    this.refCountDown = Taro.createRef();
 
     this.state = {
       timer: null,
@@ -50,6 +55,16 @@ class Index extends Component<Props, State> {
 
   componentWillReact() {}
 
+  handleGetVerifyCode() {
+    this.refCountDown.current.start();
+  }
+
+  /**
+   * 登录绑定
+   *
+   * @private
+   * @memberof Index
+   */
   private handleLogin(): void {
     console.log('登录成功逻辑 =>>');
     const { timer } = this.state;
@@ -62,13 +77,12 @@ class Index extends Component<Props, State> {
     // 函数调用前加 !, 是为了避免可选参数为空时失去断言的作用
     accountStore.setAccount!(account);
 
+    // 登录成功, 重定向来源页面
     Taro.showToast({
       title: '登录成功',
       icon: 'success',
       mask: true,
     });
-
-    // 重定向来源页面
     this.state.timer = setTimeout(() => {
       const { from } = this.$router.params;
       const redirectUrl = from ? decodeURIComponent(from) : PATH_CONFIG.home;
@@ -80,6 +94,14 @@ class Index extends Component<Props, State> {
   render(): object {
     return (
       <View className="container">
+        <ButtonCountDown
+          timer={5}
+          onClick={() => {
+            this.handleGetVerifyCode();
+          }}
+          ref={this.refCountDown}
+        />
+
         <Button onClick={() => this.handleLogin()}>
           <Text>登录</Text>
         </Button>
