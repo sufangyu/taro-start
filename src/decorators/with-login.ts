@@ -16,10 +16,6 @@ interface IState {}
 const LIFE_CYCLE_MAP = ['willMount', 'didMount', 'didShow'];
 
 
-
-
-
-
 /**
  * 加载页面前 检查是否登录
  *
