@@ -18,8 +18,10 @@ interface Index {
 @observer
 class Index extends Component<Props, State> {
   config: Config = {
-    navigationBarTitleText: '入门',
+    navigationBarTitleText: '',
   }
+
+  static defaultProps: Props = {}
 
   constructor(props) {
     super(props);
