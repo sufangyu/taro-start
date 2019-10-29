@@ -16,6 +16,7 @@
   "plugins": ["@typescript-eslint", "jsx-a11y"],
   "rules": {
     "no-console": "off",
+    "no-trailing-spaces": "off", // 允许在空行、在注释块中使用空白符
     "no-unused-vars": ["error", { "varsIgnorePattern": "Taro" }],
     "no-param-reassign": ["error", { "props": false }],
     "jsx-quotes": ["error", "prefer-double"],
@@ -28,7 +29,9 @@
     "import/prefer-default-export": "off",
     "import/no-extraneous-dependencies": "off",
 
-    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx", ".tsx"] }],
+    "react/jsx-filename-extension": ["error", { "extensions": [".js", ".jsx", ".tsx"] }],
+    "react/jsx-wrap-multilines": ["error", { "declaration": false, "assignment": false }],
+    "react/jsx-one-expression-per-line": "off",
     "react/react-in-jsx-scope": "off",
     "react/no-deprecated": "off",
     "react/static-property-placement": "off",
