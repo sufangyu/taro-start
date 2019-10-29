@@ -52,4 +52,4 @@ class Index extends Component<Props, State> {
   }
 }
 
-export default Index as ComponentType;
+export default Index as ComponentType<Props>;
