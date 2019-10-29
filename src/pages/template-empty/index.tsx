@@ -18,7 +18,7 @@ interface Index {
 @observer
 class Index extends Component<Props, State> {
   config: Config = {
-    navigationBarTitleText: '',
+    navigationBarTitleText: '入门',
   }
 
   static defaultProps: Props = {}

@@ -2,7 +2,7 @@ import { ComponentType } from 'react';
 import Taro, { Component, Config } from '@tarojs/taro';
 import { View, Text } from '@tarojs/components';
 import { observer, inject } from '@tarojs/mobx';
-import withLogin from '@/decorators/withLogin';
+import withLogin from '@/decorators/with-login';
 
 import './index.scss';
 

@@ -38,7 +38,6 @@ class Index extends Component {
 
   componentWillReact() {}
 
-  // @checkLogin
   handleBind() {
     const { params } = this.$router;
     gotoPage({

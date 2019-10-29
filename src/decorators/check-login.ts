@@ -2,7 +2,7 @@ import Taro from '@tarojs/taro';
 import accountStore from '@/store/account';
 
 /**
- * 检查是否登录
+ * 操作前 检查是否登录
  *
  * 未登录: 提示 & 跳转到登录页面;
  * 已登录: 直接执行操作的逻辑

@@ -23,7 +23,7 @@
     "dev:tt": "npm run build:tt -- --watch",
     "dev:h5": "npm run build:h5 -- --watch",
     "dev:rn": "npm run build:rn -- --watch",
-    "lint": "eslint --ext .ts,.tsx src/",
+    "lint": "./node_modules/.bin/eslint --ext .ts,.tsx src/",
     "lint:watch": "nodemon --watch src --ext .ts,.tsx  --exec npm run lint",
     "commit": "git cz"
   },

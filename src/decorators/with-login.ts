@@ -15,6 +15,17 @@ interface IState {}
 // 需要检验登录的生命周期
 const LIFE_CYCLE_MAP = ['willMount', 'didMount', 'didShow'];
 
+
+
+
+
+
+/**
+ * 加载页面前 检查是否登录
+ *
+ * @param {string} [lifecycle='willMount'] 生命周期
+ * @returns
+ */
 function withLoign(lifecycle: string = 'willMount') {
   // 异常规避提醒
   if (!LIFE_CYCLE_MAP.includes(lifecycle)) {
@@ -24,7 +35,7 @@ function withLoign(lifecycle: string = 'willMount') {
 
   return function withLoginComponent(Component: any) {
     @inject('accountStore')
-    class WithLogin extends Component<IState, IProps> {
+    class WithLogin extends Component<IProps, IState> {
       async componentWillMount() {
         if (super.componentWillMount) {
           if (lifecycle === LIFE_CYCLE_MAP[0]) {

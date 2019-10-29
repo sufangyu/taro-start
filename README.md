@@ -5,9 +5,6 @@ Taro 小程序通用模板， 开箱即用
 ## 安装、开发、构建
 
 ```bash
-# install with npm
-npm install
-
 # install with yarn
 yarn install
 
@@ -40,8 +37,8 @@ npm run build:weapp
 │   ├─ constants                  # 公用常量的统一管理
 │   │   └─ store-key.ts           # 本地存储
 │   ├─ decorators                 # 公用装饰器
-│   │   ├─ checkLogin.ts          # 校验是否登录. 针对函数
-│   │   └─ withLogin.ts           # 校验是否登录. 针对页面
+│   │   ├─ check-login.ts          # 校验是否登录. 针对函数
+│   │   └─ with-login.ts           # 校验是否登录. 针对页面
 │   ├─ interface                  # 公用的接口. 暂时保留
 │   ├─ middleware
 │   ├─ pages                      # 页面目录. 尽量按模块划分
