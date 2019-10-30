@@ -49,5 +49,5 @@ export const ENV_KEY_DEFAULT = 'prod';
 export const ENV_KEY = Taro.getStorageSync(API_ENV_KEY) || ENV_KEY_DEFAULT;
 // 当前环境配置
 export const ENV_CURRENT = ENV_MAP.find(item => item.value === ENV_KEY) as IEnvConfig;
-// 环境 API MAP
+// 当前环境 API MAP
 export const API_BASE_MAP = ENV_CURRENT.apiBase;

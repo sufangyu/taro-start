@@ -4,6 +4,8 @@ import { View, Button, Text } from '@tarojs/components';
 import { observer, inject } from '@tarojs/mobx';
 import { IAccountStore } from '@/store/account';
 import { reLaunchLoginPage } from '@/router';
+import SwitchEnv from '@/components/switch-env';
+import switchEnvDebugger from '@/decorators/switch-env';
 
 import './index.scss';
 
@@ -21,9 +23,14 @@ interface Index {
   state: State,
 }
 
+@switchEnvDebugger()
 @inject('globalStore', 'accountStore')
 @observer
 class Index extends Component<Props, State> {
+  handleShowSwitchEnv: any;
+
+  handleCloseSwitchEnv: any;
+
   config: Config = {
     navigationBarTitleText: '我的',
   }
@@ -64,6 +71,15 @@ class Index extends Component<Props, State> {
         <Button onClick={() => this.handleLogout()}>
           <Text>退出登录</Text>
         </Button>
+
+        <SwitchEnv
+          onSwitchEnv={() => {
+            this.handleShowSwitchEnv();
+          }}
+          onCloseSwitchEnv={() => {
+            this.handleCloseSwitchEnv();
+          }}
+        />
       </View>
     );
   }

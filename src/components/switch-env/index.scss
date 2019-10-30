@@ -1,0 +1,21 @@
+.debug-panel {
+  background-color: #fff;
+  margin: 30px 0;
+}
+.debug-item {
+  height: 96px;
+  line-height: 96px;
+  position: relative;
+  padding: 0 30px;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    display: block;
+    height: 1PX;
+    width: 100%;
+    background-color: #ddd;
+  }
+}
