@@ -61,7 +61,6 @@ export interface IRequest {
 }
 
 const defaults: IRequest = {
-  server: '',
   url: '',
   data: {},
   header: {},

@@ -16,6 +16,13 @@ type errorData = {
 
 interface IResponse {
   /**
+   * 请求返回的状态码
+   *
+   * @type {number}
+   */
+  statusCode: number,
+
+  /**
    * 响应数据实体
    */
   data? : SuccessData,
@@ -48,9 +55,29 @@ const interceptors = {
     resolve(res: IResponse, resolve: any, reject: any): Promise<any> {
       Taro.hideLoading();
 
-      const { data } = res;
-
+      const { data, statusCode } = res;
       const { success, error_msg: errorMsg } = data as SuccessData;
+
+      // 请求出错
+      if (statusCode !== 200) {
+        const ERROR_MESSAGE_MAP = {
+          400: '错误请求',
+          401: '未授权，请重新登录',
+          403: '拒绝访问',
+          404: '请求错误，未找到该资源',
+          405: '请求方法未允许',
+          408: '请求超时',
+          500: '服务器端出错',
+          501: '网络未实现',
+          502: '网络错误',
+          503: '服务不可用',
+          504: '网络超时',
+          505: 'http版本不支持该请求',
+        };
+        const errMsg = ERROR_MESSAGE_MAP[statusCode] || `连接错误${statusCode}`;
+        return this.error(`${statusCode}-${errMsg}`, data, reject);
+      }
+
       if (success) {
         return resolve(data);
       }
@@ -66,6 +93,7 @@ const interceptors = {
      */
     reject(error: errorData, reject: any): Promise<any> {
       Taro.hideLoading();
+      console.log('reject error', error);
 
       return this.error(error.errMsg, error, reject);
     },
