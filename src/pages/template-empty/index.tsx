@@ -26,7 +26,7 @@ class Index extends Component<Props, State> {
   constructor(props) {
     super(props);
 
-    this.state = {};
+    this.state = {} as State;
   }
 
   componentWillMount() {}
