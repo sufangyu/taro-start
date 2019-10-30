@@ -36,10 +36,16 @@ const interceptors = {
    * @param {IRequest} options 网络请求配置
    */
   request(options: IRequest) {
-    // 为接口加上对应服务的前缀, 拼接成完整的路径
     const { server, url } = options as IRequest;
-    const API_BASE = server ? API_BASE_MAP[server] : '';
-    options.url = `${API_BASE}${url}`;
+    const hasProtocol = /(http|https):\/\/([\w.]+\/?)\S*/.test(url);
+    if (hasProtocol) {
+      // http, https 的 API 地址, 无需补全服务的前缀
+      options.url = url;  
+    } else {
+      // 为接口加上服务前缀, 拼接成完整的路径
+      const API_BASE = server ? API_BASE_MAP[server] : '';
+      options.url = `${API_BASE}${url}`;
+    }
   },
 
   // 响应拦截

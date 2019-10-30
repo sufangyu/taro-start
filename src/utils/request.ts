@@ -61,6 +61,7 @@ export interface IRequest {
 }
 
 const defaults: IRequest = {
+  server: 'base',
   url: '',
   data: {},
   header: {},
