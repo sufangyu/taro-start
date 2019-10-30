@@ -135,6 +135,23 @@ let myName = 'zhangsanfeng';
 - 页面业务组件放在对于页面下的components文件.
 
 
+## 生命周期的对比
+
+| 小程序 | Taro |
+| - | :-: | -: | 
+| Page.onLoad | componentWillMount |
+| onShow | componentDidShow |
+| onHide | componentDidHide |
+| onReady | componentDidMount |
+| onUnload | componentWillUnmount |
+| onError | componentDidCatchError |
+| App.onLaunch | componentWillMount |
+| Component.created | componentWillMount |
+| attached | componentDidMount |
+| ready | componentDidMount |
+| detached | componentWillUnmount |
+| moved | 保留 |
+
+
 ## TODO
-- defaultProps  
 - 环境切换(小程序环境控制是否显示触发的按钮)
