@@ -43,19 +43,32 @@ class Index extends Component<Props, State> {
     };
   }
 
-  componentWillMount() {}
+  componentWillMount() {
+    console.log('componentWillMount');
+  }
 
-  componentDidMount() {}
+  componentDidMount() {
+    console.log('componentDidMount');
+  }
 
-  componentWillUnmount() {}
+  componentWillUnmount() {
+    console.log('componentWillUnmount');
+  }
 
-  componentDidShow() {}
+  componentDidShow() {
+    console.log('componentDidShow');
+  }
 
-  componentDidHide() {}
+  componentDidHide() {
+    console.log('componentDidHide');
+  }
 
-  componentWillReact() {}
+  componentWillReact() {
+    console.log('componentWillReact');
+  }
 
   handleGetVerifyCode() {
+    console.log('获取验证码');
     this.refCountDown.current.start();
   }
 
@@ -65,7 +78,10 @@ class Index extends Component<Props, State> {
    * @private
    * @memberof Index
    */
-  private handleLogin(): void {
+  private async handleLogin() {
+    const res = await Taro.login();
+    console.log(res);
+
     console.log('登录成功逻辑 =>>');
     const { timer } = this.state;
     clearTimeout(timer);
@@ -95,7 +111,7 @@ class Index extends Component<Props, State> {
     return (
       <View className="container">
         <ButtonCountDown
-          timer={5}
+          time={10}
           onClick={() => {
             this.handleGetVerifyCode();
           }}
