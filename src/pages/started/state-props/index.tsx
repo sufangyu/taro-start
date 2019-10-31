@@ -1,33 +1,94 @@
 import { ComponentType } from 'react';
 import Taro, { Component, Config } from '@tarojs/taro';
-import { View, Text } from '@tarojs/components';
+import { View, Button, Text } from '@tarojs/components';
+import Child from './components/Child';
 
 import './index.scss';
 
-class Index extends Component {
+type Props = {}
+
+type State = {
+  count: number,
+}
+
+interface Index {
+  props: Props,
+  state: State,
+}
+
+class Index extends Component<Props, State> {
   config: Config = {
-    navigationBarTitleText: 'State & Props',
+    navigationBarTitleText: '',
   }
 
-  componentWillMount() {}
+  static defaultProps: Props = {}
 
-  componentDidMount() {}
+  constructor(props: Props) {
+    super(props);
 
-  componentWillUnmount() {}
+    this.state = {
+      count: 0,
+    } as State;
+  }
 
-  componentDidShow() {}
+  /**
+   *累加
+   *
+   * @memberof Index
+   */
+  handleIncrease() {
+    this.setState((prevState) => {
+      return {
+        count: prevState.count + 1,
+      };
+    });
+  }
 
-  componentDidHide() {}
+  /**
+   * 累减
+   *
+   * @memberof Index
+   */
+  handleMinus() {
+    this.setState((prevState) => {
+      return {
+        count: prevState.count - 1,
+      };
+    });
+  }
 
-  componentWillReact() {}
+  [x: string]: any;
 
-  render() {
+  render(): object {
+    const { count } = this.state;
     return (
       <View className="container">
-        <Text>counter</Text>
+        <View className="demo">
+          <View className="demo-title">state:</View>
+          <Button
+            size="mini"
+            onClick={() => {
+              this.handleIncrease();
+            }}
+          >
+            点击累加
+          </Button>
+          <Text>{count}</Text>
+        </View>
+          
+        {/* 组件 Props 属性 */}
+        <View className="demo">
+          <View className="demo-title">props</View>
+          <Child
+            count={count}
+            onMinus={() => {
+              this.handleMinus();
+            }}
+          />
+        </View>
       </View>
     );
   }
 }
 
-export default Index as ComponentType;
+export default Index as ComponentType<Props>;
