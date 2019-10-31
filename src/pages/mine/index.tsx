@@ -14,6 +14,7 @@ type Props = {
    * 用户信息的公共操作
    */
   accountStore: IAccountStore,
+  switchEnvStore: any,
 }
 
 type State = {}
@@ -27,15 +28,11 @@ interface Index {
 @inject('globalStore', 'accountStore')
 @observer
 class Index extends Component<Props, State> {
-  handleShowSwitchEnv: any;
-
-  handleCloseSwitchEnv: any;
-
   config: Config = {
     navigationBarTitleText: '我的',
   }
 
-  constructor(props) {
+  constructor(props: Props) {
     super(props);
 
     this.state = {};
@@ -61,10 +58,14 @@ class Index extends Component<Props, State> {
     reLaunchLoginPage();
   }
 
+  [x: string]: any;
+
   render(): object {
+    const { switchEnvStore } = this.props;
+
     return (
       <View className="container">
-        <Button>
+        <Button onClick={() => this.handleShowSwitchEnvAction()}>
           <Text>Empty template</Text>
         </Button>
 
@@ -72,14 +73,19 @@ class Index extends Component<Props, State> {
           <Text>退出登录</Text>
         </Button>
 
-        <SwitchEnv
-          onSwitchEnv={() => {
-            this.handleShowSwitchEnv();
-          }}
-          onCloseSwitchEnv={() => {
-            this.handleCloseSwitchEnv();
-          }}
-        />
+        {
+          // 切换环境的内容
+          switchEnvStore.isShowed ? (
+            <SwitchEnv
+              onSwitchEnv={() => {
+                this.handleShowSwitchEnv();
+              }}
+              onCloseSwitchEnv={() => {
+                this.handleCloseSwitchEnv();
+              }}
+            />
+          ) : null
+        }
       </View>
     );
   }

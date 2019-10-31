@@ -3,8 +3,8 @@ import { observable } from 'mobx';
 import { API_ENV_KEY, SWITCH_API_ENV_SHOW_KEY } from '@/constants/store-key';
 
 const switchEnvStore = observable({
-  counter: 0,
-  limitCounter: 10,
+  counter: 0, // 当前的累加器
+  limitCounter: 10, // 达到累加的条件
   isShowed: Taro.getStorageSync(SWITCH_API_ENV_SHOW_KEY) || false,
 
   increment() {
@@ -12,11 +12,10 @@ const switchEnvStore = observable({
   },
 
   /**
-   * 显示切换环境
+   * 显示切换环境 ActionSheet
    *
    */
-  showSwitchEnv() {
-    console.log('显示切换环境');
+  setShowSwitchEnv() {
     this.isShowed = true;
     Taro.setStorage({ key: SWITCH_API_ENV_SHOW_KEY, data: true });
   },

@@ -1,7 +1,7 @@
 import { ComponentType } from 'react';
 import Taro, { Component } from '@tarojs/taro';
 import { View } from '@tarojs/components';
-import { observer, inject } from '@tarojs/mobx';
+import { ENV_CURRENT } from '@/config';
 
 import './index.scss';
 
@@ -16,8 +16,7 @@ interface Index {
   state: State,
 }
 
-@inject('globalStore')
-@observer
+
 class Index extends Component<Props, State> {
   static defaultProps: Props = {}
 
@@ -41,6 +40,7 @@ class Index extends Component<Props, State> {
 
   render(): object {
     const { onSwitchEnv, onCloseSwitchEnv } = this.props;
+    const { name, value } = ENV_CURRENT;
 
     return (
       <View className="debug-panel">
@@ -51,7 +51,7 @@ class Index extends Component<Props, State> {
               onSwitchEnv();
             }}
           >
-            切换环境
+            切换环境 - {name}({value})
           </View>
           <View
             className="debug-item"

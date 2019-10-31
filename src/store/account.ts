@@ -12,6 +12,8 @@ export interface IAccount {
    * 用户名
    */
   name?: string,
+
+  [propName: string]: any,
 }
 
 export interface IAccountStore {
