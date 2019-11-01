@@ -45,6 +45,7 @@ class Index extends Component {
         { label: '事件处理', path: PATH_CONFIG.started.event },
         { label: '网络请求', path: PATH_CONFIG.started.request },
         { label: '页面跳转', path: PATH_CONFIG.started.navigation },
+        { label: '图片上传', path: PATH_CONFIG.started.chooseImage },
       ],
     };
   }
@@ -62,7 +63,6 @@ class Index extends Component {
   componentWillReact() {}
 
   handlegotoPage(page: Page): void {
-    console.log(page);
     gotoPage({
       url: page.path,
     });
