@@ -21,5 +21,6 @@ export default {
     request: '/pages/started/request/index',
     navigation: '/pages/started/navigation/index',
     chooseImage: '/pages/started/choose-image/index',
+    previewImage: '/pages/started/preview-image/index',
   },
 };

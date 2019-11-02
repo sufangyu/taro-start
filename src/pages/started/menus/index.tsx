@@ -46,6 +46,7 @@ class Index extends Component {
         { label: '网络请求', path: PATH_CONFIG.started.request },
         { label: '页面跳转', path: PATH_CONFIG.started.navigation },
         { label: '图片上传', path: PATH_CONFIG.started.chooseImage },
+        { label: '图片展示', path: PATH_CONFIG.started.previewImage },
       ],
     };
   }
