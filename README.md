@@ -129,10 +129,10 @@ let myName = 'zhangsanfeng';
 ```
 
 
-### 组件组织
+## 组件组织
 
-- 基础 UI 组件统一放在 src/components
-- 页面业务组件放在对于页面下的components文件.
+- 基础 UI 组件统一放在 `src/components`, 并且通过 `src/components` 入口文件对外导出
+- 页面业务组件放在对于页面下的 components 文件.
 
 
 ## 生命周期的对比
