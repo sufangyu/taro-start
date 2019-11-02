@@ -4,7 +4,7 @@ import { View, Button, Text } from '@tarojs/components';
 import { observer, inject } from '@tarojs/mobx';
 import { IAccountStore } from '@/store/account';
 import { reLaunchLoginPage } from '@/router';
-import SwitchEnv from '@/components/switch-env';
+import { SwitchEnv } from '@/components';
 import switchEnvDebugger from '@/decorators/switch-env';
 
 import './index.scss';
