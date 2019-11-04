@@ -145,7 +145,7 @@ let myName = 'zhangsanfeng';
 ## 生命周期的对比
 
 | 小程序 | Taro |
-| - | :-: | -: | 
+|-|-:|
 | Page.onLoad | componentWillMount |
 | onShow | componentDidShow |
 | onHide | componentDidHide |
