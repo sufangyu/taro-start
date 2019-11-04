@@ -34,6 +34,8 @@ class App extends Component {
       'pages/started/state-props/index',
       'pages/started/request/index',
       'pages/started/navigation/index',
+      'pages/started/choose-image/index',
+      'pages/started/preview-image/index',
     ],
     window: {
       backgroundTextStyle: 'light',

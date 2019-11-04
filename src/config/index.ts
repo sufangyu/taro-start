@@ -1,6 +1,8 @@
 import Taro from '@tarojs/taro';
 import { API_ENV_KEY } from '@/constants/store-key';
 
+const isProd = process.env.NODE_ENV === 'production';
+
 interface IEnvConfig {
   /**
    * 名称
@@ -44,7 +46,8 @@ export const ENV_MAP: IEnvConfig[] = [
 ];
 
 // 默认环境标识
-export const ENV_KEY_DEFAULT = 'prod';
+export const ENV_KEY_DEFAULT = isProd ? 'prod' : 'dev';
+
 // 当前环境标识
 export const ENV_KEY = Taro.getStorageSync(API_ENV_KEY) || ENV_KEY_DEFAULT;
 // 当前环境配置

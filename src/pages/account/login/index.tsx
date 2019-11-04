@@ -4,7 +4,7 @@ import { View, Button, Text } from '@tarojs/components';
 import { observer, inject } from '@tarojs/mobx';
 import { gotoPage, PATH_CONFIG } from '@/router';
 import { IAccountStore, IAccount } from '@/store/account';
-import ButtonCountDown from '@/components/button-count-down';
+import { ButtonCountDown } from '@/components';
 
 import './index.scss';
 

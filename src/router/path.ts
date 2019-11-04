@@ -20,5 +20,7 @@ export default {
     event: '/pages/started/event/index',
     request: '/pages/started/request/index',
     navigation: '/pages/started/navigation/index',
+    chooseImage: '/pages/started/choose-image/index',
+    previewImage: '/pages/started/preview-image/index',
   },
 };
