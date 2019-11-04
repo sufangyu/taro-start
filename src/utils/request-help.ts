@@ -1,6 +1,6 @@
 import Taro from '@tarojs/taro';
 import { API_BASE_MAP } from '@/config';
-import { IRequest } from './request';
+import { IRequest, IPromise } from './request';
 
 type SuccessData = {
   // 是否成功
@@ -14,16 +14,25 @@ type errorData = {
   errMsg: string,
 }
 
-interface IResponse {
+type IProxyResponse = {
   /**
-   * 请求返回的状态码
+   * 响应的 HTTP 状态码
    *
    * @type {number}
+   * @memberof IProxyResponse
    */
   statusCode: number,
 
   /**
-   * 响应数据实体
+   * 响应的描述
+   *
+   * @type {string}
+   * @memberof IProxyResponse
+   */
+  errMsg?: string,
+
+  /**
+   * 响应的实际数据
    */
   data? : SuccessData,
 }
@@ -53,15 +62,15 @@ const interceptors = {
     /**
      * 请求成功
      *
-     * @param {IResponse} res 成功响应结果
+     * @param {IProxyResponse} res 成功响应结果
      * @param {*} resolve 成功处理函数
      * @param {*} reject 失败处理函数
      * @returns
      */
-    resolve(res: IResponse, resolve: any, reject: any): Promise<any> {
+    resolve<T=any>(res: IProxyResponse, resolve: any, reject: any): IPromise<T> {
       Taro.hideLoading();
 
-      const { data, statusCode } = res;
+      const { data, statusCode } = res as IProxyResponse;
       const { success, error_msg: errorMsg } = data as SuccessData;
 
       // 请求出错
@@ -84,10 +93,12 @@ const interceptors = {
         return this.error(`${statusCode}-${errMsg}`, data, reject);
       }
 
+      // 请求 & 业务处理成功
       if (success) {
         return resolve(data);
       }
 
+      // 请求成功, 业务处理失败
       return this.error(errorMsg, data, reject);
     },
 

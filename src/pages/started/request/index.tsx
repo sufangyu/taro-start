@@ -42,7 +42,7 @@ class Index extends Component {
 
   componentWillReact() {}
 
-  async handleGet() {
+  async handleGet() {    
     const res = await getFn();
     console.log(res);
   }

@@ -60,6 +60,28 @@ export interface IRequest {
   loadingText?: string,
 }
 
+export interface IResponse<T=any> {
+  /**
+   * 业务处理是否成功
+   *
+   * @type {boolean}
+   * @memberof IResponse
+   */
+  success: boolean,
+
+  /**
+   * 业务返回的数据
+   *
+   * @type {T}
+   * @memberof IResponse
+   */
+  data: T,
+}
+
+export interface IPromise<T=any> extends Promise<IResponse<T>> {}
+
+
+// 请求默认配置
 const defaults: IRequest = {
   server: 'base',
   url: '',
@@ -77,7 +99,7 @@ const defaults: IRequest = {
  * @param {IRequest} options
  * @returns {Promise<object>}
  */
-function request(options: IRequest): Promise<object> {
+function request<T>(options: IRequest): IPromise<T> {
   interceptors.request(options);
 
   const {
@@ -103,7 +125,7 @@ function request(options: IRequest): Promise<object> {
         header,
       })
       .then((res) => {
-        interceptors.response.resolve(res, resolve, reject);
+        interceptors.response.resolve<T>(res, resolve, reject);
       })
       .catch((error) => {
         interceptors.response.reject(error, reject);
@@ -112,23 +134,62 @@ function request(options: IRequest): Promise<object> {
 }
 
 const http = {
-  get(options: IRequest): Promise<object> {
+  /**
+   * GET 请求
+   *
+   * @template T
+   * @param {IRequest} options
+   * @returns {IPromise<T>}
+   */
+  get<T=any>(options: IRequest): IPromise<T> {
     const mergetOptions: IRequest = Object.assign(defaults, options);
-    return request(mergetOptions);
+    return request<T>(mergetOptions);
   },
-  post(options: IRequest): Promise<object> {
+
+  /**
+   * POST 请求
+   *
+   * @template T
+   * @param {IRequest} options
+   * @returns {IPromise<T>}
+   */
+  post<T=any>(options: IRequest): IPromise<T> {
     const mergetOptions: IRequest = Object.assign(defaults, { method: 'POST' }, options);
     return request(mergetOptions);
   },
-  put(options: IRequest): Promise<object> {
+
+  /**
+   * PUT 请求
+   *
+   * @template T
+   * @param {IRequest} options
+   * @returns {IPromise<T>}
+   */
+  put<T=any>(options: IRequest): IPromise<T> {
     const mergetOptions: IRequest = Object.assign(defaults, { method: 'PUT' }, options);
     return request(mergetOptions);
   },
-  delete(options: IRequest): Promise<object> {
+
+  /**
+   * DELECT 请求
+   *
+   * @template T
+   * @param {IRequest} options
+   * @returns {IPromise<T>}
+   */
+  delete<T=any>(options: IRequest): IPromise<T> {
     const mergetOptions: IRequest = Object.assign(defaults, { method: 'DELETE' }, options);
     return request(mergetOptions);
   },
-  base(options: IRequest): Promise<object> {
+
+  /**
+   * BASE 基础请求
+   *
+   * @template T
+   * @param {IRequest} options
+   * @returns {IPromise<T>}
+   */
+  base<T=any>(options: IRequest): IPromise<T> {
     return request(options);
   },
 };

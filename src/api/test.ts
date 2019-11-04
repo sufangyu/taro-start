@@ -5,7 +5,19 @@ import http from '@/utils/request';
  *
  */
 export function getFn() {
-  return http.get({
+  interface IUserRespone {
+    /**
+     * 用户Id
+     *
+     * @type {string}
+     * @memberof IUserRespone
+     */
+    id: string,
+    name: string,
+    age: number,
+  }
+
+  return http.get<IUserRespone>({
     url: 'https://cnodejs.org/api/v1/topics',
     data: {
       name: '张三疯',
