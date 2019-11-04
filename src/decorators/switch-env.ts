@@ -6,7 +6,7 @@ let currentTime = Date.now();
 let lastTime = Date.now();
 
 interface IProps {
-  switchEnvStore: object,
+  switchEnvStore: object;
 }
 
 function switchEnv() {

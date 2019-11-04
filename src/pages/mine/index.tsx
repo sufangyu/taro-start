@@ -13,15 +13,15 @@ type Props = {
   /**
    * 用户信息的公共操作
    */
-  accountStore: IAccountStore,
-  switchEnvStore: any,
+  accountStore: IAccountStore;
+  switchEnvStore: any;
 }
 
 type State = {}
 
 interface Index {
-  props: Props,
-  state: State,
+  props: Props;
+  state: State;
 }
 
 @switchEnvDebugger()

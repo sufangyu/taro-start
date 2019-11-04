@@ -3,15 +3,15 @@ import Taro, { Component, Config } from '@tarojs/taro';
 import { View, Button, Text } from '@tarojs/components';
 
 type Props = {
-  count: number,
-  onMinus?(): void,
+  count: number;
+  onMinus?(): void;
 }
 
 type State = {}
 
 interface Index {
-  props: Props,
-  state: State,
+  props: Props;
+  state: State;
 }
 
 class Index extends Component<Props, State> {

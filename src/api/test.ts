@@ -12,9 +12,9 @@ export function getFn() {
      * @type {string}
      * @memberof IUserRespone
      */
-    id: string,
-    name: string,
-    age: number,
+    id: string;
+    name: string;
+    age: number;
   }
 
   return http.get<IUserRespone>({

@@ -6,29 +6,29 @@ interface IPage {
   /**
    * 页面路径
    */
-  url: string,
+  url: string;
 
   /**
    * 查询参数
    */
-  query? : object,
+  query? : object;
 
   /**
    * 页面跳转方式
    */
-  mode? : 'push' | 'replace',
+  mode? : 'push' | 'replace';
 }
 
 interface ICurrentPage {
   /**
    * 路由地址
    */
-  route: string,
+  route: string;
 
   /**
    * 页面参数
    */
-  options: object,
+  options: object;
 }
 
 // 导出 路由配置

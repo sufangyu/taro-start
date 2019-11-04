@@ -7,7 +7,7 @@ interface IProps {
    *
    * @type {object}
    */
-  accountStore: object,
+  accountStore: object;
 }
 
 interface IState {}

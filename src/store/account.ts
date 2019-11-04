@@ -6,31 +6,31 @@ export interface IAccount {
   /**
    * 用户 ID
    */
-  id?: string,
+  id?: string;
 
   /**
    * 用户名
    */
-  name?: string,
+  name?: string;
 
-  [propName: string]: any,
+  [propName: string]: any;
 }
 
 export interface IAccountStore {
   /**
    * 用户信息
    */
-  account?: IAccount,
+  account?: IAccount;
 
   /**
    * 设置 用户信息
    */
-  setAccount?: Function,
+  setAccount?: Function;
 
   /**
    * 删除 用户信息
    */
-  removeAccount?: Function,
+  removeAccount?: Function;
 }
 
 const store = observable({

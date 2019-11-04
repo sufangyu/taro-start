@@ -8,7 +8,7 @@ export interface IRequest {
    * @type {string}
    * @memberof IRequest
    */
-  server?: 'base' | 'open' | 'baibu',
+  server?: 'base' | 'open' | 'baibu';
 
   /**
    * 接口地址
@@ -16,7 +16,7 @@ export interface IRequest {
    * @type {string}
    * @memberof IRequest
    */
-  url: string,
+  url: string;
 
   /**
    * 请求方法
@@ -24,7 +24,7 @@ export interface IRequest {
    * @type {('GET' | 'POST' | 'PUT' | 'DELETE')}
    * @memberof IRequest
    */
-  method?: 'GET' | 'POST' | 'PUT' | 'DELETE',
+  method?: 'GET' | 'POST' | 'PUT' | 'DELETE';
 
   /**
    * 请求的参数
@@ -32,7 +32,7 @@ export interface IRequest {
    * @type {object}
    * @memberof IRequest
    */
-  data?: object,
+  data?: object;
 
   /**
    * 请求头
@@ -40,7 +40,7 @@ export interface IRequest {
    * @type {object}
    * @memberof IRequest
    */
-  header?: object,
+  header?: object;
 
   /**
    * 是否显示 loading
@@ -48,7 +48,7 @@ export interface IRequest {
    * @type {boolean}
    * @memberof IRequest
    */
-  loading?: boolean,
+  loading?: boolean;
 
 
   /**
@@ -57,7 +57,7 @@ export interface IRequest {
    * @type {string}
    * @memberof IRequest
    */
-  loadingText?: string,
+  loadingText?: string;
 }
 
 export interface IResponse<T=any> {
@@ -67,7 +67,7 @@ export interface IResponse<T=any> {
    * @type {boolean}
    * @memberof IResponse
    */
-  success: boolean,
+  success: boolean;
 
   /**
    * 业务返回的数据
@@ -75,7 +75,7 @@ export interface IResponse<T=any> {
    * @type {T}
    * @memberof IResponse
    */
-  data: T,
+  data: T;
 }
 
 export interface IPromise<T=any> extends Promise<IResponse<T>> {}

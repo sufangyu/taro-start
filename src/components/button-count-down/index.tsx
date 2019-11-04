@@ -10,23 +10,23 @@ type Props = {
    *
    * @type {number}
    */
-  time?: number,
+  time?: number;
 
   /**
    * 按钮文案
    *
    * @type {string}
    */
-  label?: string,
+  label?: string;
 
   /**
    * 点击的回调函数
    *
    * @type {Function}
    */
-  onClick?(): void,
+  onClick?(): void;
 
-  [propName: string]: any,
+  [propName: string]: any;
 }
 
 type State = {
@@ -35,26 +35,26 @@ type State = {
    *
    * @type {boolean}
    */
-  disabled: boolean,
+  disabled: boolean;
 
   /**
   * 当前倒计时
   *
   * @type {string}
   */
-  time: number,
+  time: number;
 
   /**
    * 按钮默认文案
    *
    * @type {string}
    */
-  defaultLabel: string,
+  defaultLabel: string;
 }
 
 interface Index {
-  props: Props,
-  state: State,
+  props: Props;
+  state: State;
 }
 
 

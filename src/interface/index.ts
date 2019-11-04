@@ -1,4 +1,4 @@
 export interface IAccount {
-  id?: string,
-  nickname?: string,
+  id?: string;
+  nickname?: string;
 }

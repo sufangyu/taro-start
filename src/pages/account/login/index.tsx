@@ -12,16 +12,16 @@ type Props = {
   /**
    * 用户信息的公共操作
    */
-  accountStore: IAccountStore,
+  accountStore: IAccountStore;
 }
 
 type State = {
-  timer: any,
+  timer: any;
 }
 
 interface Index {
-  props: Props,
-  state: State,
+  props: Props;
+  state: State;
 }
 
 @inject('globalStore', 'accountStore')

@@ -8,12 +8,12 @@ import './index.scss';
 type Props = {}
 
 type State = {
-  count: number,
+  count: number;
 }
 
 interface Index {
-  props: Props,
-  state: State,
+  props: Props;
+  state: State;
 }
 
 class Index extends Component<Props, State> {

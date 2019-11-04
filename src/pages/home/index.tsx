@@ -9,7 +9,7 @@ import './index.scss';
 type Props = {}
 
 interface Index {
-  props: Props,
+  props: Props;
 }
 
 @withLogin()

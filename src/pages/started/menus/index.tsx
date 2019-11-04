@@ -9,11 +9,11 @@ type Page = {
   /**
    * 名称
    */
-  label?: string,
+  label?: string;
   /**
    * 路径
    */
-  path: string,
+  path: string;
 }
 
 type Props = {}
@@ -22,12 +22,12 @@ type State = {
   /**
    * 导航菜单
    */
-  menus: Array<Page>,
+  menus: Array<Page>;
 }
 
 interface Index {
-  props: Props,
-  state: State,
+  props: Props;
+  state: State;
 }
 
 class Index extends Component {

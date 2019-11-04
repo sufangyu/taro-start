@@ -4,14 +4,14 @@ import { IRequest, IPromise } from './request';
 
 type SuccessData = {
   // 是否成功
-  success: boolean,
+  success: boolean;
   // 信息提示
-  error_msg: string,
+  error_msg: string;
 }
 
 type errorData = {
   // 错误信息
-  errMsg: string,
+  errMsg: string;
 }
 
 type IProxyResponse = {
@@ -21,7 +21,7 @@ type IProxyResponse = {
    * @type {number}
    * @memberof IProxyResponse
    */
-  statusCode: number,
+  statusCode: number;
 
   /**
    * 响应的描述
@@ -29,12 +29,12 @@ type IProxyResponse = {
    * @type {string}
    * @memberof IProxyResponse
    */
-  errMsg?: string,
+  errMsg?: string;
 
   /**
    * 响应的实际数据
    */
-  data? : SuccessData,
+  data? : SuccessData;
 }
 
 

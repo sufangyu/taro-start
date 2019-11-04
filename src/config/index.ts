@@ -5,17 +5,17 @@ interface IEnvConfig {
   /**
    * 名称
    */
-  name: string,
+  name: string;
 
   /**
    * 环境标识
    */
-  value: string,
+  value: string;
 
   /**
    * api 配置
    */
-  apiBase: object,
+  apiBase: object;
 }
 
 // 各个环境的 API

@@ -6,14 +6,14 @@ import { ENV_CURRENT } from '@/config';
 import './index.scss';
 
 type Props = {
-  [propName: string]: any,
+  [propName: string]: any;
 }
 
 type State = {}
 
 interface Index {
-  props: Props,
-  state: State,
+  props: Props;
+  state: State;
 }
 
 

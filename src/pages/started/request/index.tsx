@@ -13,8 +13,8 @@ type Props = {}
 type State = {}
 
 interface Index {
-  props: Props,
-  state: State,
+  props: Props;
+  state: State;
 }
 
 @inject('globalStore')
