@@ -31,40 +31,47 @@ npm run build:weapp
 │   │   └─ images                 # 图片资源
 │   │       ├─ tabbar             # tabbar 的图标
 │   │       └─ ...
-│   ├─ components                 # 公用组件
+│   ├─ components                 # 组件
+│   │   ├─ ...                    # 组件入口文件
+│   │   └─ index.ts
 │   ├─ config                     # 项目开发配置
 │   │   └─ index.ts
-│   ├─ constants                  # 公用常量的统一管理
+│   ├─ constants                  # 公用常量统一管理
 │   │   └─ store-key.ts           # 本地存储
 │   ├─ decorators                 # 公用装饰器
-│   │   ├─ check-login.ts          # 校验是否登录. 针对函数
-│   │   └─ with-login.ts           # 校验是否登录. 针对页面
+│   │   ├─ check-login.ts         # 校验是否登录. 针对函数
+│   │   ├─ switch-env.ts          # 切换环境
+│   │   └─ with-login.ts          # 校验是否登录. 针对页面
 │   ├─ interface                  # 公用的接口. 暂时保留
-│   ├─ middleware
+│   ├─ middleware                 # 中间件
 │   ├─ pages                      # 页面目录. 尽量按模块划分
 │   │   ├─ account
 │   │   │   ├─ login
 │   │   │   └─ welcome
 │   │   ├─ home
-│   │   ├─ mine
-│   │   └─ template-empty        # 空模板文件
-│   │       ├─ index.scss
-│   │       └─ index.tsx
+│   │   └─ mine
 │   ├─ router                    # 路由相关函数 & 页面路径配置
 │   │   ├─ index.ts
 │   │   └─ path.ts
 │   ├─ store                     # 全局状态
 │   │   ├─ account.ts            # 账号
 │   │   ├─ global.ts             # 全局
-│   │   └─ index.ts              # 入口文件
+│   │   ├─ index.ts              # 入口文件
+│   │   └─ switch-env.ts
+│   ├─ styles
+│   │   ├─ index.scss            # 样式入口文件
+│   │   └─ var.scss              # 全局样式变量
+│   ├─ template-empty            # 空模板文件
+│   │   ├─ index.scss
+│   │   └─ index.tsx
 │   ├─ utils                     # 工具类
 │   │   ├─ request-help.ts       # 网络请求辅助函数
 │   │   └─ request.ts            # 网络请求
 │   ├─ app.scss                  # 全局样式
 │   ├─ app.tsx                   # 项目入口文件
-│   └─ index.html                # H5的开始文件
-├─ .eslintignore                 # eslint 校验忽略配置
-├─ .eslintrc                     # eslint 校验规则
+│   └─ index.html                # H5 的开始文件
+├─ .eslintignore                 # eslint 校验忽略规则配置
+├─ .eslintrc                     # eslint 校验配置
 ├─ package.json
 ├─ project.config.json           # 项目配置
 ├─ README.md
