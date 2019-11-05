@@ -1,6 +1,6 @@
 import Taro from '@tarojs/taro';
 import { observable } from 'mobx';
-import { ACCOUNT_KEY } from '@/constants/store-key';
+import StoreKey from '@/constants/store-key';
 
 export interface IAccount {
   /**
@@ -35,7 +35,7 @@ export interface IAccountStore {
 
 const store = observable({
   // 用户信息
-  account: Taro.getStorageSync(ACCOUNT_KEY) as IAccount || null,
+  account: Taro.getStorageSync(StoreKey.ACCOUNT_KEY) as IAccount || null,
 
   /**
    * 设置 用户信息
@@ -43,7 +43,7 @@ const store = observable({
    * @param {*} [account={}] 用户信息
    */
   setAccount(account: IAccount = {}) {
-    Taro.setStorage({ key: ACCOUNT_KEY, data: account });
+    Taro.setStorage({ key: StoreKey.ACCOUNT_KEY, data: account });
     this.account = { ...account };
   },
 
@@ -52,7 +52,7 @@ const store = observable({
    *
    */
   removeAccount() {
-    Taro.removeStorage({ key: ACCOUNT_KEY });
+    Taro.removeStorage({ key: StoreKey.ACCOUNT_KEY });
     this.account = null;
   },
 });

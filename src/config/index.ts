@@ -1,5 +1,5 @@
 import Taro from '@tarojs/taro';
-import { API_ENV_KEY } from '@/constants/store-key';
+import StoreKey from '@/constants/store-key';
 
 const isProd = process.env.NODE_ENV === 'production';
 
@@ -49,7 +49,7 @@ export const ENV_MAP: IEnvConfig[] = [
 export const ENV_KEY_DEFAULT = isProd ? 'prod' : 'dev';
 
 // 当前环境标识
-export const ENV_KEY = Taro.getStorageSync(API_ENV_KEY) || ENV_KEY_DEFAULT;
+export const ENV_KEY = Taro.getStorageSync(StoreKey.API_ENV_KEY) || ENV_KEY_DEFAULT;
 // 当前环境配置
 export const ENV_CURRENT = ENV_MAP.find(item => item.value === ENV_KEY) as IEnvConfig;
 // 当前环境 API MAP
