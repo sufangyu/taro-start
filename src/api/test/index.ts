@@ -1,23 +1,12 @@
 import http from '@/utils/request';
+import { IResponeUser, IAddress } from './interface';
 
 /**
  * GET 请求
  *
  */
 export function getFn() {
-  interface IUserRespone {
-    /**
-     * 用户Id
-     *
-     * @type {string}
-     * @memberof IUserRespone
-     */
-    id: string;
-    name: string;
-    age: number;
-  }
-
-  return http.get<IUserRespone>({
+  return http.get<IResponeUser<IAddress>>({
     url: 'https://cnodejs.org/api/v1/topics',
     data: {
       name: '张三疯',
