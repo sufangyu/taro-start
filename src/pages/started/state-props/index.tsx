@@ -18,7 +18,7 @@ interface Index {
 
 class Index extends Component<Props, State> {
   config: Config = {
-    navigationBarTitleText: '',
+    navigationBarTitleText: 'State & Props',
   }
 
   static defaultProps: Props = {}
