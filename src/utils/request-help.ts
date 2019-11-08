@@ -110,8 +110,6 @@ const interceptors = {
      */
     reject(error: errorData, reject: any): Promise<any> {
       Taro.hideLoading();
-      console.log('reject error', error);
-
       return this.error(error.errMsg, error, reject);
     },
 

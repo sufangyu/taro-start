@@ -33,7 +33,7 @@ export function getFn() {
  */
 export function postFn() {
   return http.post({
-    url: 'http://www.baidu.com',
+    url: 'https://cnodejs.org/api/v1/topics',
     data: {
       name: '张三疯',
       age: 18,
@@ -49,7 +49,7 @@ export function postFn() {
  */
 export function putFn() {
   return http.put({
-    url: 'http://www.baidu.com',
+    url: 'https://cnodejs.org/api/v1/topics',
     data: {
       name: '张三疯',
       age: 18,
@@ -65,7 +65,7 @@ export function putFn() {
  */
 export function deleteFn() {
   return http.delete({
-    url: 'http://www.baidu.com',
+    url: 'https://cnodejs.org/api/v1/topics',
     data: {
       name: '张三疯',
       age: 18,

@@ -82,7 +82,7 @@ export interface IPromise<T=any> extends Promise<IResponse<T>> {}
 
 
 // 请求默认配置
-const defaults: IRequest = {
+const config: IRequest = {
   server: 'base',
   url: '',
   data: {},
@@ -142,7 +142,7 @@ const http = {
    * @returns {IPromise<T>}
    */
   get<T=any>(options: IRequest): IPromise<T> {
-    const mergetOptions: IRequest = Object.assign(defaults, options);
+    const mergetOptions: IRequest = Object.assign({}, config, options);
     return request<T>(mergetOptions);
   },
 
@@ -154,7 +154,7 @@ const http = {
    * @returns {IPromise<T>}
    */
   post<T=any>(options: IRequest): IPromise<T> {
-    const mergetOptions: IRequest = Object.assign(defaults, { method: 'POST' }, options);
+    const mergetOptions: IRequest = Object.assign({}, config, { method: 'POST' }, options);
     return request(mergetOptions);
   },
 
@@ -166,7 +166,7 @@ const http = {
    * @returns {IPromise<T>}
    */
   put<T=any>(options: IRequest): IPromise<T> {
-    const mergetOptions: IRequest = Object.assign(defaults, { method: 'PUT' }, options);
+    const mergetOptions: IRequest = Object.assign({}, config, { method: 'PUT' }, options);
     return request(mergetOptions);
   },
 
@@ -178,7 +178,7 @@ const http = {
    * @returns {IPromise<T>}
    */
   delete<T=any>(options: IRequest): IPromise<T> {
-    const mergetOptions: IRequest = Object.assign(defaults, { method: 'DELETE' }, options);
+    const mergetOptions: IRequest = Object.assign(config, { method: 'DELETE' }, options);
     return request(mergetOptions);
   },
 
