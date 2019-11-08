@@ -23,5 +23,6 @@ export default {
     chooseImage: '/pages/started/choose-image/index',
     previewImage: '/pages/started/preview-image/index',
     pullDownRefresh: '/pages/started/pull-down-refresh/index',
+    subPages: '/sub-pages/pages/demo/index',
   },
 };

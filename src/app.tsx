@@ -38,6 +38,14 @@ class App extends Component {
       'pages/started/choose-image/index',
       'pages/started/preview-image/index',
     ],
+    subPackages: [
+      {
+        root: 'sub-pages/',
+        pages: [
+          'pages/demo/index',
+        ],
+      },
+    ],
     window: {
       backgroundColor: '#f5f5f5',
       backgroundTextStyle: 'dark',

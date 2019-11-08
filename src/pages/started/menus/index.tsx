@@ -48,6 +48,7 @@ class Index extends Component {
         { label: '下拉刷新', path: PATH_CONFIG.started.pullDownRefresh },
         { label: '图片上传', path: PATH_CONFIG.started.chooseImage },
         { label: '图片展示', path: PATH_CONFIG.started.previewImage },
+        { label: '分包示例', path: PATH_CONFIG.started.subPages },
       ],
     };
   }
