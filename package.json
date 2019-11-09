@@ -27,7 +27,9 @@
     "lint:fix": "./node_modules/.bin/eslint --ext .ts,.tsx src/ --fix",
     "lint:watch": "nodemon --watch src --ext .ts,.tsx  --exec npm run lint",
     "commit": "git cz",
-    "precommit": "lint-staged"
+    "precommit": "lint-staged",
+    "create:page": "node scripts/page",
+    "create:comp": "node scripts/component"
   },
   "author": "",
   "license": "MIT",

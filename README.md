@@ -16,6 +16,16 @@ npm run lint:watch
 npm run build:weapp
 ```
 
+## 快速创建页面/组件
+```bash
+# 页面
+npm run create:page mine
+npm run create:page order/list
+
+# 组件
+npm run create:comp button
+```
+
 
 ## 目录结构
 ```bash
