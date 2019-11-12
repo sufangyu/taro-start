@@ -25,7 +25,11 @@
     "dev:rn": "npm run build:rn -- --watch",
     "lint": "./node_modules/.bin/eslint --ext .ts,.tsx src/",
     "lint:fix": "./node_modules/.bin/eslint --ext .ts,.tsx src/ --fix",
-    "lint:watch": "nodemon --watch src --ext .ts,.tsx  --exec npm run lint",
+    "lint:watch": "nodemon --watch src --ext .ts,.tsx --exec npm run lint",
+    "lintstyle": "stylelint **/*.{css,scss} --syntax scss",
+    "lintstyle:fix": "stylelint **/*.{css,scss} --syntax scss --fix",
+    "lintstyle:watch": "nodemon --watch src --ext .css,.scss --exec npm run lintstyle",
+    "lint:all": "run-p lint:watch lintstyle:watch",
     "commit": "git cz",
     "precommit": "lint-staged",
     "create:page": "node scripts/page",
@@ -81,7 +85,8 @@
     "husky": "^3.0.9",
     "lint-staged": "^9.4.2",
     "nodemon": "^1.19.4",
-    "stylelint": "9.3.0",
+    "npm-run-all": "^4.1.5",
+    "stylelint": "^9.3.0",
     "stylelint-config-taro-rn": "1.3.20",
     "stylelint-taro-rn": "1.3.20",
     "typescript": "^3.0.1"
@@ -92,6 +97,7 @@
   "lint-staged": {
     "src/**/*.{ts,tsx}": [
       "npm run lint:fix",
+      "npm run lintstyle:fix",
       "git add"
     ]
   },

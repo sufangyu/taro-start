@@ -10,7 +10,7 @@ yarn install
 
 # 开发
 npm run dev:weapp
-npm run lint:watch
+npm run lint:all
 
 # 构建
 npm run build:weapp
