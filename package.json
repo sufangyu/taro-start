@@ -97,6 +97,9 @@
   "lint-staged": {
     "src/**/*.{ts,tsx}": [
       "npm run lint:fix",
+      "git add"
+    ],
+    "src/**/*.{css,scss}": [
       "npm run lintstyle:fix",
       "git add"
     ]
