@@ -1,13 +1,18 @@
 import { ComponentType } from 'react';
 import Taro, { Component, Config } from '@tarojs/taro';
 import { View, Text } from '@tarojs/components';
+import { getTopics } from '@/api/test';
 
 import './index.scss';
 
 type Props = {}
 
 type State = {
-  count: number;
+  page: number;
+  limit: number;
+  status: 'NORMAL' | 'LOADING' | 'NO_MORE';
+  list: object[];
+  isFixed: boolean;
 }
 
 interface Index {
@@ -27,29 +32,95 @@ class Index extends Component<Props, State> {
     super(props);
 
     this.state = {
-      count: 0,
+      page: 1,
+      limit: 10,
+      status: 'NORMAL',
+      list: [],
+      isFixed: false,
     } as State;
   }
 
+  componentWillMount() {
+    this.getTopics();
+  }
+
+  componentDidMount() {}
+
   onPullDownRefresh() {
     Taro.showNavigationBarLoading();
-    
-    setTimeout(() => {
-      this.setState((prevState) => {
-        return {
-          count: prevState.count + 1,
-        };
-      });
-      Taro.stopPullDownRefresh();
-      Taro.hideNavigationBarLoading();
-    }, 3000);
+    const page = 1;
+    const isRefresh = true;
+    this.getTopics(page, isRefresh);
   }
-  
+
+  onReachBottom() {
+    const { page } = this.state;
+    this.getTopics(page);
+  }
+
+  onPageScroll(e) {
+    console.log(e.scrollTop);
+  }
+
+  async getTopics(page = 1, isRefresh = false) {
+    const { limit, list, status } = this.state;
+    if (status === 'LOADING') {
+      return;
+    }
+
+    this.setState({
+      status: 'LOADING',
+    });
+
+    const data = {
+      page,
+      limit,
+    };
+    const res = await getTopics(data);
+    console.log(res);
+    let currentList: object[] = [];
+    if (isRefresh) {
+      currentList = [...res.data];
+    } else {
+      currentList = list.concat(res.data);
+    }
+    const currentPage = page + 1;
+    const currentStatus = 'NORMAL';
+
+    Taro.stopPullDownRefresh();
+    Taro.hideNavigationBarLoading();
+    this.setState({
+      list: currentList,
+      page: currentPage,
+      status: currentStatus,
+    });
+  }
+
   render(): object {
-    const { count } = this.state;
+    const { list } = this.state;
+
     return (
       <View className="container">
-        <Text>刷新次数: {count}</Text>
+        <View className="header">
+          固定内容
+        </View>
+
+        <View className="content">
+          {
+            list.map((item: any, idx) => {
+              const key = `key-${idx}`;
+              return (
+                <View
+                  className="list"
+                  key={key}
+                >
+                  <Text>{item.title}</Text>
+                </View>
+              );
+            })
+          }
+        </View>
+
       </View>
     );
   }

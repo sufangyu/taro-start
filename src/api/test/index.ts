@@ -62,3 +62,19 @@ export function deleteFn() {
     loadingText: '正在提交...',
   });
 }
+
+
+/**
+ * 获取 主题列表
+ *
+ * @export
+ * @param {*} data
+ * @returns
+ */
+export function getTopics(data: any) {
+  return http.get({
+    url: 'https://cnodejs.org/api/v1/topics',
+    data,
+    loading: true,
+  });
+}
