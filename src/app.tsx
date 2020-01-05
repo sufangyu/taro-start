@@ -37,6 +37,7 @@ class App extends Component {
       'pages/started/pull-down-refresh/index',
       'pages/started/choose-image/index',
       'pages/started/preview-image/index',
+      'pages/started/form-validate/index',
     ],
     subPackages: [
       {
