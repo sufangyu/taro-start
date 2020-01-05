@@ -30,9 +30,9 @@ import { observer, inject } from '@tarojs/mobx';
 
 import './index.scss';
 
-type Props = {}
+interface Props {}
 
-type State = {}
+interface State {}
 
 interface Index {
   props: Props;

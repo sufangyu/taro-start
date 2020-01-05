@@ -28,9 +28,9 @@ import { View, Text } from '@tarojs/components';
 
 import './index.scss';
 
-type Props = {}
+interface Props {}
 
-type State = {}
+interface State {}
 
 interface Index {
   props: Props;
