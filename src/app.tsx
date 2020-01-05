@@ -27,7 +27,6 @@ class App extends Component {
 
       'pages/mine/index',
 
-      'pages/account/welcome/index',
       'pages/account/login/index',
 
       'pages/started/menus/index',

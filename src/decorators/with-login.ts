@@ -66,13 +66,13 @@ function withLoign(lifecycle: string = 'willMount') {
       }
 
       private checkLogin() {
-        const { accountStore: { account } } = this.props;
-        if (!account) {
+        const { accountStore: { logged } } = this.props;
+        if (logged === 'NO') {
           const mode = 'replace';
           return gotoLoginPage(mode);
         }
 
-        return account;
+        return logged;
       }
 
       render() {

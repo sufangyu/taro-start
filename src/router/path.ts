@@ -3,7 +3,6 @@ export default {
    * 账号
    */
   account: {
-    welcome: '/pages/account/welcome/index',
     login: '/pages/account/login/index',
   },
 

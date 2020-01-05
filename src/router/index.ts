@@ -177,7 +177,7 @@ export function gotoLoginPage(mode: string = 'push'): void {
   const { route } = getCurrentPage() as ICurrentPage;
   const fullpath = getFullpath(`/${route}`);
   const fromUrl = encodeURIComponent(fullpath);
-  const url = `${PATH_CONFIG.account.welcome}?from=${fromUrl}`;
+  const url = `${PATH_CONFIG.account.login}?from=${fromUrl}`;
 
   gotoPage({ url, mode } as IPage);
 }
@@ -189,5 +189,5 @@ export function gotoLoginPage(mode: string = 'push'): void {
  * @export
  */
 export function reLaunchLoginPage(): void {
-  reLaunch({ url: PATH_CONFIG.account.welcome });
+  reLaunch({ url: PATH_CONFIG.account.login });
 }

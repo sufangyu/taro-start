@@ -1,21 +1,27 @@
 import { ComponentType } from 'react';
 import Taro, { Component, Config } from '@tarojs/taro';
-import { View, Text } from '@tarojs/components';
+import { View, Text, Button } from '@tarojs/components';
 import { observer, inject } from '@tarojs/mobx';
+import { gotoPage, PATH_CONFIG } from '@/router';
+import { IAccountStore } from '@/store/account';
 import withLogin from '@/decorators/with-login';
 
 import './index.scss';
 
-type Props = {}
+interface Props {
+  accountStore: IAccountStore;
+}
+interface State {}
 
 interface Index {
   props: Props;
+  state: State;
 }
 
 @withLogin()
-@inject('globalStore')
+@inject('globalStore', 'accountStore')
 @observer
-class Index extends Component {
+class Index extends Component<Props, State> {
   config: Config = {
     navigationBarTitleText: '首页',
   }
@@ -33,12 +39,34 @@ class Index extends Component {
   componentWillReact() {}
 
   render() {
+    const { accountStore } = this.props;
+
     return (
       <View className="container">
-        <Text>Home page</Text>
+        <View className="test-content">
+          <Text>Home page</Text>
+          {
+            accountStore.logged === 'NO'
+              ? (
+                <Button
+                  onClick={() => {
+                    const { params } = this.$router;
+                    gotoPage({
+                      url: PATH_CONFIG.account.login,
+                      query: params,
+                      mode: 'replace',
+                    });
+                  }}
+                >
+                  立即登录
+                </Button>
+              )
+              : null
+          }
+        </View>
       </View>
     );
   }
 }
 
-export default Index as ComponentType;
+export default Index as ComponentType<Props>;

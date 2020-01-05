@@ -10,9 +10,6 @@ import switchEnvDebugger from '@/decorators/switch-env';
 import './index.scss';
 
 type Props = {
-  /**
-   * 用户信息的公共操作
-   */
   accountStore: IAccountStore;
   switchEnvStore: any;
 }
@@ -65,13 +62,18 @@ class Index extends Component<Props, State> {
 
     return (
       <View className="container">
-        <Button onClick={() => this.handleShowSwitchEnvAction()}>
-          <Text>Empty template</Text>
-        </Button>
+        <View className="test-content">
+          <Button onClick={() => this.handleShowSwitchEnvAction()}>
+            <Text>触发切换环境</Text>
+          </Button>
 
-        <Button onClick={() => this.handleLogout()}>
-          <Text>退出登录</Text>
-        </Button>
+          <Button
+            type="primary"
+            onClick={() => this.handleLogout()}
+          >
+            <Text>退出登录</Text>
+          </Button>
+        </View>
 
         {
           // 切换环境的内容

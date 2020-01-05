@@ -1,3 +1,13 @@
 .container {
-  background-color: #ccc;
+  padding: 30px;
+}
+
+.test-content {
+  display: block;
+  width: 100%;
+  text-align: center;
+
+  button {
+    margin-top: 30px;
+  }
 }

@@ -8,14 +8,14 @@ import { ButtonCountDown } from '@/components';
 
 import './index.scss';
 
-type Props = {
+interface Props {
   /**
    * 用户信息的公共操作
    */
   accountStore: IAccountStore;
 }
 
-type State = {
+interface State {
   timer: any;
 }
 
@@ -28,7 +28,7 @@ interface Index {
 @observer
 class Index extends Component<Props, State> {
   config: Config = {
-    navigationBarTitleText: '绑定账号',
+    navigationBarTitleText: '登录',
   }
 
   refCountDown: Taro.RefObject<any>;
@@ -43,29 +43,17 @@ class Index extends Component<Props, State> {
     };
   }
 
-  componentWillMount() {
-    console.log('componentWillMount');
-  }
+  componentWillMount() {}
 
-  componentDidMount() {
-    console.log('componentDidMount');
-  }
+  componentDidMount() {}
 
-  componentWillUnmount() {
-    console.log('componentWillUnmount');
-  }
+  componentWillUnmount() {}
 
-  componentDidShow() {
-    console.log('componentDidShow');
-  }
+  componentDidShow() {}
 
-  componentDidHide() {
-    console.log('componentDidHide');
-  }
+  componentDidHide() {}
 
-  componentWillReact() {
-    console.log('componentWillReact');
-  }
+  componentWillReact() {}
 
   handleGetVerifyCode() {
     console.log('获取验证码');
@@ -90,7 +78,6 @@ class Index extends Component<Props, State> {
       id: `${+new Date()}`,
       name: '张三疯',
     };
-    // 函数调用前加 !, 是为了避免可选参数为空时失去断言的作用
     accountStore.setAccount!(account);
 
     // 登录成功, 重定向来源页面
