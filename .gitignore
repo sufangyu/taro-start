@@ -3,6 +3,7 @@ deploy_versions/
 .temp/
 .rn_temp/
 node_modules/
+_imageShrink/
 .DS_Store
 .eslintcache
 npm-debug.log
