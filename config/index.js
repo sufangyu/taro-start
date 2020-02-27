@@ -1,4 +1,6 @@
 const path = require('path')
+const yargs = require('yargs')
+const argv = yargs.argv
 
 const config = {
   projectName: 'start',
@@ -11,6 +13,9 @@ const config = {
   },
   sourceRoot: 'src',
   outputRoot: 'dist',
+  env: {
+    API_ENV: argv.env
+  },
   plugins: {
     babel: {
       sourceMap: true,

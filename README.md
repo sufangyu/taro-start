@@ -14,6 +14,10 @@ npm run lint:all
 
 # 构建
 npm run build:weapp
+
+# 构建指定环境
+# npm run build:weapp -- --env=$value
+npm run build:weapp -- --env=test
 ```
 
 ## 快速创建页面/组件
@@ -168,7 +172,3 @@ let myName = 'zhangsanfeng';
 | ready | componentDidMount |
 | detached | componentWillUnmount |
 | moved | 保留 |
-
-
-## TODO
-- 环境切换(小程序环境控制是否显示触发的按钮)
