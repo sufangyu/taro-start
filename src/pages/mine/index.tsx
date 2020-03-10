@@ -80,7 +80,7 @@ class Index extends Component<Props, State> {
           switchEnvStore.isShowed ? (
             <SwitchEnv
               onSwitchEnv={() => {
-                this.handleShowSwitchEnv();
+                this.goToSwitchEnvPage();
               }}
               onCloseSwitchEnv={() => {
                 this.handleCloseSwitchEnv();

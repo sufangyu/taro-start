@@ -9,7 +9,7 @@ import withLogin from '@/decorators/with-login';
 import './index.scss';
 
 interface Props {
-  accountStore: IAccountStore;
+  accountStore?: IAccountStore;
 }
 interface State {}
 
@@ -46,7 +46,7 @@ class Index extends Component<Props, State> {
         <View className="test-content">
           <Text>Home page</Text>
           {
-            accountStore.logged === 'NO'
+            accountStore!.logged === 'NO'
               ? (
                 <Button
                   onClick={() => {

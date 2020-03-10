@@ -25,4 +25,11 @@ export default {
     formValidate: '/pages/started/form-validate/index',
     subPages: '/sub-pages/pages/demo/index',
   },
+
+  /**
+   * 调试
+   */
+  debug: {
+    env: '/pages/debug/env/index',
+  },
 };
