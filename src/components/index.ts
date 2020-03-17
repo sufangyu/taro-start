@@ -1,4 +1,4 @@
-export { default as SwitchEnv } from './switch-env';
+export { default as DebugEnv } from './debug-env';
 
 export { default as ButtonCountDown } from './button-count-down';
 

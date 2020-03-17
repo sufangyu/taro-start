@@ -4,14 +4,12 @@ import { View, Button, Text } from '@tarojs/components';
 import { observer, inject } from '@tarojs/mobx';
 import { IAccountStore } from '@/store/account';
 import { reLaunchLoginPage } from '@/router';
-import { SwitchEnv } from '@/components';
-import switchEnvDebugger from '@/decorators/switch-env';
+import { DebugEnv } from '@/components';
 
 import './index.scss';
 
 type Props = {
   accountStore: IAccountStore;
-  switchEnvStore: any;
 }
 
 type State = {}
@@ -21,7 +19,6 @@ interface Index {
   state: State;
 }
 
-@switchEnvDebugger()
 @inject('globalStore', 'accountStore')
 @observer
 class Index extends Component<Props, State> {
@@ -58,15 +55,11 @@ class Index extends Component<Props, State> {
   [x: string]: any;
 
   render(): object {
-    const { switchEnvStore } = this.props;
-
     return (
       <View className="container">
         <View className="test-content">
-          <Button onClick={() => this.handleShowSwitchEnvAction()}>
-            <Text>触发切换环境</Text>
-          </Button>
-
+          <View className="page-title">我的展示页面</View>
+          <DebugEnv />
           <Button
             type="primary"
             onClick={() => this.handleLogout()}
@@ -74,20 +67,6 @@ class Index extends Component<Props, State> {
             <Text>退出登录</Text>
           </Button>
         </View>
-
-        {
-          // 切换环境的内容
-          switchEnvStore.isShowed ? (
-            <SwitchEnv
-              onSwitchEnv={() => {
-                this.goToSwitchEnvPage();
-              }}
-              onCloseSwitchEnv={() => {
-                this.handleCloseSwitchEnv();
-              }}
-            />
-          ) : null
-        }
       </View>
     );
   }

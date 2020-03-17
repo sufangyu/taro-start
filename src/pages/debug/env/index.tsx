@@ -62,6 +62,22 @@ class Index extends Component<Props, State> {
     });
   }
 
+  /**
+   * 重置环境
+   *
+   * @memberof Index
+   */
+  handleResetEnv() {
+    const { switchEnvStore } = this.props;
+
+    switchEnvStore.resetEnv();
+    Taro.showModal({
+      title: '提示',
+      content: '已重置默认环境, 请关闭小程序进程重进',
+      showCancel: false,
+    });
+  }
+
   render() {
     return (
       <View className="container debug-container">
@@ -70,6 +86,14 @@ class Index extends Component<Props, State> {
           <View className="label">当前环境</View>
         </View>
         <View className="env-list">
+          <View
+            className="env-item"
+            onClick={() => {
+              this.handleResetEnv();
+            }}
+          >
+            重置默认环境
+          </View>
           {
             ENV_MAP.map((env, index) => {
               const key = `env-${index}`;
