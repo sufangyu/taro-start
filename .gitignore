@@ -8,3 +8,4 @@ _imageShrink/
 .eslintcache
 npm-debug.log
 yarn-error.log
+qrcode/*.jpg
