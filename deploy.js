@@ -6,7 +6,7 @@ const argv = yargs.argv
 // 体验版: npm run deploy -- --type=trial --v=1.1.1 --robot=1 --desc=我是描述
 
 ;(async () => {
-  const { type = 'develop', v: version, robot = 1, desc } = argv;
+  const { type = 'develop', v: version, robot = 2, desc } = argv;
   console.log(`type: ${type}`);
   console.log(`version: ${version}`);
   console.log(`desc: ${desc}`);
@@ -21,7 +21,7 @@ const argv = yargs.argv
   });
 
   const defaults = {
-    project,    
+    project,
     desc,
     setting: {
       es6: false,
@@ -44,7 +44,7 @@ const argv = yargs.argv
     case 'trial':
       const uploadConfig = Object.assign({}, defaults, {
         version,
-        robot: 0,
+        robot: 1,
       });
       await ci.upload(uploadConfig);
       break;
