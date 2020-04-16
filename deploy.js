@@ -2,14 +2,15 @@ const ci = require('miniprogram-ci')
 const yargs = require('yargs')
 const argv = yargs.argv
 
-// 开发版: npm run deploy -- --type=preview --v=1.1.1 --desc=我是描述
-// 体验版: npm run deploy -- --type=upload --v=1.1.1 --desc=我是描述
+// 开发版: npm run deploy -- --type=develop --v=1.1.1 --robot=1 --desc=我是描述
+// 体验版: npm run deploy -- --type=trial --v=1.1.1 --robot=1 --desc=我是描述
 
 ;(async () => {
-  const { type = 'preview', v: version, desc } = argv;
+  const { type = 'develop', v: version, robot = 1, desc } = argv;
   console.log(`type: ${type}`);
   console.log(`version: ${version}`);
   console.log(`desc: ${desc}`);
+  console.log(`robot: ${robot}`);
 
   const project = new ci.Project({
     appid: 'wx71816a8ee509f483',
@@ -32,15 +33,15 @@ const argv = yargs.argv
   };
 
   switch (type) {
-    case 'preview':
+    case 'develop':
       const previewConfig = Object.assign({}, defaults, {
         qrcodeFormat: 'image',
         qrcodeOutputDest: `qrcode/preview-qrcode-v${version}.jpg`,
-        robot: 10,
+        robot,
       });
       await ci.preview(previewConfig);
       break;
-    case 'upload':
+    case 'trial':
       const uploadConfig = Object.assign({}, defaults, {
         version,
         robot: 0,
