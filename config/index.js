@@ -2,6 +2,16 @@ const path = require('path')
 const yargs = require('yargs')
 const argv = yargs.argv
 
+// 强制使用 ES2017 hack
+// https://github.com/NervJS/taro/issues/5286
+const typescript = require('typescript')
+
+const oldTsTranspile = typescript.transpile
+typescript.transpile = function ConfigLocalTranspile(input, compilerOptions, fileName, diagnostics, moduleName) {
+  compilerOptions.target = typescript.ScriptTarget.ES2017
+  return oldTsTranspile.call(this, input, compilerOptions, fileName, diagnostics, moduleName)
+}
+
 const config = {
   projectName: 'start',
   date: '2019-10-17',
@@ -39,6 +49,10 @@ const config = {
   },
   copy: {
     patterns: [
+      {
+        from: 'src/sitemap.json',
+        to: 'dist/sitemap.json'
+      }
     ],
     options: {
     }

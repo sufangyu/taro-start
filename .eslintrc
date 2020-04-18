@@ -29,7 +29,8 @@
     "import/prefer-default-export": "off",
     "import/no-extraneous-dependencies": "off",
 
-    "react/jsx-filename-extension": ["error", { "extensions": [".js", ".jsx", ".tsx"] }],
+    "react/jsx-filename-extension": ["error", { "extensions": [".js", ".jsx", ".ts", ".tsx"] }],
+    "import/extensions": [".js", ".jsx", ".ts", ".tsx"],
     "react/jsx-wrap-multilines": ["error", { "declaration": false, "assignment": false }],
     "react/jsx-one-expression-per-line": "off",
     "react/react-in-jsx-scope": "off",

@@ -12,7 +12,6 @@ type State = {
   limit: number;
   status: 'NORMAL' | 'LOADING' | 'NO_MORE';
   list: object[];
-  isFixed: boolean;
 }
 
 interface Index {
@@ -36,7 +35,6 @@ class Index extends Component<Props, State> {
       limit: 10,
       status: 'NORMAL',
       list: [],
-      isFixed: false,
     } as State;
   }
 

@@ -51,9 +51,10 @@ class Index extends Component<Props, State> {
   componentWillReact() {}
 
   render(): object {
+    const { images } = this.state;
     return (
       <View className="container">
-        <ImagePicker />
+        <ImagePicker images={images} />
       </View>
     );
   }
