@@ -36,13 +36,13 @@ class App extends Component {
       'pages/started/choose-image/index',
       'pages/started/preview-image/index',
       'pages/started/form-validate/index',
-
-      'pages/debug/env/index',
+      'pages/started/result/index',
     ],
     subPackages: [
       {
         root: 'sub-pages/',
         pages: [
+          'pages/debug/env/index',
           'pages/demo/index',
         ],
       },
