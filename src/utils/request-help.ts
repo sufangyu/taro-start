@@ -1,41 +1,20 @@
 import Taro from '@tarojs/taro';
 import { API_BASE_MAP } from '@/config';
-import { IRequest, IPromise } from './request';
+import {
+  IRequest, IPromise, SuccessData, ErrorData, IProxyResponse, 
+} from './request-type';
 
-type SuccessData = {
-  // 是否成功
-  success: boolean;
-  // 信息提示
-  error_msg: string;
-}
 
-type errorData = {
-  // 错误信息
-  errMsg: string;
-}
-
-type IProxyResponse = {
-  /**
-   * 响应的 HTTP 状态码
-   *
-   * @type {number}
-   * @memberof IProxyResponse
-   */
-  statusCode: number;
-
-  /**
-   * 响应的描述
-   *
-   * @type {string}
-   * @memberof IProxyResponse
-   */
-  errMsg?: string;
-
-  /**
-   * 响应的实际数据
-   */
-  data? : SuccessData;
-}
+// 请求默认配置
+const defaults: IRequest = {
+  server: 'base',
+  url: '',
+  data: {},
+  header: {},
+  method: 'GET',
+  loading: true,
+  loadingText: '加载中',
+};
 
 
 const interceptors = {
@@ -45,15 +24,23 @@ const interceptors = {
    * @param {IRequest} options 网络请求配置
    */
   request(options: IRequest) {
-    const { server, url } = options as IRequest;
+    const {
+      server, url, loading, loadingText = '',
+    } = Object.assign({}, defaults, options);
+
+    // 处理 url
+    // http, https 的 API 地址, 无需补全服务的前缀; 为接口加上服务前缀, 拼接成完整的路径
     const hasProtocol = /(http|https):\/\/([\w.]+\/?)\S*/.test(url);
     if (hasProtocol) {
-      // http, https 的 API 地址, 无需补全服务的前缀
       options.url = url;  
     } else {
-      // 为接口加上服务前缀, 拼接成完整的路径
       const API_BASE = server ? API_BASE_MAP[server] : '';
       options.url = `${API_BASE}${url}`;
+    }
+
+    // 显示 loading
+    if (loading) {
+      Taro.showLoading({ title: loadingText, mask: true });
     }
   },
 
@@ -70,7 +57,7 @@ const interceptors = {
     resolve<T=any>(res: IProxyResponse, resolve: any, reject: any): IPromise<T> {
       Taro.hideLoading();
 
-      const { data, statusCode } = res as IProxyResponse;
+      const { data, statusCode } = res;
       const { success, error_msg: errorMsg } = data as SuccessData;
 
       // 请求出错
@@ -105,10 +92,10 @@ const interceptors = {
     /**
      * 请求失败
      *
-     * @param {errorData} error 失败响应结果
+     * @param {ErrorData} error 失败响应结果
      * @param {*} reject 失败处理函数
      */
-    reject(error: errorData, reject: any): Promise<any> {
+    reject(error: ErrorData, reject: any): Promise<any> {
       Taro.hideLoading();
       return this.error(error.errMsg, error, reject);
     },
