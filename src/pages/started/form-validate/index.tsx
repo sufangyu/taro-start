@@ -4,7 +4,7 @@ import {
   View, Input, Label, Button,
 } from '@tarojs/components';
 import { observer, inject } from '@tarojs/mobx';
-
+import { handleInput } from '@/decorators';
 import Verification from '@/utils/verification';
 
 import './index.scss';
@@ -20,12 +20,17 @@ interface Index {
   state: State;
 }
 
+// @ts-ignore: 不可达代码错误
+@handleInput()
 @inject('globalStore')
 @observer
 class Index extends Component<Props, State> {
+  handleInput: Function;
+
   config: Config = {
     navigationBarTitleText: '',
   }
+
 
   static defaultProps: Props = {}
 
@@ -36,7 +41,10 @@ class Index extends Component<Props, State> {
       name: '',
       password: '',
       mobile: '',
-    } as State;
+      user: {
+        age: '',
+      },
+    };
   }
 
   componentWillMount() {}
@@ -48,13 +56,6 @@ class Index extends Component<Props, State> {
   componentDidShow() {}
 
   componentDidHide() {}
-
-  handleInput(e, key: string) {
-    const { value } = e.detail;
-    this.setState({
-      [key]: value,
-    });
-  }
 
   handleSubmit() {
     const { name, password, mobile } = this.state;
@@ -95,7 +96,9 @@ class Index extends Component<Props, State> {
   }
 
   render() {
-    const { name, password, mobile } = this.state;
+    const {
+      name, password, mobile, user,
+    } = this.state;
     return (
       <View className="container">
         <View className="form-item">
@@ -125,6 +128,17 @@ class Index extends Component<Props, State> {
             value={mobile}
             onInput={(e) => {
               this.handleInput(e, 'mobile');
+            }}
+          />
+        </View>
+
+        <View className="form-item">
+          <Label>年龄：</Label>
+          <Input
+            password
+            value={user.age}
+            onInput={(e) => {
+              this.handleInput(e, 'age', user);
             }}
           />
         </View>
