@@ -3,7 +3,8 @@ import Taro, { Component, Config } from '@tarojs/taro';
 import { View, Button } from '@tarojs/components';
 import { observer, inject } from '@tarojs/mobx';
 import {
-  getFn, postFn, putFn, deleteFn,
+  getTopics, IParamsTopics,
+  postFn, putFn, deleteFn,
 } from '@/api/test';
 
 import './index.scss';
@@ -42,9 +43,20 @@ class Index extends Component {
 
   componentWillReact() {}
 
-  async handleGet() {    
-    const res = await getFn();
-    console.log(res);
+  /**
+   * 获取主题列表
+   *
+   */
+  async handleGetTopics() {
+    const params: IParamsTopics = {
+      page: 1,
+      limit: 10,
+      tab: 'all',
+    };
+    const { data } = await getTopics(params);
+    data.forEach(item => {
+      console.log(`ID: ${item.id}, 创建时间: ${item.create_at}`);
+    });
   }
 
   handlePost() {
@@ -63,7 +75,7 @@ class Index extends Component {
     return (
       <View className="container">
         <View>
-          <Button type="primary" onClick={this.handleGet}>GET 请求</Button>
+          <Button type="primary" onClick={this.handleGetTopics}>GET 请求</Button>
           <Button type="primary" onClick={this.handlePost}>POST 请求</Button>
           <Button type="primary" onClick={this.handlePut}>PUT 请求</Button>
           <Button type="primary" onClick={this.handleDelete}>DELETE 请求</Button>

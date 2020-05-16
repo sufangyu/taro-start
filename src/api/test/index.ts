@@ -1,17 +1,19 @@
 import http from '@/utils/request';
-import { IResponeUser, IAddress } from './interface';
+import { IParamsTopics, ITopic } from '@/models/test';
+
+export { IParamsTopics, ITopic };
 
 /**
- * GET 请求
+ * 获取 主题列表
  *
+ * @export
+ * @param {*} [params={}]
+ * @returns
  */
-export function getFn() {
-  return http.get<IResponeUser<IAddress>>({
+export function getTopics(params: IParamsTopics) {
+  return http.get<ITopic[]>({
     url: 'https://cnodejs.org/api/v1/topics',
-    data: {
-      name: '张三疯',
-      age: 18,
-    },
+    data: params,
   });
 }
 
@@ -60,21 +62,5 @@ export function deleteFn() {
       age: 18,
     },
     loadingText: '正在提交...',
-  });
-}
-
-
-/**
- * 获取 主题列表
- *
- * @export
- * @param {*} data
- * @returns
- */
-export function getTopics(data: any) {
-  return http.get({
-    url: 'https://cnodejs.org/api/v1/topics',
-    data,
-    loading: true,
   });
 }
