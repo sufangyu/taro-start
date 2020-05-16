@@ -5,26 +5,41 @@ import { IRequest, IPromise, Methohs } from './request-type';
 export { IRequest, IPromise, Methohs };
 
 
+// 请求默认配置
+const defaults: IRequest = {
+  server: 'base',
+  url: '',
+  data: {},
+  header: {},
+  method: 'GET',
+  loading: true,
+  loadingText: '加载中',
+  isShowToast: true,
+};
+
+
 /**
  * 请求函数
  *
- * @param {IRequest} options
+ * @param {IRequest} options 请求配置参数
  * @returns {Promise<object>}
  */
 function request<T>(options: IRequest): IPromise<T> {
-  interceptors.request(options);
+  const mergeOptions = Object.assign({}, defaults, options);
+  interceptors.request(mergeOptions);
 
   return new Promise((resolve, reject) => {
     Taro
-      .request(options)
+      .request(mergeOptions)
       .then((res) => {
-        interceptors.response.resolve<T>(res, resolve, reject);
+        interceptors.response.resolve<T>(res, resolve, reject, mergeOptions);
       })
       .catch((error) => {
-        interceptors.response.reject(error, reject);
+        interceptors.response.reject(error, reject, mergeOptions);
       });
   });
 }
+
 
 const http = {
   /**

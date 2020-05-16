@@ -1,20 +1,8 @@
 import Taro from '@tarojs/taro';
 import { API_BASE_MAP } from '@/config';
 import {
-  IRequest, IPromise, SuccessData, ErrorData, IProxyResponse, 
+  IRequest, IPromise, SuccessData, ErrorData, IProxyResponse,
 } from './request-type';
-
-
-// 请求默认配置
-const defaults: IRequest = {
-  server: 'base',
-  url: '',
-  data: {},
-  header: {},
-  method: 'GET',
-  loading: true,
-  loadingText: '加载中',
-};
 
 
 const interceptors = {
@@ -26,13 +14,13 @@ const interceptors = {
   request(options: IRequest) {
     const {
       server, url, loading, loadingText = '',
-    } = Object.assign({}, defaults, options);
+    } = options;
 
     // 处理 url
     // http, https 的 API 地址, 无需补全服务的前缀; 为接口加上服务前缀, 拼接成完整的路径
     const hasProtocol = /(http|https):\/\/([\w.]+\/?)\S*/.test(url);
     if (hasProtocol) {
-      options.url = url;  
+      options.url = url;
     } else {
       const API_BASE = server ? API_BASE_MAP[server] : '';
       options.url = `${API_BASE}${url}`;
@@ -49,13 +37,17 @@ const interceptors = {
     /**
      * 请求成功
      *
+     * @template T
      * @param {IProxyResponse} res 成功响应结果
      * @param {*} resolve 成功处理函数
      * @param {*} reject 失败处理函数
-     * @returns
+     * @param {*} options 参数
+     * @returns {IPromise<T>}
      */
-    resolve<T=any>(res: IProxyResponse, resolve: any, reject: any): IPromise<T> {
-      Taro.hideLoading();
+    resolve<T=any>(res: IProxyResponse, resolve: any, reject: any, options: IRequest): IPromise<T> {
+      if (options.loading) {
+        Taro.hideLoading();
+      }
 
       const { data, statusCode } = res;
       const { success, error_msg: errorMsg } = data as SuccessData;
@@ -77,7 +69,7 @@ const interceptors = {
           505: 'http版本不支持该请求',
         };
         const errMsg = ERROR_MESSAGE_MAP[statusCode] || `连接错误${statusCode}`;
-        return this.error(`${statusCode}-${errMsg}`, data, reject);
+        return this.error(`${statusCode}-${errMsg}`, data, reject, options);
       }
 
       // 请求 & 业务处理成功
@@ -86,7 +78,7 @@ const interceptors = {
       }
 
       // 请求成功, 业务处理失败
-      return this.error(errorMsg, data, reject);
+      return this.error(errorMsg, data, reject, options);
     },
 
     /**
@@ -94,10 +86,11 @@ const interceptors = {
      *
      * @param {ErrorData} error 失败响应结果
      * @param {*} reject 失败处理函数
+     * @param {*} options 参数
      */
-    reject(error: ErrorData, reject: any): Promise<any> {
+    reject(error: ErrorData, reject: any, options: IRequest): Promise<any> {
       Taro.hideLoading();
-      return this.error(error.errMsg, error, reject);
+      return this.error(error.errMsg, error, reject, options);
     },
 
     /**
@@ -106,13 +99,16 @@ const interceptors = {
      * @param {string} msg 提示信息
      * @param {object} error 错误信息
      * @param {*} reject 错误处理函数
+     * @param {*} options 参数
      * @returns
      */
-    error(msg: string, error: object, reject: any): Promise<any> {
-      Taro.showToast({
-        title: msg || '请求失败, 请重试',
-        icon: 'none',
-      });
+    error(msg: string, error: object, reject: any, options: IRequest): Promise<any> {
+      if (options.isShowToast) {
+        Taro.showToast({
+          title: msg || '请求失败, 请重试',
+          icon: 'none',
+        });
+      }
       return reject(error);
     },
   },

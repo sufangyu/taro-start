@@ -6,23 +6,20 @@ export interface IRequest {
    * 接口地址对应的后台服务
    *
    * @type {string}
-   * @memberof IRequest
    */
   server?: 'base' | 'open' | 'baibu';
   /**
    * 接口地址
    *
    * @type {string}
-   * @memberof IRequest
    */
   url: string;
   /**
    * 请求方法
    *
    * @type {Methohs}
-   * @memberof IRequest
    */
-  method: Methohs;
+  method?: Methohs;
   /**
    * 请求的参数
    *
@@ -34,23 +31,26 @@ export interface IRequest {
    * 请求头
    *
    * @type {{[key: string]: string}}
-   * @memberof IRequest
    */
   header?: {[key: string]: string;};
   /**
    * 是否显示 loading
    *
    * @type {boolean}
-   * @memberof IRequest
    */
   loading?: boolean;
   /**
    * loading 提示语
    *
    * @type {string}
-   * @memberof IRequest
    */
   loadingText?: string;
+  /**
+   * 是否显示错误 toast 提示信息
+   *
+   * @type {boolean}
+   */
+  isShowToast?: boolean;
 }
 
 
@@ -81,14 +81,12 @@ export interface SuccessData {
    * 是否成功
    *
    * @type {boolean}
-   * @memberof SuccessData
    */
   success: boolean;
   /**
    * 信息提示
    *
    * @type {string}
-   * @memberof SuccessData
    */
   error_msg: string;
 }
@@ -98,7 +96,6 @@ export interface ErrorData {
    * 错误信息
    *
    * @type {string}
-   * @memberof errorData
    */
   errMsg: string;
 }
@@ -108,20 +105,18 @@ export interface IProxyResponse {
    * 响应的 HTTP 状态码
    *
    * @type {number}
-   * @memberof IProxyResponse
    */
   statusCode: number;
-
   /**
    * 响应的描述
    *
    * @type {string}
-   * @memberof IProxyResponse
    */
   errMsg?: string;
-
   /**
    * 响应的实际数据
+   *
+   * @type {SuccessData}
    */
   data? : SuccessData;
 }
