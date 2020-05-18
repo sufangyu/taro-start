@@ -41,7 +41,7 @@ const config = {
   env: {
     API_ENV: argv.env
   },
-  plugins: {},
+  plugins: [],
   alias: {
     '@': path.resolve(__dirname, '..', 'src'),
   },
