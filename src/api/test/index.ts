@@ -1,4 +1,4 @@
-import http from '@/utils/request';
+import http from '@/request';
 import { IParamsTopics, ITopic } from '@/models/test';
 
 export { IParamsTopics, ITopic };

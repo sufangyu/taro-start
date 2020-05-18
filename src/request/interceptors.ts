@@ -2,9 +2,10 @@ import Taro from '@tarojs/taro';
 import { API_BASE_MAP } from '@/config';
 import {
   IRequest, IPromise, SuccessData, ErrorData, IProxyResponse,
-} from './request-type';
+} from './type';
 
 
+// 请求、响应拦截器
 const interceptors = {
   /**
    * 请求拦截
@@ -103,7 +104,7 @@ const interceptors = {
      * @returns
      */
     error(msg: string, error: object, reject: any, options: IRequest): Promise<any> {
-      if (options.isShowToast) {
+      if (options.isShowErrorToast) {
         Taro.showToast({
           title: msg || '请求失败, 请重试',
           icon: 'none',

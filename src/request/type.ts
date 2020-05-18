@@ -1,5 +1,5 @@
 // 请求方法
-export declare type Methohs = 'GET' | 'POST' | 'PUT' | 'DELETE';
+export declare type Methoh = 'GET' | 'POST' | 'PUT' | 'DELETE';
 
 export interface IRequest {
   /**
@@ -17,9 +17,9 @@ export interface IRequest {
   /**
    * 请求方法
    *
-   * @type {Methohs}
+   * @type {Methoh}
    */
-  method?: Methohs;
+  method?: Methoh;
   /**
    * 请求的参数
    *
@@ -50,7 +50,7 @@ export interface IRequest {
    *
    * @type {boolean}
    */
-  isShowToast?: boolean;
+  isShowErrorToast?: boolean;
 }
 
 

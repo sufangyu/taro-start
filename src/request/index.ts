@@ -1,8 +1,8 @@
 import Taro from '@tarojs/taro';
-import interceptors from './request-help';
-import { IRequest, IPromise, Methohs } from './request-type';
+import interceptors from './interceptors';
+import { IRequest, IPromise, Methoh } from './type';
 
-export { IRequest, IPromise, Methohs };
+export { IRequest, IPromise, Methoh };
 
 
 // 请求默认配置
@@ -14,7 +14,7 @@ const defaults: IRequest = {
   method: 'GET',
   loading: true,
   loadingText: '加载中',
-  isShowToast: true,
+  isShowErrorToast: true,
 };
 
 
