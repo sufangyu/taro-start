@@ -13,7 +13,7 @@ type State = {
    *
    * @type {string[]}
    */
-  images: string[];
+  images: any[];
 }
 
 interface Index {
@@ -40,7 +40,17 @@ class Index extends Component<Props, State> {
 
   componentWillMount() {}
 
-  componentDidMount() {}
+  componentDidMount() {
+    setTimeout(() => {
+      this.setState({
+        images: [
+          { url: 'https://storage.360buyimg.com/mtd/home/111543234387022.jpg' },
+          { url: 'https://storage.360buyimg.com/mtd/home/331543234387025.jpg' },
+          // { url: 'https://storage.360buyimg.com/mtd/home/221543234387016.jpg' },
+        ],
+      });
+    }, 1500);
+  }
 
   componentWillUnmount() {}
 
@@ -54,7 +64,13 @@ class Index extends Component<Props, State> {
     const { images } = this.state;
     return (
       <View className="container">
-        <ImagePicker images={images} />
+        <ImagePicker
+          list={images}
+          multiSelect={2}
+          onChange={(list: any) => {
+            console.log(list);
+          }}
+        />
       </View>
     );
   }

@@ -1,8 +1,8 @@
 import { ComponentType } from 'react';
 import Taro, { Component } from '@tarojs/taro';
 import { View, Image } from '@tarojs/components';
-// import List from './List';
-import Uploader from './Uploader';
+import Uploader from './uploader';
+import icRemove from './images/ic-remove.png';
 
 import './index.scss';
 
@@ -25,13 +25,28 @@ interface IImage {
 }
 
 
-type Props = {}
+type Props = {
+  /**
+   * 初始化图片列表
+   */
+  list: IImage[];
+  /**
+   * 限制张数
+   */
+  limit?: number;
+  /**
+   * 单次最多可选择的张数
+   */
+  multiSelect?: number;
+  /**
+   * 图片更改
+   */
+  onChange: Function;
+}
 
 type State = {
   /**
    * 图片列表
-   *
-   * @type {IImage[]}
    */
   images: IImage[];
 }
@@ -42,23 +57,31 @@ interface Index {
 }
 
 class Index extends Component<Props, State> {
-  static defaultProps: Props = {}
+  static defaultProps: Props = {
+    list: [],
+    limit: 9,
+    multiSelect: 1,
+    onChange: () => {},
+  }
 
   constructor(props: Props) {
     super(props);
 
     this.state = {
-      images: [
-        { url: 'https://storage.360buyimg.com/mtd/home/111543234387022.jpg' },
-        { url: 'https://storage.360buyimg.com/mtd/home/331543234387025.jpg' },
-        { url: 'https://storage.360buyimg.com/mtd/home/221543234387016.jpg' },
-      ],
+      images: props.list,
     } as State;
   }
 
   componentWillMount() {}
 
   componentDidMount() {}
+
+  componentWillReceiveProps(nextProps: any) {
+    const { list } = nextProps;
+    this.setState({
+      images: [...list],
+    });
+  }
 
   componentWillUnmount() {}
 
@@ -70,13 +93,21 @@ class Index extends Component<Props, State> {
 
   [x: string]: any;
 
-  handleUploadSuccess(images: IImage[]) {
-    console.log(images);
-    this.setState((prevState) => {
-      return {
-        images: prevState.images.concat(images),
-      };
+  /**
+   * 上传成功回调
+   *
+   * @param {IImage[]} res
+   */
+  handleUploadSuccess(list: IImage[]) {
+    const { images } = this.state;
+    const { onChange } = this.props;
+    const newImages = images.concat([...list]);
+
+    this.setState({
+      images: newImages,
     });
+
+    onChange(newImages);
   }
 
   /**
@@ -84,15 +115,31 @@ class Index extends Component<Props, State> {
    *
    * @private
    * @param {number} [index=0] 下标序号
-   * @memberof Index
    */
   private previewImage(index: number = 0) {
     const { images } = this.state;
     const urls = images.map(image => image.url);
     Taro.previewImage({
-      current: index.toString(),
+      current: urls[index],
       urls,
     });
+  }
+
+  /**
+   * 移除图片
+   *
+   * @private
+   * @param {number} index 下标序号
+   */
+  private handleRemove(index: number) {
+    const { images } = this.state;
+    const { onChange } = this.props;
+    const newImages = images.filter((_item, idx) => idx !== index);
+    this.setState({
+      images: newImages,
+    });
+
+    onChange(newImages);
   }
 
   /**
@@ -100,10 +147,10 @@ class Index extends Component<Props, State> {
    *
    * @private
    * @returns
-   * @memberof Index
    */
   private renderList() {
     const { images } = this.state;
+
     const list = images.map((image: any, index) => {
       const key = `image-${index}`;
       return (
@@ -115,6 +162,15 @@ class Index extends Component<Props, State> {
           }}
         >
           <Image mode="aspectFill" src={image.url} />
+          <Image
+            onClick={(e) => {
+              e.stopPropagation();
+              this.handleRemove(index);
+            }}
+            className="icon-remove"
+            mode="aspectFill"
+            src={icRemove}
+          />
         </View>
       );
     });
@@ -122,17 +178,26 @@ class Index extends Component<Props, State> {
     return list;
   }
 
-  render(): object {
+  render() {
+    const { images } = this.state;
+    const { limit, multiSelect } = this.props;
     const list = this.renderList();
 
     return (
       <View className="image-picker">
         {list}
-        <Uploader
-          onSuccess={(images: IImage[]) => {
-            this.handleUploadSuccess(images);
-          }}
-        />
+        {
+          images.length < (limit as number)
+            ? (
+              <Uploader
+                multiSelect={multiSelect}
+                onSuccess={(res: IImage[]) => {
+                  this.handleUploadSuccess(res);
+                }}
+              />
+            )
+            : null
+        }
       </View>
     );
   }
