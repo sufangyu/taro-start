@@ -4,7 +4,9 @@ import { View } from '@tarojs/components';
 import { observer, inject } from '@tarojs/mobx';
 import classNames from 'classnames';
 
-import { ENV_MAP, ENV_CURRENT } from '@/config';
+import {
+  ENV_MAP, ENV_CURRENT, ENV_KEY_DEFAULT, IEnvConfig, 
+} from '@/config';
 
 import './index.scss';
 
@@ -12,7 +14,22 @@ interface Props {
   switchEnvStore?: any;
 }
 
-interface State {}
+interface State {
+  /**
+   * 环境名称
+   *
+   * @type {string}
+   * @memberof State
+   */
+  envName: string;
+  /**
+   *环境值
+   *
+   * @type {string}
+   * @memberof State
+   */
+  envValue: string;
+}
 
 interface Index {
   props: Props;
@@ -31,15 +48,21 @@ class Index extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
 
-    this.state = {} as State;
+    this.state = {
+      envName: '',
+      envValue: '',
+    } as State;
   }
 
   componentWillMount() {}
 
-  componentDidMount() {}
+  componentDidMount() {
+    this.setCurrentEnv(ENV_CURRENT);
+  }
 
   componentWillUnmount() {}
 
+  // eslint-disable-next-line react/sort-comp
   componentDidShow() {}
 
   componentDidHide() {}
@@ -60,6 +83,8 @@ class Index extends Component<Props, State> {
       content: `已切换为${name}环境, 请关闭小程序进程重进`,
       showCancel: false,
     });
+
+    this.setCurrentEnv(env);
   }
 
   /**
@@ -69,20 +94,39 @@ class Index extends Component<Props, State> {
    */
   handleResetEnv() {
     const { switchEnvStore } = this.props;
+    const env = ENV_MAP.find(item => item.value === ENV_KEY_DEFAULT) as IEnvConfig;
 
     switchEnvStore.resetEnv();
     Taro.showModal({
       title: '提示',
-      content: '已重置默认环境, 请关闭小程序进程重进',
+      content: `已重置默认环境(${env?.name}), 请关闭小程序进程重进`,
       showCancel: false,
+    });
+
+    this.setCurrentEnv(env);
+  }
+
+  /**
+  /**
+   * 设置环境
+   *
+   * @param env
+   * @memberof Index
+   */
+  setCurrentEnv(env: IEnvConfig) {
+    const { name, value } = env;
+    this.setState({
+      envName: name,
+      envValue: value,
     });
   }
 
   render() {
+    const { envName, envValue } = this.state;
     return (
       <View className="container debug-container">
         <View className="env-current">
-          <View className="value">{ENV_CURRENT.name}({ENV_CURRENT.value})</View>
+          <View className="value">{envName}({envValue})</View>
           <View className="label">当前环境</View>
         </View>
         <View className="env-list">
@@ -99,7 +143,7 @@ class Index extends Component<Props, State> {
               const key = `env-${index}`;
               const envItemClasses = classNames({
                 'env-item': true,
-                actived: env.value === ENV_CURRENT.value,
+                actived: env.value === envValue,
               });
 
               return (

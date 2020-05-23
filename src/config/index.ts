@@ -2,7 +2,7 @@ import Taro from '@tarojs/taro';
 import StoreKey from '@/constants/store-key';
 
 
-interface IEnvConfig {
+export interface IEnvConfig {
   /**
    * 名称
    */
@@ -76,7 +76,9 @@ const ENV_KEY_DEFAULT_PROD = CMD_API_ENV || 'prod';
 export const ENV_KEY_DEFAULT = isProd ? ENV_KEY_DEFAULT_PROD : ENV_KEY_DEFAULT_DEV;
 
 // 当前环境标识
-export const ENV_KEY = Taro.getStorageSync(StoreKey.API_ENV_KEY) || ENV_KEY_DEFAULT;
+const { envVersion } = __wxConfig;
+const isReadStore = ['develop', 'trial'].includes(envVersion);
+export const ENV_KEY = isReadStore ? (Taro.getStorageSync(StoreKey.API_ENV_KEY) || ENV_KEY_DEFAULT) : ENV_KEY_DEFAULT;
 
 // 当前环境配置
 export const ENV_CURRENT = ENV_MAP.find(item => item.value === ENV_KEY) as IEnvConfig;
