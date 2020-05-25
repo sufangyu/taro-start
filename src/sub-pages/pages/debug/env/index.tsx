@@ -5,7 +5,7 @@ import { observer, inject } from '@tarojs/mobx';
 import classNames from 'classnames';
 
 import {
-  ENV_MAP, ENV_CURRENT, ENV_KEY_DEFAULT, IEnvConfig, 
+  ENV_MAP, ENV_CURRENT, ENV_KEY_DEFAULT, IEnvConfig,
 } from '@/config';
 
 import './index.scss';
@@ -99,7 +99,7 @@ class Index extends Component<Props, State> {
     switchEnvStore.resetEnv();
     Taro.showModal({
       title: '提示',
-      content: `已重置默认环境(${env?.name}), 请关闭小程序进程重进`,
+      content: `已重置默认环境(${env.name}), 请关闭小程序进程重进`,
       showCancel: false,
     });
 
