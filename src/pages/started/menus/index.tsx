@@ -49,6 +49,7 @@ class Index extends Component {
         { label: '图片上传', path: PATH_CONFIG.started.chooseImage },
         { label: '图片展示', path: PATH_CONFIG.started.previewImage },
         { label: '表单校验', path: PATH_CONFIG.started.formValidate },
+        { label: '获取地理信息', path: PATH_CONFIG.started.location },
         { label: '分包示例', path: PATH_CONFIG.started.subPages },
       ],
     };

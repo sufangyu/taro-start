@@ -16,7 +16,7 @@
 		"build:tt": "taro build --type tt",
 		"build:h5": "taro build --type h5",
 		"build:rn": "taro build --type rn",
-		"dev": "npm run dev:weapp & npm run lint:all",
+		"dev": "run-p dev:weapp lint:all",
 		"dev:weapp": "cross-env NODE_ENV=development npm run build:weapp -- --watch",
 		"dev:swan": "cross-env NODE_ENV=development npm run build:swan -- --watch",
 		"dev:alipay": "cross-env NODE_ENV=development npm run build:alipay -- --watch",

@@ -23,6 +23,7 @@ export default {
     previewImage: '/pages/started/preview-image/index',
     pullDownRefresh: '/pages/started/pull-down-refresh/index',
     formValidate: '/pages/started/form-validate/index',
+    location: '/pages/started/location/index',
     subPages: '/sub-pages/pages/demo/index',
   },
 
