@@ -1,3 +1,4 @@
+/* eslint-disable */
 /**
  * 微信小程序JavaScriptSDK
  * 

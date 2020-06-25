@@ -18,24 +18,16 @@ export interface IAccount {
 }
 
 export interface IAccountStore {
-  /**
-   * 用户信息
-   */
+  /** 用户信息 */
   account?: IAccount;
 
-  /**
-   * 已经登录标记
-   */
+  /** 已经登录标记 */
   logged?: TLogged;
 
-  /**
-   * 设置 用户信息
-   */
+  /** 设置 用户信息 */
   setAccount?: Function;
 
-  /**
-   * 删除 用户信息
-   */
+  /** 删除 用户信息 */
   removeAccount?: Function;
 }
 
