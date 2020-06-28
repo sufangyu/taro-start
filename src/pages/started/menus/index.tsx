@@ -6,22 +6,16 @@ import { gotoPage, PATH_CONFIG } from '@/router';
 import './index.scss';
 
 type Page = {
-  /**
-   * 名称
-   */
+  /** 名称 */
   label?: string;
-  /**
-   * 路径
-   */
+  /** 路径 */
   path: string;
 }
 
 type Props = {}
 
 type State = {
-  /**
-   * 导航菜单
-   */
+  /** 导航菜单 */
   menus: Array<Page>;
 }
 
@@ -50,6 +44,7 @@ class Index extends Component {
         { label: '图片展示', path: PATH_CONFIG.started.previewImage },
         { label: '表单校验', path: PATH_CONFIG.started.formValidate },
         { label: '获取地理信息', path: PATH_CONFIG.started.location },
+        { label: '列表', path: PATH_CONFIG.started.list },
         { label: '分包示例', path: PATH_CONFIG.started.subPages },
       ],
     };
@@ -67,7 +62,7 @@ class Index extends Component {
 
   componentWillReact() {}
 
-  handlegotoPage(page: Page): void {
+  handleGotoPage(page: Page): void {
     gotoPage({
       url: page.path,
     });
@@ -86,7 +81,7 @@ class Index extends Component {
                 <View
                   className="menu-item"
                   key={item.path}
-                  onClick={() => this.handlegotoPage(item)}
+                  onClick={() => this.handleGotoPage(item)}
                 >
                   {item.label}
                 </View>

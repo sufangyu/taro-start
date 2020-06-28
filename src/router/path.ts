@@ -24,6 +24,7 @@ export default {
     pullDownRefresh: '/pages/started/pull-down-refresh/index',
     formValidate: '/pages/started/form-validate/index',
     location: '/pages/started/location/index',
+    list: '/pages/started/list/index',
     subPages: '/sub-pages/pages/demo/index',
   },
 
