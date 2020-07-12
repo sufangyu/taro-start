@@ -1,4 +1,4 @@
-import Taro, { Config, useState } from '@tarojs/taro';
+import Taro, { Config } from '@tarojs/taro';
 import { View, Button } from '@tarojs/components';
 import { useList } from '@/hooks';
 import { getTopics } from '@/api/test';
@@ -6,25 +6,25 @@ import { getTopics } from '@/api/test';
 import './index.scss';
 
 function Index() {
-  const [page, setPage] = useState(1);
-  const { list } = useList({
-    initList: [],
-    initQuery: {
-      page,
-      limit: 10,
-    },
+  const {
+    list,
+    loading,
+    pagination,
+    getListNext,
+  } = useList({
+    initPage: 1,
+    initSize: 20,
     fetch: getTopics,
   });
-  console.log(list);
 
   return (
     <View className="container">
       <Button
         onClick={() => {
-          setPage(page + 1);
+          getListNext();
         }}
       >
-        下一頁
+        下一页: {loading} - ({pagination.page}, {pagination.size})
       </Button>
       {
         list.map((item, index) => {
@@ -42,6 +42,7 @@ function Index() {
 
 Index.config = {
   navigationBarTitleText: '列表',
+  enablePullDownRefresh: true,
 } as Config;
 
 export default Index;
