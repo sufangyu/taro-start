@@ -1,5 +1,5 @@
 import Taro, {
-  useState, useEffect, useReachBottom, usePullDownRefresh,
+  useState, useEffect, useReachBottom, usePullDownRefresh, useRef,
 } from '@tarojs/taro';
 
 export default function useList({
@@ -11,15 +11,23 @@ export default function useList({
   listKey = 'data',
   /** 是否开启下拉刷新 */
   enablePullDownRefresh = true,
+  /** 列表查询参数 */
+  query = {},
   /** 列表请求函数 */ 
   fetch = () => {},
 }) {
+  const prevPage = useRef(initPage);
   const [loading, setLoading] = useState(false);
   const [isRefresh, setIsRefresh] = useState(false);
   const [pagination, setPagination] = useState({
     page: initPage,
     size: initSize,
     total: 0, /** 总条目数 */
+  });
+  const [listQuery, setListQuery] = useState({
+    ...query,
+    ...pagination,
+    limit: pagination.size,
   });
   const [list, setList] = useState([]);
 
@@ -28,24 +36,32 @@ export default function useList({
    *
    */
   async function getList() {
-    console.log(loading, isRefresh, pagination);
     if (loading) {
       return;
     }
 
-    const { page, size } = pagination;
-    const query = {
-      page,
-      limit: size,
+    const featchQuery = {
+      ...listQuery,
     };
+    // 删除不必要的参数
+    delete featchQuery.size;
+    delete featchQuery.total;
+
     setLoading(true);
     try {
-      const res = await fetch(query);
+      const res = await fetch(featchQuery);
       const data = res[listKey] || [];
       const listData = isRefresh ? data : list.concat(data);
       setList(listData);
+      prevPage.current = pagination.page;
     } catch (err) {
       console.warn(err);
+      // 请求失败, 回设页码
+      setPagination((prevPagination) => ({
+        ...prevPagination,
+        page: prevPage.current,
+      }));
+      prevPage.current = pagination.page;
     } finally {
       setLoading(false);
       setIsRefresh(false);
@@ -54,20 +70,58 @@ export default function useList({
     }
   }
 
+ 
   /**
-   * 获取下一页列表数据
+   * 获取指定页码列表数据
+   *
+   * @param {{ page: number, size: number }} { page = 1, size = initSize }
+   */
+  function onPageChange({ page = 1, size = initSize }: { page: number; size?: number; }) {
+    setPagination((prevPagination) => ({
+      ...prevPagination,
+      page,
+      size,
+    }));
+    setListQuery((prevQuery) => ({
+      ...prevQuery,
+      page,
+    }));
+  }
+  
+
+  /**
+   * 搜索
+   *
+   */
+  function onSearch() {
+    setIsRefresh(true);
+    setListQuery((prevQuery) => ({
+      ...prevQuery,
+      ...query,
+      page: initPage,
+      size: initSize,
+    }));
+    setPagination((prevState) => ({
+      ...prevState,
+      page: initPage,
+      size: initSize,
+    }));
+  }
+
+  /**
+   * 获取下一页数据
    *
    */
   function getListNext() {
     const nextPage = pagination.page + 1;
-    setPagination((prevState) => ({
-      ...prevState,
+    onPageChange({
       page: nextPage,
-    }));
+    });
   }
 
   // 加载数据
-  useEffect(getList, [pagination.page, pagination.size]);
+  useEffect(getList, [listQuery]);
+  
 
   // 上拉加载下一页
   useReachBottom(() => {
@@ -79,23 +133,22 @@ export default function useList({
     if (!enablePullDownRefresh) {
       return;
     }
-
-    Taro.showNavigationBarLoading();
+    
     setIsRefresh(true);
-    setPagination((prevState) => ({
-      ...prevState,
+    onPageChange({
       page: initPage,
-    }));
-
-    // 主动触发. 避免 Effect isRefresh 多次加载
-    getList();
+      size: initSize,
+    });
+    Taro.showNavigationBarLoading();
   });
 
   return {
     loading,
     list,
+    pagination,
     getList,
     getListNext,
-    pagination,
+    onSearch,
+    onPageChange,
   };
 }
