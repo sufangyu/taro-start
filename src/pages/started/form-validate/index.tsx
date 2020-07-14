@@ -6,6 +6,7 @@ import {
 import { observer, inject } from '@tarojs/mobx';
 import { handleInput } from '@/decorators';
 import Verification from '@/utils/verification';
+import { formatNumberToInteger } from '@/utils/number';
 
 import './index.scss';
 
@@ -41,9 +42,7 @@ class Index extends Component<Props, State> {
       name: '',
       password: '',
       mobile: '',
-      user: {
-        age: '',
-      },
+      age: '',
     };
   }
 
@@ -53,9 +52,21 @@ class Index extends Component<Props, State> {
 
   componentWillUnmount() {}
 
+  // eslint-disable-next-line react/sort-comp
   componentDidShow() {}
 
   componentDidHide() {}
+
+  updateAge = (e) => {
+    let { value } = e.detail;
+    value = formatNumberToInteger(value);
+    if (value > 5) {
+      value = 5;
+    }
+
+    this.setState({ age: value });
+    return value;
+  }
 
   handleSubmit() {
     const { name, password, mobile } = this.state;
@@ -97,7 +108,7 @@ class Index extends Component<Props, State> {
 
   render() {
     const {
-      name, password, mobile, user,
+      name, password, mobile, age,
     } = this.state;
     return (
       <View className="container">
@@ -135,10 +146,10 @@ class Index extends Component<Props, State> {
         <View className="form-item">
           <Label>年龄：</Label>
           <Input
-            password
-            value={user.age}
+            value={age}
+            type="digit"
             onInput={(e) => {
-              this.handleInput(e, 'age', user);
+              return this.updateAge(e);
             }}
           />
         </View>
