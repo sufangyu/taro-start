@@ -31,15 +31,18 @@ function Index() {
     <View className="container">
       <Button
         onClick={() => {
-          setQuery((prevState) => {
-            const newAge = prevState.age + 1;
-            return {
-              time: Date.now(),
-              age: newAge,
-            };
-          });
+          // fix 值为前一次的
+          const nextQuery = {
+            ...query,
+            time: Date.now(),
+            age: query.age + 1,
+          };
+          setQuery((prevState) => ({
+            ...prevState,
+            ...nextQuery,
+          }));
 
-          onSearch();
+          onSearch(nextQuery);
         }}
       >参数更改
       </Button>

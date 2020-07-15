@@ -1,5 +1,5 @@
 import Taro, {
-  useState, useEffect, useReachBottom, usePullDownRefresh, useRef,
+  useState, useEffect, useReachBottom, usePullDownRefresh,
 } from '@tarojs/taro';
 
 export default function useList({
@@ -16,7 +16,6 @@ export default function useList({
   /** 列表请求函数 */ 
   fetch = () => {},
 }) {
-  const prevPage = useRef(initPage);
   const [loading, setLoading] = useState(false);
   const [isRefresh, setIsRefresh] = useState(false);
   const [pagination, setPagination] = useState({
@@ -53,15 +52,12 @@ export default function useList({
       const data = res[listKey] || [];
       const listData = isRefresh ? data : list.concat(data);
       setList(listData);
-      prevPage.current = pagination.page;
     } catch (err) {
-      console.warn(err);
       // 请求失败, 回设页码
       setPagination((prevPagination) => ({
         ...prevPagination,
-        page: prevPage.current,
+        page: prevPagination.page - 1,
       }));
-      prevPage.current = pagination.page;
     } finally {
       setLoading(false);
       setIsRefresh(false);
@@ -93,11 +89,11 @@ export default function useList({
    * 搜索
    *
    */
-  function onSearch() {
+  function onSearch(nextQuery: any) {
     setIsRefresh(true);
     setListQuery((prevQuery) => ({
       ...prevQuery,
-      ...query,
+      ...nextQuery,
       page: initPage,
       size: initSize,
     }));
