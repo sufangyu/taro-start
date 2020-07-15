@@ -108,6 +108,7 @@ const interceptors = {
         Taro.showToast({
           title: msg || '请求失败, 请重试',
           icon: 'none',
+          mask: true,
         });
       }
       return reject(error);
