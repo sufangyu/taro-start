@@ -1,7 +1,7 @@
 import Taro, { Config, useState } from '@tarojs/taro';
 import { View, Button } from '@tarojs/components';
 import { useList } from '@/hooks';
-// import { IParamsTopics, ITopic } from '@/models/test';
+import { ITopic } from '@/models/test';
 import { getTopics } from '@/api/test';
 
 import './index.scss';
@@ -10,7 +10,7 @@ function Index() {
   const time = Date.now();
   const [query, setQuery] = useState({
     time,
-    age: 18, 
+    age: 18,
   });
   const {
     list,
@@ -18,14 +18,12 @@ function Index() {
     pagination,
     onSearch,
     getListNext,
-  } = useList(
-    {
-      initPage: 1,
-      initSize: 20,
-      query,
-      fetch: getTopics,
-    },
-  );
+  } = useList<ITopic>({
+    initPage: 1,
+    initSize: 20,
+    query,
+    fetch: getTopics,
+  });
 
   return (
     <View className="container">

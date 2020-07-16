@@ -2,20 +2,29 @@ import Taro, {
   useState, useEffect, useReachBottom, usePullDownRefresh,
 } from '@tarojs/taro';
 
-export default function useList({
+interface IUseList{
   /** 初始化页码 */
-  initPage = 1,
+  initPage?: number;
   /** 每页显示条目个数 */
-  initSize = 5,
+  initSize?: number;
   /** 列表数据 key 名称 */
-  listKey = 'data',
+  listKey?: string;
   /** 是否开启下拉刷新 */
-  enablePullDownRefresh = true,
+  enablePullDownRefresh?: boolean;
   /** 列表查询参数 */
-  query = {},
+  query?: object;
   /** 列表请求函数 */
+  fetch?: Function;
+}
+
+export default function useList<D>({
+  initPage = 1,
+  initSize = 5,
+  listKey = 'data',
+  enablePullDownRefresh = true,
+  query = {},
   fetch = () => {},
-}) {
+}: IUseList) {
   const [loading, setLoading] = useState(false);
   const [isRefresh, setIsRefresh] = useState(false);
   const [pagination, setPagination] = useState({
@@ -28,7 +37,8 @@ export default function useList({
     ...pagination,
     limit: pagination.size,
   });
-  const [list, setList] = useState([]);
+  const [list, setList] = useState<D[]>([]);
+
 
   /**
    * 获取列表数据
@@ -88,8 +98,9 @@ export default function useList({
   /**
    * 搜索
    *
+   * @param {*} [nextQuery={}]
    */
-  function onSearch(nextQuery: any) {
+  function onSearch(nextQuery: any = {}) {
     setIsRefresh(true);
     setListQuery((prevQuery) => ({
       ...prevQuery,
@@ -104,6 +115,7 @@ export default function useList({
     }));
   }
 
+
   /**
    * 获取下一页数据
    *
@@ -116,13 +128,17 @@ export default function useList({
   }
 
   // 加载数据
-  useEffect(getList, [listQuery]);
+  useEffect(() => {
+    getList();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [listQuery]);
 
 
   // 上拉加载下一页
   useReachBottom(() => {
     getListNext();
   });
+
 
   // 下拉刷新
   usePullDownRefresh(() => {
