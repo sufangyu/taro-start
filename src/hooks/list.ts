@@ -13,7 +13,7 @@ export default function useList({
   enablePullDownRefresh = true,
   /** 列表查询参数 */
   query = {},
-  /** 列表请求函数 */ 
+  /** 列表请求函数 */
   fetch = () => {},
 }) {
   const [loading, setLoading] = useState(false);
@@ -39,16 +39,16 @@ export default function useList({
       return;
     }
 
-    const featchQuery = {
+    const fetchQuery = {
       ...listQuery,
     };
     // 删除不必要的参数
-    delete featchQuery.size;
-    delete featchQuery.total;
+    delete fetchQuery.size;
+    delete fetchQuery.total;
 
     setLoading(true);
     try {
-      const res = await fetch(featchQuery);
+      const res = await fetch(fetchQuery);
       const data = res[listKey] || [];
       const listData = isRefresh ? data : list.concat(data);
       setList(listData);
@@ -66,7 +66,7 @@ export default function useList({
     }
   }
 
- 
+
   /**
    * 获取指定页码列表数据
    *
@@ -83,7 +83,7 @@ export default function useList({
       page,
     }));
   }
-  
+
 
   /**
    * 搜索
@@ -117,7 +117,7 @@ export default function useList({
 
   // 加载数据
   useEffect(getList, [listQuery]);
-  
+
 
   // 上拉加载下一页
   useReachBottom(() => {
@@ -129,7 +129,7 @@ export default function useList({
     if (!enablePullDownRefresh) {
       return;
     }
-    
+
     setIsRefresh(true);
     onPageChange({
       page: initPage,
