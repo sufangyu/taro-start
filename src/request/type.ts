@@ -1,5 +1,5 @@
 // 请求方法
-export declare type Methoh = 'GET' | 'POST' | 'PUT' | 'DELETE';
+export declare type Method = 'GET' | 'POST' | 'PUT' | 'DELETE';
 
 export interface IRequest {
   /**
@@ -17,9 +17,9 @@ export interface IRequest {
   /**
    * 请求方法
    *
-   * @type {Methoh}
+   * @type {Method}
    */
-  method?: Methoh;
+  method?: Method;
   /**
    * 请求的参数
    *

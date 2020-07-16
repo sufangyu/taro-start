@@ -1,8 +1,8 @@
 import Taro from '@tarojs/taro';
 import interceptors from './interceptors';
-import { IRequest, IPromise, Methoh } from './type';
+import { IRequest, IPromise, Method } from './type';
 
-export { IRequest, IPromise, Methoh };
+export { IRequest, IPromise, Method };
 
 
 // 请求默认配置
