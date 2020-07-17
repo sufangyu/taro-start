@@ -1,53 +1,16 @@
-import { ComponentType } from 'react';
-import Taro, { Component, Config } from '@tarojs/taro';
+import { FC } from '@tarojs/taro';
 import { View, Button } from '@tarojs/components';
-import { observer, inject } from '@tarojs/mobx';
 import {
   getTopics, IParamsTopics,
   postFn, putFn, deleteFn,
 } from '@/api/test';
 
-import './index.scss';
-
-type Props = {}
-
-type State = {}
-
-interface Index {
-  props: Props;
-  state: State;
-}
-
-@inject('globalStore')
-@observer
-class Index extends Component {
-  config: Config = {
-    navigationBarTitleText: '网络请求',
-  }
-
-  constructor(props) {
-    super(props);
-
-    this.state = {};
-  }
-
-  componentWillMount() {}
-
-  componentDidMount() {}
-
-  componentWillUnmount() {}
-
-  componentDidShow() {}
-
-  componentDidHide() {}
-
-  componentWillReact() {}
-
+const Index: FC = () => {
   /**
    * 获取主题列表
    *
    */
-  async handleGetTopics() {
+  const handleGetTopics = async () => {
     const params: IParamsTopics = {
       page: 1,
       limit: 10,
@@ -57,32 +20,20 @@ class Index extends Component {
     data.forEach(item => {
       console.log(`ID: ${item.id}, 创建时间: ${item.create_at}`);
     });
-  }
+  };
 
-  handlePost() {
-    postFn();
-  }
-
-  handlePut() {
-    putFn();
-  }
-
-  handleDelete() {
-    deleteFn();
-  }
-
-  render() {
-    return (
-      <View className="container">
-        <View>
-          <Button type="primary" onClick={this.handleGetTopics}>GET 请求</Button>
-          <Button type="primary" onClick={this.handlePost}>POST 请求</Button>
-          <Button type="primary" onClick={this.handlePut}>PUT 请求</Button>
-          <Button type="primary" onClick={this.handleDelete}>DELETE 请求</Button>
-        </View>
+  return (
+    <View className="container">
+      <View>
+        <Button type="primary" onClick={handleGetTopics}>GET 请求</Button>
+        <Button type="primary" onClick={postFn}>POST 请求</Button>
+        <Button type="primary" onClick={putFn}>PUT 请求</Button>
+        <Button type="primary" onClick={deleteFn}>DELETE 请求</Button>
       </View>
-    );
-  }
-}
+    </View>
+  );
+};
 
-export default Index as ComponentType;
+Index.config = {
+  navigationBarTitleText: '网络请求',
+};

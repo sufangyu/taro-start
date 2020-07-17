@@ -1,94 +1,36 @@
-import { ComponentType } from 'react';
-import Taro, { Component, Config } from '@tarojs/taro';
+import { FC, useState } from '@tarojs/taro';
 import { View, Button, Text } from '@tarojs/components';
-import Child from './components/Child';
-
+import Child from './components/child-comp';
 import './index.scss';
 
-type Props = {}
+const Index: FC = () => {
+  const [count, setCount] = useState(0);
 
-type State = {
-  count: number;
-}
-
-interface Index {
-  props: Props;
-  state: State;
-}
-
-class Index extends Component<Props, State> {
-  config: Config = {
-    navigationBarTitleText: 'State & Props',
-  }
-
-  static defaultProps: Props = {}
-
-  constructor(props: Props) {
-    super(props);
-
-    this.state = {
-      count: 0,
-    } as State;
-  }
-
-  /**
-   *累加
-   *
-   * @memberof Index
-   */
-  handleIncrease() {
-    this.setState((prevState) => {
-      return {
-        count: prevState.count + 1,
-      };
-    });
-  }
-
-  /**
-   * 累减
-   *
-   * @memberof Index
-   */
-  handleMinus() {
-    this.setState((prevState) => {
-      return {
-        count: prevState.count - 1,
-      };
-    });
-  }
-
-  [x: string]: any;
-
-  render(): object {
-    const { count } = this.state;
-    return (
-      <View className="container">
-        <View className="demo">
-          <View className="demo-title">state:</View>
-          <Button
-            size="mini"
-            onClick={() => {
-              this.handleIncrease();
-            }}
-          >
-            点击累加
-          </Button>
-          <Text>{count}</Text>
-        </View>
-          
-        {/* 组件 Props 属性 */}
-        <View className="demo">
-          <View className="demo-title">props</View>
-          <Child
-            count={count}
-            onMinus={() => {
-              this.handleMinus();
-            }}
-          />
-        </View>
+  return (
+    <View className="container">
+      <View className="demo">
+        <View className="demo-title">state:</View>
+        <Button
+          size="mini"
+          onClick={() => setCount(count + 1)}
+        >
+          累加
+        </Button>
+        <Text>{count}</Text>
       </View>
-    );
-  }
-}
 
-export default Index as ComponentType<Props>;
+      {/* 组件 Props 属性 */}
+      <View className="demo">
+        <View className="demo-title">props</View>
+        <Child
+          count={count}
+          onMinus={() => setCount(count - 1)}
+        />
+      </View>
+    </View>
+  );
+};
+
+Index.config = {
+  navigationBarTitleText: 'State & Props (Hook)',
+};

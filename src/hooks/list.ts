@@ -19,7 +19,7 @@ interface IUseList{
 
 export default function useList<D>({
   initPage = 1,
-  initSize = 5,
+  initSize = 10,
   listKey = 'data',
   enablePullDownRefresh = true,
   query = {},

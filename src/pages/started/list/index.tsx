@@ -1,4 +1,4 @@
-import Taro, { Config, useState } from '@tarojs/taro';
+import Taro, { FC, useState } from '@tarojs/taro';
 import { View, Button } from '@tarojs/components';
 import { useList } from '@/hooks';
 import { ITopic } from '@/models/test';
@@ -6,7 +6,7 @@ import { getTopics } from '@/api/test';
 
 import './index.scss';
 
-function Index() {
+const Index: FC = () => {
   const time = Date.now();
   const [query, setQuery] = useState({
     time,
@@ -63,11 +63,9 @@ function Index() {
       }
     </View>
   );
-}
+};
 
 Index.config = {
   navigationBarTitleText: '列表',
   enablePullDownRefresh: true,
-} as Config;
-
-export default Index;
+};

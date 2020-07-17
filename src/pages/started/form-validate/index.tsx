@@ -1,4 +1,4 @@
-import Taro, { Config } from '@tarojs/taro';
+import Taro, { FC } from '@tarojs/taro';
 import {
   View, Input, Label, Button,
 } from '@tarojs/components';
@@ -7,7 +7,7 @@ import Verification from '@/utils/verification';
 
 import './index.scss';
 
-function Index() {
+const Index: FC = () => {
   const [name, setName] = useInput('');
   const [others, setOthers] = useInput({
     password: '',
@@ -109,10 +109,8 @@ function Index() {
       </View>
     </View>
   );
-}
+};
 
 Index.config = {
-  navigationBarTitleText: '表单',
-} as Config;
-
-export default Index;
+  navigationBarTitleText: '表单校验',
+};
