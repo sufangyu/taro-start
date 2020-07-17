@@ -25,7 +25,7 @@ const Index: FC = () => {
           <View className="space" />
           <ImagePreview
             images={images}
-            length={2}
+            limit={2}
             tipsText="left"
           />
         </View>
@@ -43,7 +43,7 @@ const Index: FC = () => {
           <View className="space" />
           <ImagePreview
             images={images}
-            length={2}
+            limit={2}
             tipsText="count"
           />
         </View>
@@ -61,13 +61,13 @@ const Index: FC = () => {
           <View className="space" />
           <ImagePreview
             images={images}
-            length={2}
+            limit={2}
             tipsText={false}
           />
           <View className="space" />
           <ImagePreview
             images={images}
-            length={images.length}
+            limit={images.length}
             tipsText={false}
           />
         </View>

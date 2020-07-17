@@ -1,158 +1,91 @@
-import { ComponentType } from 'react';
-import Taro, { Component } from '@tarojs/taro';
+import Taro, { FC } from '@tarojs/taro';
 import { View, Image, Text } from '@tarojs/components';
 
 import './index.scss';
 
-type Props = {
-  /**
-   * 图片集合
-   *
-   * @type {string[]}
-   */
+interface IProps {
+  /** 图片集合 */
   images: string[];
-
-  /**
-   * 单行的图片数量
-   *
-   * @type {number}
-   */
-  length?: number;
-
+  /** 限制单行显示的图片数量 */
+  limit?: number;
   /**
    * 提示文案
    *
    * left: 图片剩余数量; count: 图片总数量; false: 不显示
-   *
-   * @type {('left' | 'count' | false)}
    */
   tipsText?: 'left' | 'count' | false;
-
-  /**
-   * 自定义类名
-   *
-   * @type {string}
-   */
-  className?: string;
-
-  [propName: string]: any;
 }
 
-type State = {}
-
-interface Index {
-  props: Props;
-  state: State;
-}
-
-class Index extends Component<Props, State> {
-  static defaultProps: Props = {
-    images: [],
-    length: 1,
-    tipsText: 'left',
-    className: '',
-  }
-
-  constructor(props: Props) {
-    super(props);
-
-    this.state = {} as State;
-  }
-
-  /**
-   * 显示的图片
-   * 
-   */
-  private getImagesPreview() {
-    const { images, length } = this.props;
-
-    const imageList = [];
-    images.forEach((image, index) => {
-      if (index < length) {
-        imageList.push(image);
-      }
-    });
-
-    return imageList;
-  }
+const Index: FC<IProps> = (props: IProps) => {
+  const { images = [], limit = 1, tipsText = 'left' } = props;
 
   /**
    * 预览图片
-   * 
+   *
    */
-  private previewImages(index: number) {
-    const { images } = this.props;
+  const previewImages = (index: number) => {
     Taro.previewImage({
       urls: images,
       current: images[index],
     });
-  }
+  };
+
 
   /**
-   * 渲染提示语
-   * 
+   * 获取可展示图片集合
+   *
+   * @returns
    */
-  renderTipsText(index) {
-    const { images, length, tipsText } = this.props;
-
-    // 不显示提示语
-    if (!tipsText) {
-      return null;
-    }
-
-    // 一行显示图片的序号不等于当前序号, 则不显示提示语
-    if (length - 1 !== index) {
-      return null;
-    }
-
-    // 显示图片提示
-    let tipsTextContent = '';
-    if (tipsText) {
-      const count = images.length;
-      const left = count - length;
-      tipsTextContent = tipsText === 'left' ? `剩${left}张` : `${count}张`;
-    }
-
-    return <Text>{tipsTextContent}</Text>;
-  }
+  const getImagesVisible = () => {
+    return images.filter((_image, index) => {
+      return index < limit;
+    });
+  };
 
   /**
    * 渲染图片列表
-   * 
+   *
+   * @returns
    */
-  renderImageList() {
+  const renderImageList = () => {
     // 显示的图片
-    const imageList = this.getImagesPreview();
-
-    const imagesContent = imageList.map((url, index) => {
+    const imageList = getImagesVisible();
+    const listContent = imageList.map((url, index) => {
       const key = `image-key-${index}`;
-      const tipsTextContent = this.renderTipsText(index);
+
+      // 图片集合提示信息
+      let tipsTextContent = '';
+      if (tipsText) {
+        const count = images.length;
+        const left = count - limit;
+        tipsTextContent = tipsText === 'left' ? `剩${left}张` : `${count}张`;
+      }
+
       return (
         <View
           className="image-list-item"
           key={key}
           onClick={() => {
-            this.previewImages(index);
+            previewImages(index);
           }}
         >
           <Image mode="aspectFill" src={url} />
-          {tipsTextContent}
+          {/* 有提示内容 && 当前序号是单行最后一张 */}
+          {tipsTextContent && (index === limit - 1) && <Text>{tipsTextContent}</Text>}
         </View>
       );
     });
 
-    return imagesContent;
-  }
-
-  render(): object {
-    const imagesContent = this.renderImageList();
-
     return (
-      <View className="image-list">
-        {imagesContent}
-      </View>
+      <View>{listContent}</View>
     );
-  }
-}
+  };
 
-export default Index as ComponentType<Props>;
+  return (
+    <View className="image-list">
+      {renderImageList()}
+    </View>
+  );
+};
+
+export default Index;
