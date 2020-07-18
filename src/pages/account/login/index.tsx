@@ -43,8 +43,12 @@ class Index extends Component<Props, State> {
     };
   }
 
-  handleGetVerifyCode() {
+  handleGetVerifyCode(cb) {
     console.log('发送请求获取验证码');
+    const res = true;
+    if (res) {
+      cb();
+    }
     // this.refCountDown.current.start();
   }
 
@@ -87,6 +91,7 @@ class Index extends Component<Props, State> {
       <View className="container">
         <ButtonCountDown
           countTime={10}
+          onClick={(cb) => this.handleGetVerifyCode(cb)}
         />
 
         <Button onClick={() => this.handleLogin()}>

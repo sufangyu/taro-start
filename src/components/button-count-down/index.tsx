@@ -10,10 +10,11 @@ interface IProps {
   countTime?: number;
   /** 按钮默认文案 */
   label?: string;
+  onClick?: (cb: Function) => void;
 }
 
 const Index: FC<IProps> = (props: IProps) => {
-  const { countTime = 60, label = '获取验证码' } = props;
+  const { countTime = 60, label = '获取验证码', onClick = () => {} } = props;
   const intervalRef = useRef<any>(null);
   const [count, changeCount] = useState(0);
 
@@ -27,8 +28,9 @@ const Index: FC<IProps> = (props: IProps) => {
 
   /** 获取短信验证码 */
   const handleGetCaptcha = () => {
-    console.log('假如获取验证码请求成功, 开始倒计时');
-    startCountDown();
+    if (onClick) {
+      onClick(startCountDown);
+    }
   };
 
 
