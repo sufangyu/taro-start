@@ -25,13 +25,13 @@ export default {
     formValidate: '/pages/started/form-validate/index',
     location: '/pages/started/location/index',
     list: '/pages/started/list/index',
-    subPages: '/sub-pages/pages/demo/index',
+    subPages: '/sub-pages/debug/env/index',
   },
 
   /**
    * 调试
    */
   debug: {
-    env: '/pages/debug/env/index',
+    env: '/sub-pages/debug/env/index',
   },
 };

@@ -43,8 +43,7 @@ class App extends Component {
       {
         root: 'sub-pages/',
         pages: [
-          'pages/debug/env/index',
-          'pages/demo/index',
+          'debug/env/index',
         ],
       },
     ],
