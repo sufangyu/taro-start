@@ -1,5 +1,4 @@
-import { ComponentType } from 'react';
-import Taro, { Component } from '@tarojs/taro';
+import Taro, { FC } from '@tarojs/taro';
 import { View } from '@tarojs/components';
 
 import './index.scss';
@@ -11,48 +10,23 @@ import './index.scss';
  * @interface IChooseImage
  */
 interface IChooseImage {
-  /**
-   * 返回信息
-   */
+  /** 返回信息 */
   errMsg: string;
-
-  /**
-   * 文件路径
-   */
+  /** 文件路径 */
   tempFilePaths?: string[];
-
-  /**
-   * 文件信息
-   */
+  /** 文件信息 */
   tempFiles?: object[];
 }
 
-
-type Props = {
-  /**
-   * 单次最多可选择的张数
-   */
+interface IProps {
+  /** 单次最多可选择张数 */
   multiSelect?: number;
-  [propName: string]: any;
+  /** 图片选择成功回调函数 */
+  onSuccess: Function;
 }
 
-type State = {}
-
-interface Index {
-  props: Props;
-  state: State;
-}
-
-class Index extends Component<Props, State> {
-  static defaultProps: Props = {
-    multiSelect: 1,
-  }
-
-  constructor(props: Props) {
-    super(props);
-
-    this.state = {} as State;
-  }
+const Index: FC<IProps> = (props: IProps) => {
+  const { multiSelect = 1, onSuccess = () => {} } = props;
 
   /**
    * 选择图片
@@ -60,8 +34,7 @@ class Index extends Component<Props, State> {
    * @returns
    * @memberof Index
    */
-  async handleChooseImage() {
-    const { multiSelect, onSuccess } = this.props;
+  const handleChooseImage = async () => {
     const { errMsg, tempFilePaths = [] }: IChooseImage = await Taro.chooseImage({
       count: multiSelect,
     });
@@ -74,29 +47,24 @@ class Index extends Component<Props, State> {
     let uploadCount: number = 0;
     // 模拟实现批量上传
     (tempFilePaths || []).forEach(async (image) => {
-      // @TODO: 具体对接图片上传 api
+      // TODO: 具体对接图片上传 api
       images.push({ url: image });
       uploadCount += 1;
 
-      // 处理批量上传完成
       if (uploadCount >= tempFilePaths.length) {
         onSuccess(images);
       }
     });
-  }
+  };
 
-  [x: string]: any;
+  return (
+    <View
+      className="image-uploader"
+      onClick={() => {
+        handleChooseImage();
+      }}
+    />
+  );
+};
 
-  render(): object {
-    return (
-      <View
-        className="image-uploader"
-        onClick={() => {
-          this.handleChooseImage();
-        }}
-      />
-    );
-  }
-}
-
-export default Index as ComponentType<Props>;
+export default Index;

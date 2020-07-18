@@ -2,10 +2,6 @@ $size  : 200px;
 $radius: 8px;
 $space : 15px;
 
-.image-picker {
-  margin: -$space;
-}
-
 .image-item {
   display: inline-block;
   vertical-align: top;
@@ -32,6 +28,10 @@ $space : 15px;
     border-radius: 50%;
     box-shadow: 0 0 3px rgba(255, 255, 255, 0.35);
   }
+}
+
+.image-picker {
+  margin: -$space;
 }
 
 .image-uploader {

@@ -1,79 +1,34 @@
-import { ComponentType } from 'react';
-import Taro, { Component, Config } from '@tarojs/taro';
+import Taro, { FC, useState, useEffect } from '@tarojs/taro';
 import { View } from '@tarojs/components';
-import { observer, inject } from '@tarojs/mobx';
 import { ImagePicker } from '@/components';
 import './index.scss';
 
-type Props = {}
+const Index: FC = () => {
+  const [images, setImages] = useState<{url: string;}[]>([]);
 
-type State = {
-  /**
-   * 图片集合
-   *
-   * @type {string[]}
-   */
-  images: any[];
-}
-
-interface Index {
-  props: Props;
-  state: State;
-}
-
-@inject('globalStore')
-@observer
-class Index extends Component<Props, State> {
-  config: Config = {
-    navigationBarTitleText: '图片上传',
-  }
-
-  static defaultProps: Props = {}
-
-  constructor(props: Props) {
-    super(props);
-
-    this.state = {
-      images: [],
-    } as State;
-  }
-
-  componentWillMount() {}
-
-  componentDidMount() {
+  useEffect(() => {
     setTimeout(() => {
-      this.setState({
-        images: [
-          { url: 'https://storage.360buyimg.com/mtd/home/111543234387022.jpg' },
-          { url: 'https://storage.360buyimg.com/mtd/home/331543234387025.jpg' },
-          // { url: 'https://storage.360buyimg.com/mtd/home/221543234387016.jpg' },
-        ],
-      });
-    }, 1500);
-  }
+      setImages(() => [
+        { url: 'https://storage.360buyimg.com/mtd/home/111543234387022.jpg' },
+        { url: 'https://storage.360buyimg.com/mtd/home/331543234387025.jpg' },
+        // { url: 'https://storage.360buyimg.com/mtd/home/221543234387016.jpg' },
+      ]);
+    }, 500);
+  }, []);
 
-  componentWillUnmount() {}
+  return (
+    <View className="container">
+      <ImagePicker
+        list={images}
+        multiSelect={2}
+        onChange={(list: any) => {
+          console.log(list);
+        }}
+      />
+    </View>
+  );
+};
 
-  componentDidShow() {}
-
-  componentDidHide() {}
-
-  componentWillReact() {}
-
-  render(): object {
-    const { images } = this.state;
-    return (
-      <View className="container">
-        <ImagePicker
-          list={images}
-          multiSelect={2}
-          onChange={(list: any) => {
-            console.log(list);
-          }}
-        />
-      </View>
-    );
-  }
-}
-
-export default Index as ComponentType<Props>;
+Index.config = {
+  navigationBarTitleText: '图片上传',
+};

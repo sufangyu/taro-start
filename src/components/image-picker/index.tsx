@@ -1,5 +1,4 @@
-import { ComponentType } from 'react';
-import Taro, { Component } from '@tarojs/taro';
+import Taro, { FC, useState, useEffect } from '@tarojs/taro';
 import { View, Image } from '@tarojs/components';
 import Uploader from './uploader';
 import icRemove from './images/ic-remove.png';
@@ -7,165 +6,95 @@ import icRemove from './images/ic-remove.png';
 import './index.scss';
 
 interface IImage {
-  /**
-   * 图片 ID
-   *
-   * @type {(string | number)}
-   * @memberof IImage
-   */
-  id?: string | number;
-
-  /**
-   * 图片地址
-   *
-   * @type {string}
-   * @memberof IImage
-   */
+  id?: string;
   url: string;
 }
 
-
-type Props = {
-  /**
-   * 初始化图片列表
-   */
+interface IProps {
+  /** 初始化图片列表 */
   list: IImage[];
-  /**
-   * 限制张数
-   */
+  /** 限制总张数 */
   limit?: number;
-  /**
-   * 单次最多可选择的张数
-   */
+  /** 单次最多可选择张数 */
   multiSelect?: number;
-  /**
-   * 图片更改
-   */
+  /** 图片选择成功回调函数 */
   onChange: Function;
 }
 
-type State = {
+
+const Index: FC<IProps> = (props: IProps) => {
+  const {
+    list = [],
+    limit = 9,
+    multiSelect = 1,
+    onChange = () => {},
+  } = props;
+
+  const [images, setImages] = useState(list);
+
+  useEffect(() => {
+    setImages(list);
+  }, [list]);
+
+  
   /**
-   * 图片列表
+   * 预览图片
+   *
+   * @param {number} [index=0] 当前图片下标
    */
-  images: IImage[];
-}
-
-interface Index {
-  props: Props;
-  state: State;
-}
-
-class Index extends Component<Props, State> {
-  static defaultProps: Props = {
-    list: [],
-    limit: 9,
-    multiSelect: 1,
-    onChange: () => {},
-  }
-
-  constructor(props: Props) {
-    super(props);
-
-    this.state = {
-      images: props.list,
-    } as State;
-  }
-
-  componentWillMount() {}
-
-  componentDidMount() {}
-
-  componentWillReceiveProps(nextProps: any) {
-    const { list } = nextProps;
-    this.setState({
-      images: [...list],
+  const previewImage = (index: number = 0) => {
+    const urls = images.map(image => image.url);
+    Taro.previewImage({
+      current: urls[index],
+      urls,
     });
-  }
+  };
 
-  componentWillUnmount() {}
-
-  componentDidShow() {}
-
-  componentDidHide() {}
-
-  componentWillReact() {}
-
-  [x: string]: any;
+  /**
+   * 移除图片
+   *
+   * @param {number} index 当前图片下标
+   */
+  const handleRemove = (index: number) => {
+    const newImages = images.filter((_item, idx) => idx !== index);
+    setImages(() => newImages);
+    onChange(newImages);
+  };
 
   /**
    * 上传成功回调
    *
    * @param {IImage[]} res
    */
-  handleUploadSuccess(list: IImage[]) {
-    const { images } = this.state;
-    const { onChange } = this.props;
-    const newImages = images.concat([...list]);
-
-    this.setState({
-      images: newImages,
-    });
-
+  const handleUploadSuccess = (res: IImage[]) => {
+    const newImages = images.concat([...res]);
+    setImages(() => newImages);
     onChange(newImages);
-  }
+  };
 
-  /**
-   * 预览图片
-   *
-   * @private
-   * @param {number} [index=0] 下标序号
-   */
-  private previewImage(index: number = 0) {
-    const { images } = this.state;
-    const urls = images.map(image => image.url);
-    Taro.previewImage({
-      current: urls[index],
-      urls,
-    });
-  }
-
-  /**
-   * 移除图片
-   *
-   * @private
-   * @param {number} index 下标序号
-   */
-  private handleRemove(index: number) {
-    const { images } = this.state;
-    const { onChange } = this.props;
-    const newImages = images.filter((_item, idx) => idx !== index);
-    this.setState({
-      images: newImages,
-    });
-
-    onChange(newImages);
-  }
-
+  
   /**
    * 渲染 图片预览图列表
    *
-   * @private
    * @returns
    */
-  private renderList() {
-    const { images } = this.state;
-
-    const list = images.map((image: any, index) => {
+  const renderList = () => {
+    const listContent = images.map((image: IImage, index) => {
       const key = `image-${index}`;
+
       return (
         <View
           className="image-item"
           key={key}
           onClick={() => {
-            this.previewImage(index);
+            previewImage(index);
           }}
         >
           <Image mode="aspectFill" src={image.url} />
           <Image
             onClick={(e) => {
               e.stopPropagation();
-              this.handleRemove(index);
+              handleRemove(index);
             }}
             className="icon-remove"
             mode="aspectFill"
@@ -175,32 +104,28 @@ class Index extends Component<Props, State> {
       );
     });
 
-    return list;
-  }
+    return listContent;
+  };
 
-  render() {
-    const { images } = this.state;
-    const { limit, multiSelect } = this.props;
-    const list = this.renderList();
+  const listContent = renderList();
 
-    return (
-      <View className="image-picker">
-        {list}
-        {
-          images.length < (limit as number)
-            ? (
-              <Uploader
-                multiSelect={multiSelect}
-                onSuccess={(res: IImage[]) => {
-                  this.handleUploadSuccess(res);
-                }}
-              />
-            )
-            : null
-        }
-      </View>
-    );
-  }
-}
+  return (
+    <View className="image-picker">
+      {listContent}
+      {
+        images.length < limit
+          ? (
+            <Uploader
+              multiSelect={multiSelect}
+              onSuccess={(res: IImage[]) => {
+                handleUploadSuccess(res);
+              }}
+            />
+          )
+          : null
+      }
+    </View>
+  );
+};
 
-export default Index as ComponentType<Props>;
+export default Index;

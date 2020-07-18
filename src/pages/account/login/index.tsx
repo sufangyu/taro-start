@@ -43,21 +43,9 @@ class Index extends Component<Props, State> {
     };
   }
 
-  componentWillMount() {}
-
-  componentDidMount() {}
-
-  componentWillUnmount() {}
-
-  componentDidShow() {}
-
-  componentDidHide() {}
-
-  componentWillReact() {}
-
   handleGetVerifyCode() {
-    console.log('获取验证码');
-    this.refCountDown.current.start();
+    console.log('发送请求获取验证码');
+    // this.refCountDown.current.start();
   }
 
   /**
@@ -98,11 +86,7 @@ class Index extends Component<Props, State> {
     return (
       <View className="container">
         <ButtonCountDown
-          time={10}
-          onClick={() => {
-            this.handleGetVerifyCode();
-          }}
-          ref={this.refCountDown}
+          countTime={10}
         />
 
         <Button onClick={() => this.handleLogin()}>
