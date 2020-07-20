@@ -3,9 +3,12 @@ import { useSelector } from '@tarojs/redux';
 import { IAccountState } from '@/reducers/account/types';
 import { gotoLoginPage } from '@/router';
 
+
 /**
  * 校验登录的操作
  *
+ * @param {Function} fn
+ * @returns
  */
 function useCheckLogin(fn: Function) {
   const { isLogged }: IAccountState = useSelector((state: any) => state.account);

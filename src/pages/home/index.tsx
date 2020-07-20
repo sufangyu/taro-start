@@ -1,10 +1,10 @@
-import Taro, { FC, useRouter } from '@tarojs/taro';
+import Taro, { FC, useRouter, useShareAppMessage } from '@tarojs/taro';
 import { View, Text, Button } from '@tarojs/components';
 import { useSelector } from '@tarojs/redux';
 import { IAccountState } from '@/reducers/account/types';
 import { gotoPage, PATH_CONFIG } from '@/router';
 import { useCheckLogin } from '@/hooks';
-
+import EVENTS_MAP from '@/constants/events';
 import './index.scss';
 
 
@@ -14,7 +14,17 @@ const Index: FC = () => {
 
   const handleSendRequest = useCheckLogin(() => {
     console.log('已经登录, 发请求');
+    Taro.uma.trackEvent(
+      EVENTS_MAP['首页-自定义事件'],
+      {
+        frame: 'Taro',
+        version: '2.12.3',
+      },
+    );
   });
+
+  
+  useShareAppMessage(() => {});
 
   return (
     <View className="container">
@@ -43,6 +53,9 @@ const Index: FC = () => {
   );
 };
 
+
 Index.config = {
   navigationBarTitleText: '首页',
 };
+
+export default Index;

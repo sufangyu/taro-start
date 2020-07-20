@@ -32,7 +32,7 @@ export function formatNumberToDigit(value: string = '', decimal: number = 1): st
 
 
 /**
- * 格式化为证书
+ * 格式化为整数
  *
  * @export
  * @param {string} [value=''] 值
