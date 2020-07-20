@@ -1,7 +1,7 @@
 import Taro, { Component, Config } from '@tarojs/taro';
-import { Provider } from '@tarojs/mobx';
+import { Provider } from '@tarojs/redux';
 import Index from './pages/home/index';
-import store from './store';
+import appStore from './store';
 
 import './app.scss';
 
@@ -11,6 +11,7 @@ import './app.scss';
 //   require('nerv-devtools')
 // }
 
+const store = appStore();
 
 class App extends Component {
   /**

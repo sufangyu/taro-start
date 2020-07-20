@@ -67,11 +67,11 @@ const errorDeal = (error = { errMsg: '' }): void => {
  */
 export function getCurrentPage(offset: number = 0): object {
   const pages = Taro.getCurrentPages();
-  const pageLeng = pages.length;
-  let index = pageLeng - 1 - offset;
+  const pageLen = pages.length;
+  let index = pageLen - 1 - offset;
 
   // 超出历史记录的个数, 则默认返回最初的第一页
-  if (offset > pageLeng - 1) {
+  if (offset > pageLen - 1) {
     index = 0;
   }
 
@@ -111,10 +111,10 @@ export function getFullpath(url: string = '', query: object = {}) {
  * 跳转页面
  *
  * @export
- * @param {IPage} opionts 页面信息
+ * @param {IPage} options 页面信息
  */
-export function gotoPage(opionts: IPage = { url: '', query: {}, mode: 'push' }): void {
-  const { url, mode, query } = opionts;
+export function gotoPage(options: IPage = { url: '', query: {}, mode: 'push' }): void {
+  const { url, mode, query } = options;
   const fullpath = getFullpath(url, query);
   // 是否 tabBar 页面
   const isSwitchTab = PATH_TABBAR.includes(url);
@@ -151,13 +151,13 @@ export function navigateBack(delta: number = 1): void {
  * 关闭所有页面，打开到某个页面
  *
  * @export
- * @param {IPage} opionts 页面信息
+ * @param {IPage} options 页面信息
  */
-export function reLaunch(opionts: IPage): void {
+export function reLaunch(options: IPage): void {
   const { url } = Object.assign({}, {
     url: '',
     query: {},
-  }, opionts);
+  }, options);
 
   Taro.reLaunch({
     url,
@@ -171,9 +171,9 @@ export function reLaunch(opionts: IPage): void {
  * 跳转/重定向 登录页面
  *
  * @export
- * @param {string} [mode='push'] 跳转的方式
+ * @param {('push' | 'replace')} [mode='push'] 跳转方式
  */
-export function gotoLoginPage(mode: string = 'push'): void {
+export function gotoLoginPage(mode: 'push' | 'replace' = 'push'): void {
   const { route } = getCurrentPage() as ICurrentPage;
   const fullpath = getFullpath(`/${route}`);
   const fromUrl = encodeURIComponent(fullpath);

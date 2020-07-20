@@ -1,9 +1,10 @@
-import globalStore from './global';
-import switchEnvStore from './switch-env';
-import accountStore from './account';
+import { createStore, applyMiddleware } from 'redux';
+import { createLogger } from 'redux-logger';
+import rootReducer from '../reducers';
 
-export default {
-  globalStore,
-  switchEnvStore,
-  accountStore,
-};
+const middleWares = [createLogger()];
+
+export default function appStore() {
+  const store = createStore(rootReducer, applyMiddleware(...middleWares));
+  return store;
+}
