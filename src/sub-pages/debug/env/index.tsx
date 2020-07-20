@@ -3,6 +3,7 @@ import { useDispatch } from '@tarojs/redux';
 import { View } from '@tarojs/components';
 import classNames from 'classnames';
 import { EnvDispatch } from '@/reducers/debug/types';
+import { AccountDispatch } from '@/reducers/account/types';
 import {
   ENV_MAP, ENV_CURRENT, ENV_KEY_DEFAULT, IEnvConfig,
 } from '@/config';
@@ -10,14 +11,30 @@ import {
 import './index.scss';
 
 const Index: FC = () => {
-  const dispatch = useDispatch<EnvDispatch>();
+  const dispatchDebug = useDispatch<EnvDispatch>();
+  const dispatchAccount = useDispatch<AccountDispatch>();
   const [envName, setEnvName] = useState('');
   const [envValue, setEnvValue] = useState('');
 
+  /**
+   * 设置当前环境
+   *
+   * @param {IEnvConfig} env
+   */
   const setCurrentEnv = (env: IEnvConfig) => {
     const { name, value } = env;
     setEnvName(name);
     setEnvValue(value);
+  };
+
+  /**
+   * 退出登录
+   *
+   */
+  const logout = () => {
+    dispatchAccount({
+      type: 'REMOVE_ACCOUNT',
+    });
   };
 
   /**
@@ -29,12 +46,14 @@ const Index: FC = () => {
   const handleSwitchEnv = (env: IEnvConfig) => {
     const { name, value } = env;
 
-    dispatch({
+    dispatchDebug({
       type: 'SET_ENV',
       payload: {
         envCode: value,
       },
     });
+
+    logout();
 
     Taro.showModal({
       title: '提示',
@@ -53,13 +72,14 @@ const Index: FC = () => {
   const handleResetEnv = () => {
     const env = ENV_MAP.find(item => item.value === ENV_KEY_DEFAULT) as IEnvConfig;
 
-    dispatch({
+    dispatchDebug({
       type: 'RESET_ENV',
       payload: {
         envCode: '',
       },
     });
 
+    logout();
 
     Taro.showModal({
       title: '提示',
