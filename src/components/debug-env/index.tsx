@@ -6,7 +6,6 @@ import iconDebug from './icon-debug.png';
 import './index.scss';
 
 const Index: FC = () => {
-  // 开发版: develop, 体验版: trial, 正式版: release
   // eslint-disable-next-line no-undef
   const { envVersion } = __wxConfig || { envVersion: 'release' };
 
