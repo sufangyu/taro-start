@@ -1,13 +1,12 @@
 import Taro, {
-  Config, useDidShow, useState, usePullDownRefresh,
+  useDidShow, useState, usePullDownRefresh, FC,
 } from '@tarojs/taro';
 import { View, Map, Button } from '@tarojs/components';
-import { observer } from '@tarojs/mobx';
 import { useGeocoder } from '@/hooks';
 
 import './index.scss';
 
-function Index() {
+const Index: FC = () => {
   const locationAddress = '广州市越秀区中山五路70号捷登都会';
   const { getReverseGeocoder, getGeocoder } = useGeocoder();
   const [currentAddress, setCurrentAddress] = useState('');
@@ -108,11 +107,9 @@ function Index() {
       />
     </View>
   );
-}
+};
 
 Index.config = {
   navigationBarTitleText: '获取地理位置',
   enablePullDownRefresh: true,
-} as Config;
-
-export default observer(Index);
+};

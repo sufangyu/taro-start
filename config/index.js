@@ -41,7 +41,9 @@ const config = {
   env: {
     API_ENV: argv.env
   },
-  plugins: [],
+  plugins: [
+    '@tarojs/plugin-sass'
+  ],
   alias: {
     '@': path.resolve(__dirname, '..', 'src'),
   },
