@@ -4,6 +4,7 @@ import { useSelector } from '@tarojs/redux';
 import { IAccountState } from '@/reducers/account/types';
 import { gotoPage, PATH_CONFIG } from '@/router';
 import { useCheckLogin } from '@/hooks';
+import { trackEventHandler } from '@/utils';
 import EVENTS_MAP from '@/constants/events';
 import './index.scss';
 
@@ -14,13 +15,10 @@ const Index: FC = () => {
 
   const handleSendRequest = useCheckLogin(() => {
     console.log('已经登录, 发请求');
-    Taro.uma.trackEvent(
-      EVENTS_MAP['首页-自定义事件'],
-      {
-        frame: 'Taro',
-        version: '2.12.3',
-      },
-    );
+    trackEventHandler(EVENTS_MAP['首页-自定义事件'], {
+      frame: 'Taro',
+      version: '2.12.3',
+    });    
   });
 
   
