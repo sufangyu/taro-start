@@ -9,8 +9,7 @@ Taro 小程序通用模板， 开箱即用
 yarn install
 
 # 开发
-npm run dev:weapp
-npm run lint:all
+npm run dev
 
 # 构建
 npm run build:weapp
@@ -34,12 +33,13 @@ npm run create:comp button
 ## 目录结构
 ```bash
 .
-├─ config                         # 脚手架的配置
+├─ config                         # 脚手架配置
 │   ├─ dev.js
 │   ├─ index.js
 │   └─ prod.js
 ├─ dist                           # 项目输出目录
 ├─ src
+│   ├─ analysis                   # 第三方统计分析
 │   ├─ api                        # 请求接口统一管理
 │   ├─ assets                     # 资源统一管理
 │   │   └─ images                 # 图片资源
@@ -51,38 +51,46 @@ npm run create:comp button
 │   ├─ config                     # 项目开发配置
 │   │   └─ index.ts
 │   ├─ constants                  # 公用常量统一管理
-│   │   └─ store-key.ts           # 本地存储
-│   ├─ decorators                 # 公用装饰器
-│   │   ├─ check-login.ts         # 校验是否登录. 针对函数
-│   │   ├─ switch-env.ts          # 切换环境
-│   │   └─ with-login.ts          # 校验是否登录. 针对页面
-│   ├─ interface                  # 公用的接口. 暂时保留
-│   ├─ middleware                 # 中间件
+│   │   ├─ events                 # 自定义时间 CODE 的枚举
+│   │   └─ store-key.ts           # 本地存储 KEY
+│   ├─ hooks                      # 自定义 hooks
+│   │   ├─ check-login.ts         # 操作前校验是否登录
+│   │   ├─ geocoder.ts            # 地理信息获取
+│   │   ├─ index.ts               # 自定义 hooks 入口文件
+│   │   ├─ input.ts               # 监听处理输入值
+│   │   └─ list.ts                # 列表
+│   ├─ models                     # 公用、业务模块接口定义
 │   ├─ pages                      # 页面目录. 尽量按模块划分
 │   │   ├─ account
 │   │   │   ├─ login
 │   │   │   └─ welcome
 │   │   ├─ home
-│   │   └─ mine
-│   ├─ router                    # 路由相关函数 & 页面路径配置
-│   │   ├─ index.ts
-│   │   └─ path.ts
+│   │   ├─ mine
+│   │   └─ started
+│   ├─ reducers                  # redux 状态管理的 reducers
+│   │   ├─ account.ts            # 帐号信息
+│   │   └─ debug.ts              # 调试
+│   ├─ request
+│   │   ├─ index.ts              # 网络请求函数封装
+│   │   ├─ interceptors.ts       # 请求、响应拦截
+│   │   └─ type.ts               # 相关类型、接口定义
+│   ├─ router
+│   │   ├─ index.ts              # 路由相关函数 & 页面路径配置
+│   │   └─ path.ts               # 页面路径配置
 │   ├─ store                     # 全局状态
-│   │   ├─ account.ts            # 账号
-│   │   ├─ global.ts             # 全局
-│   │   ├─ index.ts              # 入口文件
-│   │   └─ switch-env.ts
+│   │   └─ index.ts              # 入口文件
 │   ├─ styles
 │   │   ├─ index.scss            # 样式入口文件
 │   │   └─ var.scss              # 全局样式变量
-│   ├─ template-empty            # 空模板文件
-│   │   ├─ index.scss
-│   │   └─ index.tsx
+│   ├─ sub-pages                 # 分包
+│   ├─ uma                       # 友盟统计
 │   ├─ utils                     # 工具类
-│   │   ├─ request-help.ts       # 网络请求辅助函数
-│   │   └─ request.ts            # 网络请求
+│   │   ├─ verification          # 表单校验类
+│   │   ├─ index.t               # 常用工具函数
+│   │   └─ qqmap-wx-jssdk.js     # 腾讯地图 SDK
 │   ├─ app.scss                  # 全局样式
 │   ├─ app.tsx                   # 项目入口文件
+│   ├─ sitemap.json              # 站点配置. 面向爬虫
 │   └─ index.html                # H5 的开始文件
 ├─ .eslintignore                 # eslint 校验忽略规则配置
 ├─ .eslintrc                     # eslint 校验配置
@@ -107,22 +115,17 @@ npm run create:comp button
 全部采用小写方式， 以中划线分隔。
 例: scripts, retina-sprites.scss, data.js, actionsheet.ts, actionsheet.tsx
 
-> **注意: 除了页面外的 `tsx` 组件文件采取首字母大写的驼峰命名, 例如：**
-> ```
-> Menu.tsx
-> ```
-
 
 **css 变量命名规范**
 统一使用kebab-case(小写短横线)命名规范。
 
 ```html
 <!-- tsx 文件 -->
-<div className="app-home-vue">
-</div>
+<view className="app-home-taro">
+</view>
 
 <!-- 样式文件 -->
-.app-home-vue {}
+.app-home-taro {}
 ```
 
 **js 变量命名规范**
@@ -160,15 +163,15 @@ let myName = 'zhangsanfeng';
 
 | 小程序 | Taro |
 |-|-:|
-| Page.onLoad | componentWillMount |
-| onShow | componentDidShow |
-| onHide | componentDidHide |
-| onReady | componentDidMount |
-| onUnload | componentWillUnmount |
-| onError | componentDidCatchError |
-| App.onLaunch | componentWillMount |
-| Component.created | componentWillMount |
-| attached | componentDidMount |
-| ready | componentDidMount |
-| detached | componentWillUnmount |
+| Page.onLoad | useEffect |
+| onShow | useDidShow |
+| onHide | useDidHide |
+| onReady | useEffect |
+| onUnload | useEffect |
+| onError | ? |
+| App.onLaunch | useEffect |
+| Component.created | useEffect |
+| attached | useEffect |
+| ready | useEffect |
+| detached | useEffect |
 | moved | 保留 |
