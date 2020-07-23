@@ -5,7 +5,7 @@ interface IProps {
   /** 累计器 */
   count: number;
   /** 累减回调函数 */
-  onMinus?(): void;
+  onMinus?: () => void;
 }
 
 const Index: FC<IProps> = (props: IProps) => {

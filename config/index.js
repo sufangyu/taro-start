@@ -42,7 +42,8 @@ const config = {
     API_ENV: argv.env
   },
   plugins: [
-    '@tarojs/plugin-sass'
+    '@tarojs/plugin-sass',
+    '@tarojs/plugin-uglify'
   ],
   alias: {
     '@': path.resolve(__dirname, '..', 'src'),
