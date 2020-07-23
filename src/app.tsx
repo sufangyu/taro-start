@@ -2,6 +2,7 @@ import Taro, { FC } from '@tarojs/taro';
 import { Provider } from '@tarojs/redux';
 import Index from './pages/home/index';
 import appStore from './store';
+import './analysis';
 import './app.scss';
 
 
@@ -11,18 +12,7 @@ import './app.scss';
 //   require('nerv-devtools')
 // }
 
-
 const store = appStore();
-  
-// 是否开启统计
-const isOpenStatistics = true;
-// eslint-disable-next-line no-undef
-if (isOpenStatistics || (__wxConfig?.envVersion || 'release') === 'release') {
-  // eslint-disable-next-line global-require
-  const uma = require('./uma').default;
-  Taro.uma = uma;
-}
-
 
 const App: FC = () => {
   return (
