@@ -1,6 +1,6 @@
-/** 
+/**
  *  components 组件快速生成脚本
- *  
+ *
  *  npm run create:comp '文件夹' or '路径/文件夹'
 */
 const fs = require('fs');
@@ -22,40 +22,20 @@ if (isExist) {
 
 
 // 模板
-const indexTep = `import { ComponentType } from 'react';
-import Taro, { Component } from '@tarojs/taro';
-import { View, Text } from '@tarojs/components';
-
+const indexTep = `import Taro, { FC } from '@tarojs/taro';
+import { View } from '@tarojs/components';
 import './index.scss';
 
-interface Props {}
 
-interface State {}
+const Index: FC = () => {
+  return (
+    <View className="container">
+      This is empty component
+    </View>
+  );
+};
 
-interface Index {
-  props: Props;
-  state: State;
-}
-
-class Index extends Component<Props, State> {
-  static defaultProps: Props = {}
-
-  constructor(props: Props) {
-    super(props);
-
-    this.state = {} as State;
-  }
-
-  render() {
-    return (
-      <View className="component">
-        <Text>Empty Component</Text>
-      </View>
-    );
-  }
-}
-
-export default Index as ComponentType<Props>;
+export default Index;
 `;
 
 // scss 模板
