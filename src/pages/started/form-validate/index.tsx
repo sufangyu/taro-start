@@ -1,64 +1,22 @@
-import { ComponentType } from 'react';
-import Taro, { Component, Config } from '@tarojs/taro';
+import Taro, { FC } from '@tarojs/taro';
 import {
   View, Input, Label, Button,
 } from '@tarojs/components';
-import { observer, inject } from '@tarojs/mobx';
-import { handleInput } from '@/decorators';
+import { useInput } from '@/hooks';
 import Verification from '@/utils/verification';
 
 import './index.scss';
 
-interface Props {}
+const Index: FC = () => {
+  const [name, setName] = useInput('');
+  const [others, setOthers] = useInput({
+    password: '',
+    mobile: '',
+    age: '',
+  });
 
-interface State {
-  [key: string]: any;
-}
-
-interface Index {
-  props: Props;
-  state: State;
-}
-
-// @ts-ignore: 不可达代码错误
-@handleInput()
-@inject('globalStore')
-@observer
-class Index extends Component<Props, State> {
-  handleInput: Function;
-
-  config: Config = {
-    navigationBarTitleText: '',
-  }
-
-
-  static defaultProps: Props = {}
-
-  constructor(props: Props) {
-    super(props);
-
-    this.state = {
-      name: '',
-      password: '',
-      mobile: '',
-      user: {
-        age: '',
-      },
-    };
-  }
-
-  componentWillMount() {}
-
-  componentDidMount() {}
-
-  componentWillUnmount() {}
-
-  componentDidShow() {}
-
-  componentDidHide() {}
-
-  handleSubmit() {
-    const { name, password, mobile } = this.state;
+  function handleSubmit() {
+    const { password, mobile } = others;
     const verify = new Verification();
     verify.add(name, 'require', '账号不能为空');
     verify.add(password, [
@@ -92,70 +50,67 @@ class Index extends Component<Props, State> {
         title: verify.message,
         icon: 'none',
       });
+
+      return;
     }
+
+    console.log('验证通过');
   }
 
-  render() {
-    const {
-      name, password, mobile, user,
-    } = this.state;
-    return (
-      <View className="container">
-        <View className="form-item">
-          <Label>账号：</Label>
-          <Input
-            value={name}
-            onInput={(e) => {
-              this.handleInput(e, 'name');
-            }}
-          />
-        </View>
-
-        <View className="form-item">
-          <Label>密码：</Label>
-          <Input
-            password
-            value={password}
-            onInput={(e) => {
-              this.handleInput(e, 'password');
-            }}
-          />
-        </View>
-
-        <View className="form-item">
-          <Label>手机号：</Label>
-          <Input
-            value={mobile}
-            onInput={(e) => {
-              this.handleInput(e, 'mobile');
-            }}
-          />
-        </View>
-
-        <View className="form-item">
-          <Label>年龄：</Label>
-          <Input
-            password
-            value={user.age}
-            onInput={(e) => {
-              this.handleInput(e, 'age', user);
-            }}
-          />
-        </View>
-
-        <View className="form-actions">
-          <Button
-            type="primary"
-            onClick={() => {
-              this.handleSubmit();
-            }}
-          >
-            提交
-          </Button>
-        </View>
+  return (
+    <View className="container">
+      <View className="form-item">
+        <Label>账号：</Label>
+        <Input
+          value={name}
+          onInput={(e) => setName(e)}
+        />
       </View>
-    );
-  }
-}
 
-export default Index as ComponentType<Props>;
+      <View className="form-item">
+        <Label>密码：</Label>
+        <Input
+          password
+          value={others.password}
+          onInput={(e) => setOthers(e, 'password')}
+        />
+      </View>
+
+      <View className="form-item">
+        <Label>手机号：</Label>
+        <Input
+          value={others.mobile}
+          onInput={(e) => setOthers(e, 'mobile')}
+        />
+      </View>
+
+      <View className="form-item">
+        <Label>年龄：</Label>
+        <Input
+          value={others.age}
+          type="digit"
+          onInput={(e) => {
+            return setOthers(e, 'age', (val: number) => {
+              return val > 18 ? 18 : val;
+            });
+          }}
+        />
+      </View>
+
+      <View className="form-actions">
+        <Button
+          type="primary"
+          onClick={() => {
+            handleSubmit();
+          }}
+        >
+          提交
+        </Button>
+      </View>
+    </View>
+  );
+};
+
+Index.config = {
+  navigationBarTitleText: '表单校验',
+};

@@ -1,23 +1,18 @@
-import { IParamsList } from './index';
+import { IPagination } from './index';
 
 /**
  * 主题列表参数
  *
  * @export
  * @interface ITopics
- * @extends {IParamsList}
+ * @extends {IPagination}
  */
-export interface IParamsTopics extends IParamsList {
-  /**
-   * 主题分类
-   *
-   * @type {('all' | 'ask' | 'share' | 'job' | 'good')}
-   */
+export interface IParamsTopics extends IPagination {
+  /** 主题分类 */
   tab: 'all' | 'ask' | 'share' | 'job' | 'good';
   /**
-   * 当为 false 时，不渲染。默认为 true，渲染出现的所有 markdown 格式文本。
-   *
-   * @type {boolean}
+   * 当为 false 时，不渲染
+   * 默认为 true，渲染出现的所有 markdown 格式文本。
    */
   mdrender?: boolean;
 }
@@ -30,35 +25,15 @@ export interface IParamsTopics extends IParamsList {
  * @interface ITopic
  */
 export interface ITopic {
-  /**
-   * ID
-   *
-   * @type {string}
-   */
+  /** ID */
   id: string;
-  /**
-   * 作者信息
-   *
-   * @type {{ avatar_url: string; loginname: string;}}
-   */
+  /** 作者信息 */
   author: { avatar_url: string; loginname: string;};
-  /**
-   * 作者 ID
-   *
-   * @type {string}
-   */
+  /** 作者 ID */
   author_id: string;
-  /**
-   * 内容
-   *
-   * @type {string}
-   */
+  /** 内容 */
   content: string;
-  /**
-   * 创建时间
-   *
-   * @type {string}
-   */
+  /** 创建时间 */
   create_at: string;
   good: boolean;
   last_reply_at: string;

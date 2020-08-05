@@ -1,134 +1,138 @@
 {
-	"name": "start",
-	"version": "1.0.0",
-	"private": true,
-	"description": "taro start",
-	"templateInfo": {
-		"name": "mobx",
-		"typescript": true,
-		"css": "sass"
-	},
-	"main": "index.js",
-	"scripts": {
-		"build:weapp": "taro build --type weapp",
-		"build:swan": "taro build --type swan",
-		"build:alipay": "taro build --type alipay",
-		"build:tt": "taro build --type tt",
-		"build:h5": "taro build --type h5",
-		"build:rn": "taro build --type rn",
-		"dev": "npm run dev:weapp & npm run lint:all",
-		"dev:weapp": "cross-env NODE_ENV=development npm run build:weapp -- --watch",
-		"dev:swan": "cross-env NODE_ENV=development npm run build:swan -- --watch",
-		"dev:alipay": "cross-env NODE_ENV=development npm run build:alipay -- --watch",
-		"dev:tt": "cross-env NODE_ENV=development npm run build:tt -- --watch",
-		"dev:h5": "cross-env NODE_ENV=development npm run build:h5 -- --watch",
-		"dev:rn": "cross-env NODE_ENV=development npm run build:rn -- --watch",
-		"lint": "./node_modules/.bin/eslint --ext .ts,.tsx src/",
-		"lint:fix": "./node_modules/.bin/eslint --ext .ts,.tsx src/ --fix",
-		"lint:watch": "nodemon --watch src --ext .ts,.tsx --exec npm run lint",
-		"lintstyle": "stylelint **/*.{css,scss} --syntax scss",
-		"lintstyle:fix": "stylelint **/*.{css,scss} --syntax scss --fix",
-		"lintstyle:watch": "nodemon --watch src --ext .css,.scss --exec npm run lintstyle",
-		"lint:all": "run-p lint:watch lintstyle:watch",
-		"commit": "git cz",
-		"precommit": "lint-staged",
-		"create:page": "node scripts/page",
-		"create:comp": "node scripts/component",
-		"docs:dev": "vuepress dev docs",
-		"docs:build": "vuepress build docs",
+  "name": "start",
+  "version": "2.0.0",
+  "private": true,
+  "description": "taro start",
+  "templateInfo": {
+    "name": "mobx",
+    "typescript": true,
+    "css": "sass"
+  },
+  "main": "index.js",
+  "scripts": {
+    "build:weapp": "taro build --type weapp",
+    "build:swan": "taro build --type swan",
+    "build:alipay": "taro build --type alipay",
+    "build:tt": "taro build --type tt",
+    "build:h5": "taro build --type h5",
+    "build:rn": "taro build --type rn",
+    "dev": "run-p dev:weapp lint:all",
+    "dev:weapp": "cross-env NODE_ENV=development npm run build:weapp -- --watch",
+    "dev:swan": "cross-env NODE_ENV=development npm run build:swan -- --watch",
+    "dev:alipay": "cross-env NODE_ENV=development npm run build:alipay -- --watch",
+    "dev:tt": "cross-env NODE_ENV=development npm run build:tt -- --watch",
+    "dev:h5": "cross-env NODE_ENV=development npm run build:h5 -- --watch",
+    "dev:rn": "cross-env NODE_ENV=development npm run build:rn -- --watch",
+    "lint": "./node_modules/.bin/eslint --ext .ts,.tsx src/",
+    "lint:fix": "./node_modules/.bin/eslint --ext .ts,.tsx src/ --fix",
+    "lint:watch": "nodemon --watch src --ext .ts,.tsx --exec npm run lint",
+    "lintstyle": "stylelint **/*.{css,scss} --syntax scss",
+    "lintstyle:fix": "stylelint **/*.{css,scss} --syntax scss --fix",
+    "lintstyle:watch": "nodemon --watch src --ext .css,.scss --exec npm run lintstyle",
+    "lint:all": "run-p lint:watch lintstyle:watch",
+    "commit": "git cz",
+    "precommit": "lint-staged",
+    "create:page": "node scripts/page",
+    "create:comp": "node scripts/component",
+    "docs:dev": "vuepress dev docs",
+    "docs:build": "vuepress build docs",
     "deploy": "node deploy.js"
-	},
-	"author": "",
-	"license": "MIT",
-	"dependencies": {
-		"@tarojs/components": "2.2.1",
-		"@tarojs/mobx": "2.2.1",
-		"@tarojs/mobx-h5": "2.2.1",
-		"@tarojs/mobx-rn": "2.2.1",
-		"@tarojs/rn-runner": "2.2.1",
-		"@tarojs/router": "2.2.1",
-		"@tarojs/taro": "2.2.1",
-		"@tarojs/taro-alipay": "2.2.1",
-		"@tarojs/taro-h5": "2.2.1",
-		"@tarojs/taro-swan": "2.2.1",
-		"@tarojs/taro-tt": "2.2.1",
-		"@tarojs/taro-weapp": "2.2.1",
-		"babel-runtime": "^6.26.0",
-		"classnames": "^2.2.6",
-		"mobx": "4.8.0",
-		"nerv-devtools": "^1.5.6",
-		"nervjs": "^1.5.6",
-		"regenerator-runtime": "0.11.1"
-	},
-	"devDependencies": {
-		"@commitlint/cli": "^8.2.0",
-		"@commitlint/config-conventional": "^8.2.0",
-		"@tarojs/cli": "2.2.1",
-		"@tarojs/mini-runner": "2.2.1",
-		"@tarojs/plugin-babel": "2.2.1",
-		"@tarojs/plugin-csso": "2.2.1",
-		"@tarojs/plugin-sass": "2.2.1",
-		"@tarojs/plugin-uglifyjs": "2.2.1",
-		"@tarojs/webpack-runner": "2.2.1",
-		"@types/react": "16.3.14",
-		"@types/webpack-env": "^1.13.6",
-		"@typescript-eslint/eslint-plugin": "^2.5.0",
-		"@typescript-eslint/parser": "^1.6.0",
-		"babel-eslint": "^8.2.3",
-		"babel-plugin-transform-class-properties": "^6.24.1",
-		"babel-plugin-transform-decorators-legacy": "^1.3.4",
-		"babel-plugin-transform-jsx-stylesheet": "^0.6.5",
-		"babel-plugin-transform-object-rest-spread": "^6.26.0",
-		"babel-plugin-transform-runtime": "^6.23.0",
-		"babel-preset-env": "^1.6.1",
-		"cross-env": "^7.0.0",
-		"eslint": "^5.16.0",
-		"eslint-config-airbnb": "^18.0.1",
-		"eslint-config-taro": "2.2.1",
-		"eslint-plugin-import": "^2.12.0",
-		"eslint-plugin-jsx-a11y": "^6.2.3",
-		"eslint-plugin-react": "^7.16.0",
-		"eslint-plugin-react-hooks": "^1.6.1",
-		"eslint-plugin-taro": "2.2.1",
-		"husky": "^3.0.9",
-		"lint-staged": "^9.4.2",
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@tarojs/components": "2.2.11",
+    "@tarojs/redux": "2.2.11",
+    "@tarojs/redux-h5": "2.2.11",
+    "@tarojs/rn-runner": "2.2.11",
+    "@tarojs/router": "2.2.11",
+    "@tarojs/taro": "2.2.11",
+    "@tarojs/taro-alipay": "2.2.11",
+    "@tarojs/taro-h5": "2.2.11",
+    "@tarojs/taro-swan": "2.2.11",
+    "@tarojs/taro-tt": "2.2.11",
+    "@tarojs/taro-weapp": "2.2.11",
+    "babel-runtime": "^6.26.0",
+    "classnames": "^2.2.6",
+    "immutable": "^4.0.0-rc.12",
+    "nerv-devtools": "^1.5.7",
+    "nervjs": "^1.5.7",
+    "redux": "^4.0.5",
+    "redux-logger": "^3.0.6",
+    "regenerator-runtime": "0.11.1",
+    "umtrack-wx": "^2.3.5"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^8.2.0",
+    "@commitlint/config-conventional": "^8.2.0",
+    "@tarojs/cli": "2.2.11",
+    "@tarojs/mini-runner": "2.2.11",
+    "@tarojs/plugin-babel": "2.2.11",
+    "@tarojs/plugin-csso": "2.2.11",
+    "@tarojs/plugin-sass": "2.2.11",
+    "@tarojs/plugin-uglify": "^2.2.10",
+    "@tarojs/plugin-uglifyjs": "2.2.11",
+    "@tarojs/webpack-runner": "2.2.11",
+    "@types/classnames": "^2.2.10",
+    "@types/react": "16.3.14",
+    "@types/webpack-env": "^1.13.6",
+    "@typescript-eslint/eslint-plugin": "^2.5.0",
+    "@typescript-eslint/parser": "^1.6.0",
+    "babel-eslint": "^8.2.3",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-decorators-legacy": "^1.3.4",
+    "babel-plugin-transform-jsx-stylesheet": "^0.6.5",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-env": "^1.6.1",
+    "cross-env": "^7.0.0",
+    "eslint": "^5.16.0",
+    "eslint-config-airbnb": "^18.0.1",
+    "eslint-config-taro": "2.2.11",
+    "eslint-plugin-import": "^2.12.0",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-react": "^7.16.0",
+    "eslint-plugin-react-hooks": "^1.6.1",
+    "eslint-plugin-taro": "2.2.11",
+    "husky": "^3.0.9",
+    "lint-staged": "^9.4.2",
     "miniprogram-ci": "^1.0.24",
-		"nodemon": "^1.19.4",
-		"npm-run-all": "^4.1.5",
-		"stylelint": "^9.3.0",
-		"stylelint-config-taro-rn": "2.2.1",
-		"stylelint-taro-rn": "2.2.1",
-		"typescript": "^3.8.3",
-		"vuepress": "^1.3.1",
-		"yargs": "^15.1.0"
-	},
-	"gitHooks": {
-		"pre-commit": "lint-staged"
-	},
-	"lint-staged": {
-		"src/**/*.{ts,tsx}": [
-			"npm run lint:fix",
-			"git add"
-		],
-		"src/**/*.{css,scss}": [
-			"npm run lintstyle:fix",
-			"git add"
-		]
-	},
-	"config": {
-		"commitizen": {
-			"path": "node_modules/cz-customizable"
-		}
-	},
-	"husky": {
-		"hooks": {
-			"commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
-		}
-	},
-	"nodemonConfig": {
-		"ignore": [
-			"dist/*",
-			"config/*"
-		]
-	}
+    "nodemon": "^1.19.4",
+    "npm-run-all": "^4.1.5",
+    "stylelint": "^9.3.0",
+    "stylelint-config-taro-rn": "2.2.11",
+    "stylelint-taro-rn": "2.2.11",
+    "typescript": "^3.8.3",
+    "vuepress": "^1.3.1",
+    "yargs": "^15.1.0"
+  },
+  "gitHooks": {
+    "pre-commit": "lint-staged"
+  },
+  "lint-staged": {
+    "src/**/*.{ts,tsx}": [
+      "npm run lint:fix",
+      "git add"
+    ],
+    "src/**/*.{css,scss}": [
+      "npm run lintstyle:fix",
+      "git add"
+    ]
+  },
+  "config": {
+    "commitizen": {
+      "path": "node_modules/cz-customizable"
+    }
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  },
+  "nodemonConfig": {
+    "ignore": [
+      "dist/*",
+      "config/*"
+    ]
+  }
 }

@@ -1,9 +1,10 @@
 import Taro, { Component, Config } from '@tarojs/taro';
-import { Provider } from '@tarojs/mobx';
+import { Provider } from '@tarojs/redux';
 import Index from './pages/home/index';
-import store from './store';
-
+import appStore from './store';
+import './analysis';
 import './app.scss';
+
 
 // 如果需要在 h5 环境中开启 React Devtools
 // 取消以下注释：
@@ -11,23 +12,17 @@ import './app.scss';
 //   require('nerv-devtools')
 // }
 
+const store = appStore();
 
 class App extends Component {
-  /**
-   * 指定config的类型声明为: Taro.Config
-   *
-   * 由于 typescript 对于 object 类型推导只能推出 Key 的基本类型
-   * 对于像 navigationBarTextStyle: 'black' 这样的推导出的类型是 string
-   * 提示和声明 navigationBarTextStyle: 'black' | 'white' 类型冲突, 需要显示声明类型
-   */
   config: Config = {
     pages: [
       'pages/home/index',
-
+  
       'pages/mine/index',
-
+  
       'pages/account/login/index',
-
+  
       'pages/started/menus/index',
       'pages/started/state-props/index',
       'pages/started/request/index',
@@ -36,13 +31,14 @@ class App extends Component {
       'pages/started/choose-image/index',
       'pages/started/preview-image/index',
       'pages/started/form-validate/index',
+      'pages/started/location/index',
+      'pages/started/list/index',
     ],
     subPackages: [
       {
         root: 'sub-pages/',
         pages: [
-          'pages/debug/env/index',
-          'pages/demo/index',
+          'debug/env/index',
         ],
       },
     ],
@@ -86,14 +82,50 @@ class App extends Component {
     },
   }
 
-  componentDidMount() {}
+  componentDidShow() {
+    this.checkUpdateVersion();
+  }
 
-  componentDidShow() {}
-
-  componentDidHide() {}
+  componentCatchError() {}
 
   componentDidCatchError() {}
 
+  /**
+   * 检测当前的小程序
+   * 是否是最新版本，是否需要下载、更新
+   */
+  checkUpdateVersion() {
+    const canIUse = Taro.canIUse('getUpdateManager');
+    if (!canIUse) {
+      Taro.showModal({
+        title: '提示',
+        content: '当前微信版本过低，无法使用该功能，请升级到最新微信版本后重试。',
+      });
+      return;
+    }
+    const updateManager = Taro.getUpdateManager();
+    updateManager.onCheckForUpdate((res) => {
+      if (res.hasUpdate) {
+        updateManager.onUpdateReady(async () => {
+          const { confirm } = await Taro.showModal({
+            title: '更新提示',
+            content: '新版本已经准备好，是否重启应用？',
+          });
+          if (confirm) {
+            updateManager.applyUpdate();
+          }
+        });
+
+        updateManager.onUpdateFailed(() => {
+          Taro.showModal({
+            title: '已经有新版本',
+            content: '请您删除当前小程序，到微信“发现-小程序”页，重新搜索打开',
+          });
+        });
+      }
+    });    
+  }
+  
   // 在 App 类中的 render() 函数没有实际作用
   // 请勿修改此函数
   render() {

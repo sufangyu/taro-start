@@ -3,20 +3,16 @@ import StoreKey from '@/constants/store-key';
 
 
 export interface IEnvConfig {
-  /**
-   * 名称
-   */
+  /** 名称 */
   name: string;
 
-  /**
-   * 环境标识
-   */
+  /** 环境标识 */
   value: string;
 
-  /**
-   * api 配置
-   */
-  apiBase: object;
+  /** api 配置 */
+  apiBase: {
+    [key: string]: string;
+  };
 }
 
 // 各个环境的 API

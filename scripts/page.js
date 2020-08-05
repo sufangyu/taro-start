@@ -1,6 +1,6 @@
-/** 
+/**
  *  pages 页面快速生成脚本
- *  
+ *
  *  npm run create:page '文件夹' or '路径/文件夹'
 */
 
@@ -23,57 +23,31 @@ if (isExist) {
 
 
 // 模板
-const indexTep = `import { ComponentType } from 'react';
-import Taro, { Component, Config } from '@tarojs/taro';
-import { View, Text } from '@tarojs/components';
-import { observer, inject } from '@tarojs/mobx';
-
+const indexTep = `import Taro, { FC } from '@tarojs/taro';
+import { useDispatch, useSelector } from '@tarojs/redux';
+import { View } from '@tarojs/components';
+import { IAccountState } from '@/reducers/account/types';
 import './index.scss';
 
-interface Props {}
 
-interface State {}
+const Index: FC = () => {
+  // redux dispatch
+  const dispatch = useDispatch();
+  // redux store
+  const { account }: IAccountState = useSelector((state: any) => state.account);
+  console.log(dispatch, account);
 
-interface Index {
-  props: Props;
-  state: State;
-}
 
-@inject('globalStore')
-@observer
-class Index extends Component<Props, State> {
-  config: Config = {
-    navigationBarTitleText: '',
-  }
+  return (
+    <View className="container">
+      This is empty page
+    </View>
+  );
+};
 
-  static defaultProps: Props = {}
-
-  constructor(props: Props) {
-    super(props);
-
-    this.state = {} as State;
-  }
-
-  componentWillMount() {}
-
-  componentDidMount() {}
-
-  componentWillUnmount() {}
-
-  componentDidShow() {}
-
-  componentDidHide() {}
-
-  render() {
-    return (
-      <View className="container">
-        <Text>Empty page</Text>
-      </View>
-    );
-  }
-}
-
-export default Index as ComponentType<Props>;
+Index.config = {
+  navigationBarTitleText: '',
+};
 `;
 
 // scss 模板

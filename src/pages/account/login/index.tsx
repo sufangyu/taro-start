@@ -1,64 +1,25 @@
-import { ComponentType } from 'react';
-import Taro, { Component, Config } from '@tarojs/taro';
+import Taro, { FC, useRef, useRouter } from '@tarojs/taro';
 import { View, Button, Text } from '@tarojs/components';
-import { observer, inject } from '@tarojs/mobx';
+import { useDispatch } from '@tarojs/redux';
+import { IAccount, AccountDispatch } from '@/reducers/account/types';
 import { gotoPage, PATH_CONFIG } from '@/router';
-import { IAccountStore, IAccount } from '@/store/account';
 import { ButtonCountDown } from '@/components';
 
 import './index.scss';
 
-interface Props {
-  /**
-   * 用户信息的公共操作
-   */
-  accountStore: IAccountStore;
-}
 
-interface State {
-  timer: any;
-}
+const Index: FC = () => {
+  const router = useRouter();
+  const timer = useRef<any | null>(null);
+  const dispatch = useDispatch<AccountDispatch>();
 
-interface Index {
-  props: Props;
-  state: State;
-}
-
-@inject('globalStore', 'accountStore')
-@observer
-class Index extends Component<Props, State> {
-  config: Config = {
-    navigationBarTitleText: '登录',
-  }
-
-  refCountDown: Taro.RefObject<any>;
-
-  constructor(props?: Props) {
-    super(props);
-
-    this.refCountDown = Taro.createRef();
-
-    this.state = {
-      timer: null,
-    };
-  }
-
-  componentWillMount() {}
-
-  componentDidMount() {}
-
-  componentWillUnmount() {}
-
-  componentDidShow() {}
-
-  componentDidHide() {}
-
-  componentWillReact() {}
-
-  handleGetVerifyCode() {
-    console.log('获取验证码');
-    this.refCountDown.current.start();
-  }
+  const handleGetVerifyCode = (cb: Function) => {
+    console.log('发送请求获取验证码');
+    const res = true;
+    if (res) {
+      cb();
+    }
+  };
 
   /**
    * 登录绑定
@@ -66,19 +27,24 @@ class Index extends Component<Props, State> {
    * @private
    * @memberof Index
    */
-  private async handleLogin() {
-    const res = await Taro.login();
-    console.log(res);
+  const handleLogin = async () => {
+    await Taro.login();
+    if (timer.current) {
+      clearTimeout(timer.current);
+    }
 
-    console.log('登录成功逻辑 =>>');
-    const { timer } = this.state;
-    clearTimeout(timer);
-    const { accountStore } = this.props;
     const account: IAccount = {
       id: `${+new Date()}`,
       name: '张三疯',
     };
-    accountStore.setAccount!(account);
+
+    dispatch({
+      type: 'SET_ACCOUNT',
+      payload: {
+        account,
+        isLogged: 'YES',
+      },
+    });
 
     // 登录成功, 重定向来源页面
     Taro.showToast({
@@ -86,31 +52,27 @@ class Index extends Component<Props, State> {
       icon: 'success',
       mask: true,
     });
-    this.state.timer = setTimeout(() => {
-      const { from } = this.$router.params;
+    timer.current = setTimeout(() => {
+      const { from } = router.params;
       const redirectUrl = from ? decodeURIComponent(from) : PATH_CONFIG.home;
       const mode = 'replace';
       gotoPage({ url: redirectUrl, mode });
     }, 1000);
-  }
+  };
 
-  render(): object {
-    return (
-      <View className="container">
-        <ButtonCountDown
-          time={10}
-          onClick={() => {
-            this.handleGetVerifyCode();
-          }}
-          ref={this.refCountDown}
-        />
+  return (
+    <View className="container">
+      <ButtonCountDown
+        countTime={10}
+        onClick={(cb) => handleGetVerifyCode(cb)}
+      />
+      <Button onClick={() => handleLogin()}>
+        <Text>登录</Text>
+      </Button>
+    </View>
+  );
+};
 
-        <Button onClick={() => this.handleLogin()}>
-          <Text>登录</Text>
-        </Button>
-      </View>
-    );
-  }
-}
-
-export default Index as ComponentType;
+Index.config = {
+  navigationBarTitleText: '登录',
+};

@@ -1,10 +1,10 @@
 $size   : 160px;
 $radius : 3px;
-$spaece : 8px;
+$space  : 8px;
 
 .image-list {
   font-size: 0;
-  margin: -$spaece;
+  margin: -$space;
 
   &-item {
     position: relative;
@@ -14,7 +14,7 @@ $spaece : 8px;
     overflow: hidden;
     border-radius: $radius;
     background-color: rgba(0, 0, 0, 0.1);
-    margin: $spaece;
+    margin: $space;
 
     image {
       display: block;

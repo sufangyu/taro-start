@@ -23,13 +23,15 @@ export default {
     previewImage: '/pages/started/preview-image/index',
     pullDownRefresh: '/pages/started/pull-down-refresh/index',
     formValidate: '/pages/started/form-validate/index',
-    subPages: '/sub-pages/pages/demo/index',
+    location: '/pages/started/location/index',
+    list: '/pages/started/list/index',
+    subPages: '/sub-pages/debug/env/index',
   },
 
   /**
    * 调试
    */
   debug: {
-    env: '/pages/debug/env/index',
+    env: '/sub-pages/debug/env/index',
   },
 };

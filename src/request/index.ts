@@ -1,8 +1,9 @@
 import Taro from '@tarojs/taro';
+import { mergeDeep } from 'immutable';
 import interceptors from './interceptors';
-import { IRequest, IPromise, Methoh } from './type';
+import { IRequest, IPromise, Method } from './type';
 
-export { IRequest, IPromise, Methoh };
+export { IRequest, IPromise, Method };
 
 
 // 请求默认配置
@@ -17,7 +18,6 @@ const defaults: IRequest = {
   isShowErrorToast: true,
 };
 
-
 /**
  * 请求函数
  *
@@ -25,7 +25,7 @@ const defaults: IRequest = {
  * @returns {Promise<object>}
  */
 function request<T>(options: IRequest): IPromise<T> {
-  const mergeOptions = Object.assign({}, defaults, options);
+  const mergeOptions = mergeDeep(defaults, options);
   interceptors.request(mergeOptions);
 
   return new Promise((resolve, reject) => {
@@ -39,7 +39,6 @@ function request<T>(options: IRequest): IPromise<T> {
       });
   });
 }
-
 
 const http = {
   /**
