@@ -1,0 +1,35 @@
+.comp-result {
+  text-align: center;
+  width: 100%;
+  padding: 30px 15px;
+  background-color: #fff;
+  box-sizing: border-box;
+
+  .result-image {
+    width: 120px;
+    height: 120px;
+    margin: 0 auto;
+
+    image {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  .result-title {
+    line-height: 1;
+    font-size: 36px;
+    color: #000;
+    margin-top: 30px;
+    word-wrap: break-word;
+  }
+
+  .result-message {
+    margin-top: 18px;
+    line-height: 1.5;
+    font-size: 28px;
+    color: #888;
+    word-wrap: break-word;
+  }
+}
