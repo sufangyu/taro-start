@@ -33,6 +33,7 @@ class App extends Component {
       'pages/started/form-validate/index',
       'pages/started/location/index',
       'pages/started/list/index',
+      'pages/started/result/index',
     ],
     subPackages: [
       {

@@ -25,6 +25,7 @@ export default {
     formValidate: '/pages/started/form-validate/index',
     location: '/pages/started/location/index',
     list: '/pages/started/list/index',
+    result: '/pages/started/result/index',
     subPages: '/sub-pages/debug/env/index',
   },
 
