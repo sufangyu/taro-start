@@ -1,5 +1,6 @@
 import Taro, { FC } from '@tarojs/taro';
 import { View } from '@tarojs/components';
+import { ITouchEvent } from '@tarojs/components/types/common';
 import classNames from 'classnames';
 import './index.scss';
 
@@ -52,8 +53,16 @@ const Index: FC<IProps> = (props: IProps) => {
     close();
   };
 
+  const handleTouchMove = (ev: ITouchEvent) => {
+    ev!.stopPropagation();
+    ev!.preventDefault();
+  };
+
   return (
-    <View className={rootClass}>
+    <View
+      className={rootClass}
+      onTouchMove={handleTouchMove}
+    >
       <View
         className="fe-actionsheet__overlay"
         onClick={handleClose}
