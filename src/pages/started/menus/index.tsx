@@ -23,6 +23,7 @@ const Index: FC = () => {
     { label: '获取地理信息', path: PATH_CONFIG.started.location },
     { label: '列表', path: PATH_CONFIG.started.list },
     { label: '结果展示', path: PATH_CONFIG.started.result },
+    { label: 'ActionSheet', path: PATH_CONFIG.started.actionsheet },
     { label: '分包示例', path: PATH_CONFIG.started.subPages },
   ]);
 

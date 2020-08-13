@@ -34,6 +34,7 @@ class App extends Component {
       'pages/started/location/index',
       'pages/started/list/index',
       'pages/started/result/index',
+      'pages/started/actionsheet/index',
     ],
     subPackages: [
       {

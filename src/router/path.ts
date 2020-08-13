@@ -26,6 +26,7 @@ export default {
     location: '/pages/started/location/index',
     list: '/pages/started/list/index',
     result: '/pages/started/result/index',
+    actionsheet: '/pages/started/actionsheet/index',
     subPages: '/sub-pages/debug/env/index',
   },
 
