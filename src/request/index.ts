@@ -1,5 +1,5 @@
 import Taro from '@tarojs/taro';
-import { mergeDeep } from 'immutable';
+import mergeWith from 'lodash-es/mergeWith';
 import interceptors from './interceptors';
 import { IRequest, IPromise, Method } from './type';
 
@@ -25,7 +25,7 @@ const defaults: IRequest = {
  * @returns {Promise<object>}
  */
 function request<T>(options: IRequest): IPromise<T> {
-  const mergeOptions = mergeDeep(defaults, options);
+  const mergeOptions = mergeWith({}, defaults, options);
   interceptors.request(mergeOptions);
 
   return new Promise((resolve, reject) => {

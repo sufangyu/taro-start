@@ -43,7 +43,7 @@ const config = {
   },
   plugins: [
     '@tarojs/plugin-sass',
-    '@tarojs/plugin-uglify'
+    '@tarojs/plugin-terser'
   ],
   alias: {
     '@': path.resolve(__dirname, '..', 'src'),
