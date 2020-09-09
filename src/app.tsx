@@ -18,11 +18,11 @@ class App extends Component {
   config: Config = {
     pages: [
       'pages/home/index',
-  
+
       'pages/mine/index',
-  
+
       'pages/account/login/index',
-  
+
       'pages/started/menus/index',
       'pages/started/state-props/index',
       'pages/started/request/index',
@@ -35,6 +35,7 @@ class App extends Component {
       'pages/started/list/index',
       'pages/started/result/index',
       'pages/started/actionsheet/index',
+      'pages/started/popup/index',
     ],
     subPackages: [
       {
@@ -125,9 +126,9 @@ class App extends Component {
           });
         });
       }
-    });    
+    });
   }
-  
+
   // 在 App 类中的 render() 函数没有实际作用
   // 请勿修改此函数
   render() {

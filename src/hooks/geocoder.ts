@@ -1,5 +1,6 @@
 import Taro, { useState } from '@tarojs/taro';
 import QQMapWX from '@/utils/qqmap-wx-jssdk';
+import getWxSetting from '@/utils/auth';
 
 const QQ_MAP_WX_CONFIG = {
   key: 'MPUBZ-TQ53D-GG44S-HVPA6-MT2Z3-I5B3X', // key
@@ -54,12 +55,16 @@ export default function useGeocoder() {
     if (getting) {
       return false;
     }
-    
+
     Taro.showLoading({
       title: '正在定位',
     });
 
     try {
+      const { isAuth } = await getWxSetting('userLocation');
+      if (!isAuth) {
+        return false;
+      }
       setGetting(true);
       const res = await Taro.getLocation({
         type: 'wgs84',

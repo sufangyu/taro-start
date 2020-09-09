@@ -3,7 +3,6 @@ import Taro, {
 } from '@tarojs/taro';
 import { View, Map, Button } from '@tarojs/components';
 import { useGeocoder } from '@/hooks';
-
 import './index.scss';
 
 const Index: FC = () => {
@@ -33,7 +32,6 @@ const Index: FC = () => {
    */
   const getCurrentLocation = async () => {
     const { location } = await getGeocoder(locationAddress) as any;
-    console.log(location);
     setCurLocation((prevState) => {
       return { ...prevState, ...location };
     });
@@ -68,16 +66,16 @@ const Index: FC = () => {
       <View>地址：{currentAddress}</View>
       <View>
         具体：
-        {addressInfo.province}, 
-        {addressInfo.city}, 
-        {addressInfo.district}, 
+        {addressInfo.province},
+        {addressInfo.city},
+        {addressInfo.district},
         {addressInfo.district}
       </View>
 
       <View>
         <Button size="mini" onClick={openMap}>打开地图(海珠湖)</Button>
       </View>
-      
+
       <Map
         longitude={curLocation.lng}
         latitude={curLocation.lat}
