@@ -2,7 +2,7 @@ import Taro from '@tarojs/taro';
 import PATH_CONFIG from './path';
 
 
-interface IPage {
+interface Page {
   /**
    * 页面路径
    */
@@ -19,7 +19,7 @@ interface IPage {
   mode? : 'push' | 'replace';
 }
 
-interface ICurrentPage {
+interface CurrentPage {
   /**
    * 路由地址
    */
@@ -111,9 +111,9 @@ export function getFullpath(url: string = '', query: object = {}) {
  * 跳转页面
  *
  * @export
- * @param {IPage} options 页面信息
+ * @param {Page} options 页面信息
  */
-export function gotoPage(options: IPage = { url: '', query: {}, mode: 'push' }): void {
+export function gotoPage(options: Page = { url: '', query: {}, mode: 'push' }): void {
   const { url, mode, query } = options;
   const fullpath = getFullpath(url, query);
   // 是否 tabBar 页面
@@ -151,9 +151,9 @@ export function navigateBack(delta: number = 1): void {
  * 关闭所有页面，打开到某个页面
  *
  * @export
- * @param {IPage} options 页面信息
+ * @param {Page} options 页面信息
  */
-export function reLaunch(options: IPage): void {
+export function reLaunch(options: Page): void {
   const { url } = Object.assign({}, {
     url: '',
     query: {},
@@ -174,12 +174,12 @@ export function reLaunch(options: IPage): void {
  * @param {('push' | 'replace')} [mode='push'] 跳转方式
  */
 export function gotoLoginPage(mode: 'push' | 'replace' = 'push'): void {
-  const { route } = getCurrentPage() as ICurrentPage;
+  const { route } = getCurrentPage() as CurrentPage;
   const fullpath = getFullpath(`/${route}`);
   const fromUrl = encodeURIComponent(fullpath);
   const url = `${PATH_CONFIG.account.login}?from=${fromUrl}`;
 
-  gotoPage({ url, mode } as IPage);
+  gotoPage({ url, mode } as Page);
 }
 
 

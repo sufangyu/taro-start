@@ -7,9 +7,9 @@ import './index.scss';
  * 选择图片的接口
  *
  * @export
- * @interface IChooseImage
+ * @interface ChooseImage
  */
-interface IChooseImage {
+interface ChooseImage {
   /** 返回信息 */
   errMsg: string;
   /** 文件路径 */
@@ -18,14 +18,14 @@ interface IChooseImage {
   tempFiles?: object[];
 }
 
-interface IProps {
+interface Props {
   /** 单次最多可选择张数 */
   multiSelect?: number;
   /** 图片选择成功回调函数 */
   onSuccess: Function;
 }
 
-const Index: FC<IProps> = (props: IProps) => {
+const Index: FC<Props> = (props: Props) => {
   const { multiSelect = 1, onSuccess = () => {} } = props;
 
   /**
@@ -35,7 +35,7 @@ const Index: FC<IProps> = (props: IProps) => {
    * @memberof Index
    */
   const handleChooseImage = async () => {
-    const { errMsg, tempFilePaths = [] }: IChooseImage = await Taro.chooseImage({
+    const { errMsg, tempFilePaths = [] }: ChooseImage = await Taro.chooseImage({
       count: multiSelect,
     });
 

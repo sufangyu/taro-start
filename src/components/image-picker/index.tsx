@@ -10,7 +10,7 @@ interface IImage {
   url: string;
 }
 
-interface IProps {
+interface Props {
   /** 初始化图片列表 */
   list: IImage[];
   /** 限制总张数 */
@@ -22,7 +22,7 @@ interface IProps {
 }
 
 
-const Index: FC<IProps> = (props: IProps) => {
+const Index: FC<Props> = (props: Props) => {
   const {
     list = [],
     limit = 9,

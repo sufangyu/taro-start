@@ -2,7 +2,7 @@ import Taro from '@tarojs/taro';
 import StoreKey from '@/constants/store-key';
 
 
-export interface IEnvConfig {
+export interface EnvConfig {
   /** 名称 */
   name: string;
 
@@ -16,7 +16,7 @@ export interface IEnvConfig {
 }
 
 // 各个环境的 API
-export const ENV_MAP: IEnvConfig[] = [
+export const ENV_MAP: EnvConfig[] = [
   {
     name: '开发',
     value: 'dev',
@@ -47,7 +47,7 @@ const isProd = process.env.NODE_ENV === 'production';
 let CMD_API_ENV = process.env.API_ENV || '';
 
 // 判断是否有对于的环境配置
-const hasEnvConfig = ENV_MAP.some((evnConfig: IEnvConfig) => {
+const hasEnvConfig = ENV_MAP.some((evnConfig: EnvConfig) => {
   return evnConfig.value === CMD_API_ENV;
 });
 
@@ -77,7 +77,7 @@ const isReadStore = ['develop', 'trial'].includes(envVersion);
 export const ENV_KEY = isReadStore ? (Taro.getStorageSync(StoreKey.API_ENV_KEY) || ENV_KEY_DEFAULT) : ENV_KEY_DEFAULT;
 
 // 当前环境配置
-export const ENV_CURRENT = ENV_MAP.find(item => item.value === ENV_KEY) as IEnvConfig;
+export const ENV_CURRENT = ENV_MAP.find(item => item.value === ENV_KEY) as EnvConfig;
 
 // 当前环境 API MAP
 export const API_BASE_MAP = ENV_CURRENT.apiBase;

@@ -4,12 +4,12 @@ import rule from './rule';
 type name = keyof typeof rule;
 type value = string | boolean | any[];
 
-interface IList {
+interface List {
   /**
    * 值
    *
    * @type {value}
-   * @memberof IList
+   * @memberof List
    */
   value: value;
 
@@ -17,7 +17,7 @@ interface IList {
    * 校验类型
    *
    * @type {name}
-   * @memberof IList
+   * @memberof List
    */
   type: name;
 
@@ -25,7 +25,7 @@ interface IList {
    * 错误提示内容
    *
    * @type {string}
-   * @memberof IList
+   * @memberof List
    */
   msg: string;
 
@@ -33,7 +33,7 @@ interface IList {
    * 最小长度
    *
    * @type {number}
-   * @memberof IList
+   * @memberof List
    */
   minLen?: number;
 
@@ -41,7 +41,7 @@ interface IList {
    * 最大长度
    *
    * @type {number}
-   * @memberof IList
+   * @memberof List
    */
   maxLen?: number;
 
@@ -49,17 +49,17 @@ interface IList {
    * 自定义校验规则
    *
    * @type {Function}
-   * @memberof IList
+   * @memberof List
    */
   validator?: Function;
 }
 
-interface IAdd {
+interface Add {
   /**
    * 校验类型
    *
    * @type {name}
-   * @memberof IList
+   * @memberof List
    */
   type: name;
 
@@ -67,7 +67,7 @@ interface IAdd {
    * 错误提示内容
    *
    * @type {string}
-   * @memberof IList
+   * @memberof List
    */
   msg: string;
 
@@ -75,7 +75,7 @@ interface IAdd {
    * 最小长度
    *
    * @type {number}
-   * @memberof IList
+   * @memberof List
    */
   minLen?: number;
 
@@ -83,7 +83,7 @@ interface IAdd {
    * 最大长度
    *
    * @type {number}
-   * @memberof IList
+   * @memberof List
    */
   maxLen?: number;
 
@@ -91,7 +91,7 @@ interface IAdd {
    * 自定义校验规则
    *
    * @type {Function}
-   * @memberof IList
+   * @memberof List
    */
   validator?: Function;
 }
@@ -102,10 +102,10 @@ class Verification {
    * 校验列表
    *
    * @private
-   * @type {IList[]}
+   * @type {List[]}
    * @memberof Verification
    */
-  private list: IList[] = [];
+  private list: List[] = [];
 
   /**
    * 校验结果信息
@@ -117,9 +117,9 @@ class Verification {
 
   add(value: value, type: name, msg: string): void;
 
-  add(value: value, ruleArr: Array<IAdd>): void;
+  add(value: value, ruleArr: Array<Add>): void;
 
-  add(value: value, ruleArr: Array<IAdd> | name, msg?: string): void {
+  add(value: value, ruleArr: Array<Add> | name, msg?: string): void {
     if (Array.isArray(ruleArr)) {
       // 多个校验规则
       const validateList = ruleArr.map((f) => {

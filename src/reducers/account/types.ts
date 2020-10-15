@@ -4,7 +4,7 @@ export const SET_ROLE = 'SET_ROLE';
 
 export type IsLogged = 'YES' | 'NO';
 
-export interface IAccount {
+export interface Account {
   /** 用户 ID */
   id?: string;
   /** 用户名 */
@@ -14,7 +14,7 @@ export interface IAccount {
 
 export interface AccountState {
   /** 账户信息 */
-  account: IAccount;
+  account: Account;
   /** 是否登录 */
   isLogged: IsLogged;
   /** 角色 */
@@ -24,7 +24,7 @@ export interface AccountState {
 export interface SetAccountAction {
   type: typeof SET_ACCOUNT;
   payload: {
-    account: IAccount;
+    account: Account;
     isLogged: IsLogged;
   };
 }

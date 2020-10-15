@@ -5,7 +5,7 @@ import { Button } from '@tarojs/components';
 
 import './index.scss';
 
-interface IProps {
+interface Props {
   /** 倒计时时间 */
   countTime?: number;
   /** 按钮默认文案 */
@@ -13,7 +13,7 @@ interface IProps {
   onClick?: (cb: Function) => void;
 }
 
-const Index: FC<IProps> = (props: IProps) => {
+const Index: FC<Props> = (props: Props) => {
   const { countTime = 60, label = '获取验证码', onClick = () => {} } = props;
   const intervalRef = useRef<any>(null);
   const [count, changeCount] = useState(0);

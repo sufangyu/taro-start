@@ -1,7 +1,7 @@
 // 请求方法
 export declare type Method = 'GET' | 'POST' | 'PUT' | 'DELETE';
 
-export interface IRequest {
+export interface Request {
   /**
    * 接口地址对应的后台服务
    *
@@ -24,7 +24,7 @@ export interface IRequest {
    * 请求的参数
    *
    * @type {{[key: string]: any}}
-   * @memberof IRequest
+   * @memberof Request
    */
   data?: {[key: string]: any;};
   /**
@@ -54,12 +54,12 @@ export interface IRequest {
 }
 
 
-export interface IResponse<T=any> {
+export interface Response<T=any> {
   /**
    * 业务处理是否成功
    *
    * @type {boolean}
-   * @memberof IResponse
+   * @memberof Response
    */
   success: boolean;
 
@@ -67,13 +67,13 @@ export interface IResponse<T=any> {
    * 业务返回的数据
    *
    * @type {T}
-   * @memberof IResponse
+   * @memberof Response
    */
   data: T;
 }
 
 
-export interface IPromise<T=any> extends Promise<IResponse<T>> {}
+export interface IPromise<T=any> extends Promise<Response<T>> {}
 
 
 export interface SuccessData {
@@ -100,7 +100,7 @@ export interface ErrorData {
   errMsg: string;
 }
 
-export interface IProxyResponse {
+export interface ProxyResponse {
   /**
    * 响应的 HTTP 状态码
    *

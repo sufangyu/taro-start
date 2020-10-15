@@ -5,7 +5,7 @@ import icSuccess from './icons/success.png';
 import icFail from './icons/fail.png';
 import icWarning from './icons/warning.png';
 
-interface IProps {
+interface Props {
   /** 类型 */
   type?: 'success' | 'fail' | 'warning';
   /** 图标地址 */
@@ -16,7 +16,7 @@ interface IProps {
   message?: string;
 }
 
-const Index: FC<IProps> = (props: IProps) => {
+const Index: FC<Props> = (props: Props) => {
   const { type, title, message } = props;
   // eslint-disable-next-line react/destructuring-assignment
   let imgUrl = props.imgUrl || '';

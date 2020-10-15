@@ -4,7 +4,7 @@ import { ITouchEvent } from '@tarojs/components/types/common';
 import classNames from 'classnames';
 import './index.scss';
 
-interface IProps {
+interface Props {
   /** 元素的标题 */
   title?: string | JSX.Element;
   /** 是否展示元素 */
@@ -19,7 +19,7 @@ interface IProps {
   onClose?: () => void;
 }
 
-const Index: FC<IProps> = (props: IProps) => {
+const Index: FC<Props> = (props: Props) => {
   const {
     title,
     isOpened,

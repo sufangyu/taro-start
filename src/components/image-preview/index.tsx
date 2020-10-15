@@ -3,7 +3,7 @@ import { View, Image, Text } from '@tarojs/components';
 
 import './index.scss';
 
-interface IProps {
+interface Props {
   /** 图片集合 */
   images: string[];
   /** 限制单行显示的图片数量 */
@@ -16,7 +16,7 @@ interface IProps {
   tipsText?: 'left' | 'count' | false;
 }
 
-const Index: FC<IProps> = (props: IProps) => {
+const Index: FC<Props> = (props: Props) => {
   const { images = [], limit = 1, tipsText = 'left' } = props;
 
   /**

@@ -1,7 +1,7 @@
 import http from '@/request';
-import { IParamsTopics, ITopic } from '@/models/test';
+import { IParamsTopics, Topic } from '@/models/test';
 
-export { IParamsTopics, ITopic };
+export { IParamsTopics, Topic };
 
 /**
  * 获取 主题列表
@@ -11,7 +11,7 @@ export { IParamsTopics, ITopic };
  * @returns
  */
 export function getTopics(params: IParamsTopics) {
-  return http.get<ITopic[]>({
+  return http.get<Topic[]>({
     url: 'https://cnodejs.org/api/v1/topics',
     data: params,
   });

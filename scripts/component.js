@@ -26,9 +26,9 @@ const indexTep = `import Taro, { FC } from '@tarojs/taro';
 import { View } from '@tarojs/components';
 import './index.scss';
 
-interface IProps {}
+interface Props {}
 
-const Index: FC<IProps> = (props: IProps) => {
+const Index: FC<Props> = (props: Props) => {
   return (
     <View className="container">
       This is empty component

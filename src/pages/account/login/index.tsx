@@ -1,7 +1,7 @@
 import Taro, { FC, useRef, useRouter } from '@tarojs/taro';
 import { View, Button, Text } from '@tarojs/components';
 import { useDispatch } from '@tarojs/redux';
-import { IAccount, AccountDispatch } from '@/reducers/account/types';
+import { Account, AccountDispatch } from '@/reducers/account/types';
 import { gotoPage, PATH_CONFIG } from '@/router';
 import { ButtonCountDown } from '@/components';
 
@@ -33,7 +33,7 @@ const Index: FC = () => {
       clearTimeout(timer.current);
     }
 
-    const account: IAccount = {
+    const account: Account = {
       id: `${+new Date()}`,
       name: '张三疯',
     };

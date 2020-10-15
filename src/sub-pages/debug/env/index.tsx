@@ -5,7 +5,7 @@ import classNames from 'classnames';
 import { EnvDispatch } from '@/reducers/debug/types';
 import { AccountDispatch } from '@/reducers/account/types';
 import {
-  ENV_MAP, ENV_CURRENT, ENV_KEY_DEFAULT, IEnvConfig,
+  ENV_MAP, ENV_CURRENT, ENV_KEY_DEFAULT, EnvConfig,
 } from '@/config';
 
 import './index.scss';
@@ -19,9 +19,9 @@ const Index: FC = () => {
   /**
    * 设置当前环境
    *
-   * @param {IEnvConfig} env
+   * @param {EnvConfig} env
    */
-  const setCurrentEnv = (env: IEnvConfig) => {
+  const setCurrentEnv = (env: EnvConfig) => {
     const { name, value } = env;
     setEnvName(name);
     setEnvValue(value);
@@ -43,7 +43,7 @@ const Index: FC = () => {
    * @param {*} env 环境信息
    * @memberof Index
    */
-  const handleSwitchEnv = (env: IEnvConfig) => {
+  const handleSwitchEnv = (env: EnvConfig) => {
     const { name, value } = env;
 
     dispatchDebug({
@@ -70,7 +70,7 @@ const Index: FC = () => {
    * @memberof Index
    */
   const handleResetEnv = () => {
-    const env = ENV_MAP.find(item => item.value === ENV_KEY_DEFAULT) as IEnvConfig;
+    const env = ENV_MAP.find(item => item.value === ENV_KEY_DEFAULT) as EnvConfig;
 
     dispatchDebug({
       type: 'RESET_ENV',

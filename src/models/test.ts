@@ -1,13 +1,13 @@
-import { IPagination } from './index';
+import { Pagination } from './index';
 
 /**
  * 主题列表参数
  *
  * @export
- * @interface ITopics
- * @extends {IPagination}
+ * @interface Topic
+ * @extends {Pagination}
  */
-export interface IParamsTopics extends IPagination {
+export interface IParamsTopics extends Pagination {
   /** 主题分类 */
   tab: 'all' | 'ask' | 'share' | 'job' | 'good';
   /**
@@ -22,9 +22,9 @@ export interface IParamsTopics extends IPagination {
  * 主题
  *
  * @export
- * @interface ITopic
+ * @interface Topic
  */
-export interface ITopic {
+export interface Topic {
   /** ID */
   id: string;
   /** 作者信息 */

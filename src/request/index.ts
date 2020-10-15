@@ -1,13 +1,13 @@
 import Taro from '@tarojs/taro';
 import mergeWith from 'lodash-es/mergeWith';
 import interceptors from './interceptors';
-import { IRequest, IPromise, Method } from './type';
+import { Request, PromiseResponse, Method } from './type';
 
-export { IRequest, IPromise, Method };
+export { Request, PromiseResponse, Method };
 
 
 // 请求默认配置
-const defaults: IRequest = {
+const defaults: Request = {
   server: 'base',
   url: '',
   data: {},
@@ -21,10 +21,10 @@ const defaults: IRequest = {
 /**
  * 请求函数
  *
- * @param {IRequest} options 请求配置参数
+ * @param {Request} options 请求配置参数
  * @returns {Promise<object>}
  */
-function request<T>(options: IRequest): IPromise<T> {
+function request<T>(options: Request): PromiseResponse<T> {
   const mergeOptions = mergeWith({}, defaults, options);
   interceptors.request(mergeOptions);
 
@@ -45,10 +45,10 @@ const http = {
    * GET 请求
    *
    * @template T
-   * @param {IRequest} options
-   * @returns {IPromise<T>}
+   * @param {Request} options
+   * @returns {PromiseResponse<T>}
    */
-  get<T=any>(options: IRequest): IPromise<T> {
+  get<T=any>(options: Request): PromiseResponse<T> {
     return request<T>(options);
   },
 
@@ -56,10 +56,10 @@ const http = {
    * POST 请求
    *
    * @template T
-   * @param {IRequest} options
-   * @returns {IPromise<T>}
+   * @param {Request} options
+   * @returns {PromiseResponse<T>}
    */
-  post<T=any>(options: IRequest): IPromise<T> {
+  post<T=any>(options: Request): PromiseResponse<T> {
     return request(Object.assign({}, { method: 'POST' }, options));
   },
 
@@ -67,10 +67,10 @@ const http = {
    * PUT 请求
    *
    * @template T
-   * @param {IRequest} options
-   * @returns {IPromise<T>}
+   * @param {Request} options
+   * @returns {PromiseResponse<T>}
    */
-  put<T=any>(options: IRequest): IPromise<T> {
+  put<T=any>(options: Request): PromiseResponse<T> {
     return request(Object.assign({}, { method: 'PUT' }, options));
   },
 
@@ -78,10 +78,10 @@ const http = {
    * DELECT 请求
    *
    * @template T
-   * @param {IRequest} options
-   * @returns {IPromise<T>}
+   * @param {Request} options
+   * @returns {PromiseResponse<T>}
    */
-  delete<T=any>(options: IRequest): IPromise<T> {
+  delete<T=any>(options: Request): PromiseResponse<T> {
     return request(Object.assign({}, { method: 'DELETE' }, options));
   },
 
@@ -89,10 +89,10 @@ const http = {
    * BASE 基础请求
    *
    * @template T
-   * @param {IRequest} options
-   * @returns {IPromise<T>}
+   * @param {Request} options
+   * @returns {PromiseResponse<T>}
    */
-  base<T=any>(options: IRequest): IPromise<T> {
+  base<T=any>(options: Request): PromiseResponse<T> {
     return request(options);
   },
 };

@@ -2,7 +2,7 @@ import Taro, {
   useState, useEffect, useReachBottom, usePullDownRefresh,
 } from '@tarojs/taro';
 
-interface IUseList{
+interface UseList{
   /** 初始化页码 */
   initPage?: number;
   /** 每页显示条目个数 */
@@ -24,7 +24,7 @@ export default function useList<D>({
   enablePullDownRefresh = true,
   query = {},
   fetch = () => {},
-}: IUseList) {
+}: UseList) {
   const [loading, setLoading] = useState(false);
   const [isRefresh, setIsRefresh] = useState(false);
   const [pagination, setPagination] = useState({

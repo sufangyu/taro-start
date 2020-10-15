@@ -1,14 +1,14 @@
 import { FC } from '@tarojs/taro';
 import { View, Button, Text } from '@tarojs/components';
 
-interface IProps {
+interface Props {
   /** 累计器 */
   count: number;
   /** 累减回调函数 */
   onMinus?: () => void;
 }
 
-const Index: FC<IProps> = (props: IProps) => {
+const Index: FC<Props> = (props: Props) => {
   const { count, onMinus } = props;
 
   return (

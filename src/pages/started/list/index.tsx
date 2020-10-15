@@ -1,7 +1,7 @@
 import Taro, { FC, useState } from '@tarojs/taro';
 import { View, Button } from '@tarojs/components';
 import { useList } from '@/hooks';
-import { ITopic } from '@/models/test';
+import { Topic } from '@/models/test';
 import { getTopics } from '@/api/test';
 
 import './index.scss';
@@ -18,7 +18,7 @@ const Index: FC = () => {
     pagination,
     onSearch,
     getListNext,
-  } = useList<ITopic>({
+  } = useList<Topic>({
     initPage: 1,
     initSize: 20,
     query,

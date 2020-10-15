@@ -1,7 +1,7 @@
 import Taro from '@tarojs/taro';
 import { API_BASE_MAP } from '@/config';
 import {
-  IRequest, IPromise, SuccessData, ErrorData, IProxyResponse,
+  Request, PromiseResponse, SuccessData, ErrorData, ProxyResponse,
 } from './type';
 
 
@@ -10,9 +10,9 @@ const interceptors = {
   /**
    * 请求拦截
    *
-   * @param {IRequest} options 网络请求配置
+   * @param {Request} options 网络请求配置
    */
-  request(options: IRequest) {
+  request(options: Request) {
     const {
       server, url, loading, loadingText = '',
     } = options;
@@ -39,13 +39,15 @@ const interceptors = {
      * 请求成功
      *
      * @template T
-     * @param {IProxyResponse} res 成功响应结果
+     * @param {ProxyResponse} res 成功响应结果
      * @param {*} resolve 成功处理函数
      * @param {*} reject 失败处理函数
      * @param {*} options 参数
-     * @returns {IPromise<T>}
+     * @returns {PromiseResponse<T>}
      */
-    resolve<T=any>(res: IProxyResponse, resolve: any, reject: any, options: IRequest): IPromise<T> {
+    resolve<T=any>(
+      res: ProxyResponse, resolve: any, reject: any, options: Request,
+    ): PromiseResponse<T> {
       if (options.loading) {
         Taro.hideLoading();
       }
@@ -89,7 +91,7 @@ const interceptors = {
      * @param {*} reject 失败处理函数
      * @param {*} options 参数
      */
-    reject(error: ErrorData, reject: any, options: IRequest): Promise<any> {
+    reject(error: ErrorData, reject: any, options: Request): Promise<any> {
       Taro.hideLoading();
       return this.error(error.errMsg, error, reject, options);
     },
@@ -103,7 +105,7 @@ const interceptors = {
      * @param {*} options 参数
      * @returns
      */
-    error(msg: string, error: object, reject: any, options: IRequest): Promise<any> {
+    error(msg: string, error: object, reject: any, options: Request): Promise<any> {
       if (options.isShowErrorToast) {
         Taro.showToast({
           title: msg || '请求失败, 请重试',
