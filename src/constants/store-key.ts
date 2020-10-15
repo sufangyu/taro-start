@@ -5,6 +5,8 @@ enum StoreKey {
   LOGGED_KEY = 'IS_LOGGED',
   /** API 环境 */
   API_ENV_KEY ='API_ENV',
+  /** 角色 */
+  ROLE_KEY ='ROLE',
 }
 
 export default StoreKey;

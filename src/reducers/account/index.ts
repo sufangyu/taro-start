@@ -1,7 +1,7 @@
 import Taro from '@tarojs/taro';
 import StoreKey from '@/constants/store-key';
 import {
-  SET_ACCOUNT, REMOVE_ACCOUNT,
+  SET_ACCOUNT, REMOVE_ACCOUNT, SET_ROLE,
   IAccountState, AccountActionTypes,
 } from './types';
 
@@ -9,6 +9,7 @@ import {
 const INITIAL_STATE: IAccountState = {
   account: Taro.getStorageSync(StoreKey.ACCOUNT_KEY) || null,
   isLogged: Taro.getStorageSync(StoreKey.LOGGED_KEY) || 'NO',
+  role: Taro.getStorageSync(StoreKey.ROLE_KEY) || '',
 };
 
 
@@ -42,8 +43,18 @@ export default function accountReducer(
       Taro.removeStorage({ key: StoreKey.LOGGED_KEY });
       return {
         ...state,
-        account: null,
+        account: {},
         isLogged: 'NO',
+      };
+    }
+
+    case SET_ROLE: {
+      const { role } = action.payload;
+      Taro.setStorage({ key: StoreKey.ROLE_KEY, data: role });
+
+      return {
+        ...state,
+        role,
       };
     }
 

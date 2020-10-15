@@ -8,3 +8,5 @@ export default function appStore() {
   const store = createStore(rootReducer, applyMiddleware(...middleWares));
   return store;
 }
+
+export type RootState = ReturnType<typeof rootReducer>;

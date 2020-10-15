@@ -35,7 +35,6 @@ class App extends Component {
       'pages/started/list/index',
       'pages/started/result/index',
       'pages/started/actionsheet/index',
-      'pages/started/popup/index',
     ],
     subPackages: [
       {
@@ -53,6 +52,7 @@ class App extends Component {
       navigationBarTextStyle: 'white',
     },
     tabBar: {
+      custom: true,
       color: '#808080',
       selectedColor: '#5171f0',
       borderStyle: 'black',

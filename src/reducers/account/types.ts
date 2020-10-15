@@ -1,5 +1,6 @@
 export const SET_ACCOUNT = 'SET_ACCOUNT';
 export const REMOVE_ACCOUNT = 'REMOVE_ACCOUNT';
+export const SET_ROLE = 'SET_ROLE';
 
 export type TIsLogged = 'YES' | 'NO';
 
@@ -16,6 +17,8 @@ export interface IAccountState {
   account: IAccount;
   /** 是否登录 */
   isLogged: TIsLogged;
+  /** 角色 */
+  role: string;
 }
 
 export interface SetAccountAction {
@@ -30,6 +33,13 @@ export interface RemoveAccountAction {
   type: typeof REMOVE_ACCOUNT;
 }
 
-export type AccountActionTypes = SetAccountAction | RemoveAccountAction;
+export interface SetRoleAction {
+  type: typeof SET_ROLE;
+  payload: {
+    role: string;
+  };
+}
+
+export type AccountActionTypes = SetAccountAction | RemoveAccountAction | SetRoleAction;
 
 export type AccountDispatch = (args: AccountActionTypes) => void;

@@ -1,7 +1,8 @@
 import Taro, { FC, useRouter, useShareAppMessage } from '@tarojs/taro';
 import { View, Text, Button } from '@tarojs/components';
-import { useSelector } from '@tarojs/redux';
-import { IAccountState } from '@/reducers/account/types';
+import { useSelector, useDispatch } from '@tarojs/redux';
+import { RootState } from '@/store';
+import { IAccountState, AccountDispatch } from '@/reducers/account/types';
 import { gotoPage, PATH_CONFIG } from '@/router';
 import { useCheckLogin } from '@/hooks';
 import { trackEventHandler } from '@/utils';
@@ -10,24 +11,52 @@ import './index.scss';
 
 
 const Index: FC = () => {
-  const { isLogged }: IAccountState = useSelector((state: any) => state.account);
+  const { isLogged } = useSelector<RootState, IAccountState>((state) => state.account);
   const { params } = useRouter();
+  const dispatch = useDispatch<AccountDispatch>();
 
   const handleSendRequest = useCheckLogin(() => {
     console.log('已经登录, 发请求');
     trackEventHandler(EVENTS_MAP['首页-自定义事件'], {
       frame: 'Taro',
       version: '2.12.3',
-    });    
+    });
   });
 
-  
+
   useShareAppMessage(() => {});
 
   return (
     <View className="container">
       <View className="test-content">
         <Text>Home page</Text>
+        <View style={{ height: '1000px' }}>xxx</View>
+        <View style={{ height: '1000px' }}>
+          <Button
+            onClick={() => {
+              dispatch({
+                type: 'SET_ROLE',
+                payload: {
+                  role: 'TEAM_LEADER',
+                },
+              });
+            }}
+          >
+            负责人
+          </Button>
+          <Button
+            onClick={() => {
+              dispatch({
+                type: 'SET_ROLE',
+                payload: {
+                  role: 'NORMAL',
+                },
+              });
+            }}
+          >
+            司机
+          </Button>
+        </View>
         <Button onClick={handleSendRequest}>模拟发请求(需登录)</Button>
         {
           isLogged === 'NO'
@@ -46,6 +75,7 @@ const Index: FC = () => {
             )
             : null
         }
+        <View>bottom</View>
       </View>
     </View>
   );

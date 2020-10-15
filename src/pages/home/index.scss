@@ -7,7 +7,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 30px;
+  padding: 30px 30px calc(96px + constant(safe-area-inset-bottom));
+  padding: 30px 30px calc(96px + env(safe-area-inset-bottom));
   color: var(--text-color);
   background-color: var(--bg-color);
 }
