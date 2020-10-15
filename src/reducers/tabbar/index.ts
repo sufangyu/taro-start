@@ -1,10 +1,10 @@
 import {
   SET_SELECTED,
-  ITabbarState, TabbarActionTypes,
+  TabbarState, TabbarActionTypes,
 } from './types';
 
 
-const INITIAL_STATE: ITabbarState = {
+const INITIAL_STATE: TabbarState = {
   selected: 0,
 };
 

@@ -2,7 +2,7 @@ export const SET_ACCOUNT = 'SET_ACCOUNT';
 export const REMOVE_ACCOUNT = 'REMOVE_ACCOUNT';
 export const SET_ROLE = 'SET_ROLE';
 
-export type TIsLogged = 'YES' | 'NO';
+export type IsLogged = 'YES' | 'NO';
 
 export interface IAccount {
   /** 用户 ID */
@@ -12,11 +12,11 @@ export interface IAccount {
   [propName: string]: any;
 }
 
-export interface IAccountState {
+export interface AccountState {
   /** 账户信息 */
   account: IAccount;
   /** 是否登录 */
-  isLogged: TIsLogged;
+  isLogged: IsLogged;
   /** 角色 */
   role: string;
 }
@@ -25,7 +25,7 @@ export interface SetAccountAction {
   type: typeof SET_ACCOUNT;
   payload: {
     account: IAccount;
-    isLogged: TIsLogged;
+    isLogged: IsLogged;
   };
 }
 

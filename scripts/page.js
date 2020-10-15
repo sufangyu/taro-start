@@ -24,9 +24,10 @@ if (isExist) {
 
 // 模板
 const indexTep = `import Taro, { FC } from '@tarojs/taro';
-import { useDispatch, useSelector } from '@tarojs/redux';
 import { View } from '@tarojs/components';
-import { IAccountState } from '@/reducers/account/types';
+import { useDispatch, useSelector } from '@tarojs/redux';
+import { RootState } from '@/store';
+import { AccountState } from '@/reducers/account/types';
 import './index.scss';
 
 
@@ -34,7 +35,7 @@ const Index: FC = () => {
   // redux dispatch
   const dispatch = useDispatch();
   // redux store
-  const { account }: IAccountState = useSelector((state: any) => state.account);
+  const { account } = useSelector<RootState, AccountState>((state) => state.account);
   console.log(dispatch, account);
 
 

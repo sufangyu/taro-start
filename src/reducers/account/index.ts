@@ -2,11 +2,11 @@ import Taro from '@tarojs/taro';
 import StoreKey from '@/constants/store-key';
 import {
   SET_ACCOUNT, REMOVE_ACCOUNT, SET_ROLE,
-  IAccountState, AccountActionTypes,
+  AccountState, AccountActionTypes,
 } from './types';
 
 
-const INITIAL_STATE: IAccountState = {
+const INITIAL_STATE: AccountState = {
   account: Taro.getStorageSync(StoreKey.ACCOUNT_KEY) || null,
   isLogged: Taro.getStorageSync(StoreKey.LOGGED_KEY) || 'NO',
   role: Taro.getStorageSync(StoreKey.ROLE_KEY) || '',
@@ -22,9 +22,9 @@ const INITIAL_STATE: IAccountState = {
  * @returns
  */
 export default function accountReducer(
-  state: IAccountState = INITIAL_STATE,
+  state: AccountState = INITIAL_STATE,
   action: AccountActionTypes,
-): IAccountState {
+): AccountState {
   switch (action.type) {
     case SET_ACCOUNT: {
       const { account } = action.payload;

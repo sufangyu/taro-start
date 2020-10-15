@@ -1,7 +1,8 @@
 import Taro, { FC } from '@tarojs/taro';
-import { useDispatch, useSelector } from '@tarojs/redux';
-import { IAccountState } from '@/reducers/account/types';
 import { View, Button, Text } from '@tarojs/components';
+import { useDispatch, useSelector } from '@tarojs/redux';
+import { RootState } from '@/store';
+import { AccountState } from '@/reducers/account/types';
 import { reLaunchLoginPage } from '@/router';
 import { DebugEnv } from '@/components';
 import './index.scss';
@@ -9,7 +10,7 @@ import './index.scss';
 
 const Index: FC = () => {
   const dispatch = useDispatch();
-  const { account }: IAccountState = useSelector((state: any) => state.account);
+  const { account }: AccountState = useSelector<RootState, AccountState>((state) => state.account);
 
   const handleLogout = () => {
     dispatch({

@@ -2,7 +2,7 @@ import Taro, { FC, useRouter, useShareAppMessage } from '@tarojs/taro';
 import { View, Text, Button } from '@tarojs/components';
 import { useSelector, useDispatch } from '@tarojs/redux';
 import { RootState } from '@/store';
-import { IAccountState, AccountDispatch } from '@/reducers/account/types';
+import { AccountState, AccountDispatch } from '@/reducers/account/types';
 import { gotoPage, PATH_CONFIG } from '@/router';
 import { useCheckLogin } from '@/hooks';
 import { trackEventHandler } from '@/utils';
@@ -11,7 +11,7 @@ import './index.scss';
 
 
 const Index: FC = () => {
-  const { isLogged } = useSelector<RootState, IAccountState>((state) => state.account);
+  const { isLogged } = useSelector<RootState, AccountState>((state) => state.account);
   const { params } = useRouter();
   const dispatch = useDispatch<AccountDispatch>();
 

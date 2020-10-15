@@ -1,8 +1,8 @@
 import Taro, { SFC } from '@tarojs/taro';
 import { useDispatch, useSelector } from '@tarojs/redux';
 import { RootState } from '@/store';
-import { IAccountState } from '@/reducers/account/types';
-import { ITabbarState, TabbarDispatch } from '@/reducers/tabbar/types';
+import { AccountState } from '@/reducers/account/types';
+import { TabbarState, TabbarDispatch } from '@/reducers/tabbar/types';
 import { CoverView, CoverImage } from '@tarojs/components';
 import './index.scss';
 
@@ -64,8 +64,8 @@ const NORMAL_TABBAR: TabbarItem[] = [
 
 const CustomTabBar: SFC = () => {
   const dispatch = useDispatch<TabbarDispatch>();
-  const { selected } = useSelector<RootState, ITabbarState>((state) => state.tabbar);
-  const { role } = useSelector<RootState, IAccountState>((state) => state.account);
+  const { selected } = useSelector<RootState, TabbarState>((state) => state.tabbar);
+  const { role } = useSelector<RootState, AccountState>((state) => state.account);
   const TABBAR_MAPS = {
     TEAM_LEADER: TEAM_LEADER_TABBAR,
     NORMAL: NORMAL_TABBAR,

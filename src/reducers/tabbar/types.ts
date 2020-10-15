@@ -1,7 +1,7 @@
 export const SET_SELECTED = 'SET_SELECTED';
 export const REMOVE_ACCOUNT = 'REMOVE_ACCOUNT';
 
-export interface ITabbarState {
+export interface TabbarState {
   /** 选中高亮的序号 */
   selected: number;
 }

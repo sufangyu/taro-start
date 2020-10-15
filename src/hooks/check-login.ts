@@ -1,6 +1,7 @@
 import Taro, { useCallback } from '@tarojs/taro';
 import { useSelector } from '@tarojs/redux';
-import { IAccountState } from '@/reducers/account/types';
+import { RootState } from '@/store';
+import { AccountState } from '@/reducers/account/types';
 import { gotoLoginPage } from '@/router';
 
 
@@ -11,7 +12,7 @@ import { gotoLoginPage } from '@/router';
  * @returns
  */
 function useCheckLogin(fn: Function) {
-  const { isLogged }: IAccountState = useSelector((state: any) => state.account);
+  const { isLogged } = useSelector<RootState, AccountState>((state) => state.account);
 
   return useCallback(async (...args) => {
     if (isLogged === 'NO') {
