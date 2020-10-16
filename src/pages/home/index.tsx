@@ -4,13 +4,15 @@ import { useSelector, useDispatch } from '@tarojs/redux';
 import { RootState } from '@/store';
 import { AccountState, AccountDispatch } from '@/reducers/account/types';
 import { gotoPage, PATH_CONFIG } from '@/router';
-import { useCheckLogin } from '@/hooks';
+import { useCheckLogin, useTabbar } from '@/hooks';
 import { trackEventHandler } from '@/utils';
 import EVENTS_MAP from '@/constants/events';
 import './index.scss';
 
 
 const Index: FC = () => {
+  useTabbar();
+
   const { isLogged } = useSelector<RootState, AccountState>((state) => state.account);
   const { params } = useRouter();
   const dispatch = useDispatch<AccountDispatch>();

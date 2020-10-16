@@ -70,16 +70,15 @@ const CustomTabBar: SFC = () => {
     TEAM_LEADER: TEAM_LEADER_TABBAR,
     NORMAL: NORMAL_TABBAR,
   };
-  const list = TABBAR_MAPS[role || 'NORMAL'];
+  const list: TabbarItem[] = TABBAR_MAPS[role || 'NORMAL'];
 
-  const switchTab = (item: any, index: number) => {
+  const switchTab = (item: TabbarItem, index: number) => {
     dispatch({
       type: 'SET_SELECTED',
       payload: {
         selected: index,
       },
     });
-
     const url = item.pagePath;
     Taro.switchTab({ url });
   };

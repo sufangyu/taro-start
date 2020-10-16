@@ -3,12 +3,14 @@ import { View, Button, Text } from '@tarojs/components';
 import { useDispatch, useSelector } from '@tarojs/redux';
 import { RootState } from '@/store';
 import { AccountState } from '@/reducers/account/types';
+import { useTabbar } from '@/hooks';
 import { reLaunchLoginPage } from '@/router';
 import { DebugEnv } from '@/components';
 import './index.scss';
 
 
 const Index: FC = () => {
+  useTabbar();
   const dispatch = useDispatch();
   const { account }: AccountState = useSelector<RootState, AccountState>((state) => state.account);
 
