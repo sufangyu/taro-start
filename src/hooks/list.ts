@@ -53,7 +53,9 @@ export default function useList<D>({
       ...listQuery,
     };
     // 删除不必要的参数
+    // @ts-ignore
     delete fetchQuery.size;
+    // @ts-ignore
     delete fetchQuery.total;
 
     setLoading(true);
