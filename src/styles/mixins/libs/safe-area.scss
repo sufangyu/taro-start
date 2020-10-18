@@ -1,0 +1,9 @@
+/**
+ * safe-area
+ */
+
+// 底部安全区域
+@mixin safeAreaPaddingBottom($height: 0) {
+  padding-bottom: calc(#{$height} + constant(safe-area-inset-bottom));
+  padding-bottom: calc(#{$height} + env(safe-area-inset-bottom));
+}
