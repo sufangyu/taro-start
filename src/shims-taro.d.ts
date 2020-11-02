@@ -1,7 +1,10 @@
 // https://blog.csdn.net/hezhongla0811/article/details/89486261
-import Taro from '@tarojs/taro';
+import Taro, { Events } from '@tarojs/taro';
 
 declare module '@tarojs/taro' {
+  /** 事件订阅 */
+  let events: Events;
+
   /** 友盟统计 */
   let uma: {
     /**

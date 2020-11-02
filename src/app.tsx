@@ -1,9 +1,11 @@
-import Taro, { Component, Config } from '@tarojs/taro';
+import Taro, { Component, Config, Events } from '@tarojs/taro';
 import { Provider } from '@tarojs/redux';
 import Index from './pages/home/index';
 import appStore from './store';
 import './analysis';
 import './app.scss';
+
+Taro.events = new Events();
 
 
 // 如果需要在 h5 环境中开启 React Devtools

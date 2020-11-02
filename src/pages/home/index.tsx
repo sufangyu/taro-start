@@ -6,7 +6,7 @@ import { AccountState, AccountDispatch } from '@/reducers/account/types';
 import { gotoPage, PATH_CONFIG } from '@/router';
 import { useCheckLogin, useTabbar } from '@/hooks';
 import { trackEventHandler } from '@/utils';
-import EVENTS_MAP from '@/constants/events';
+import ANALYSIS_EVENTS from '@/constants/analysis-events';
 import './index.scss';
 
 
@@ -19,7 +19,7 @@ const Index: FC = () => {
 
   const handleSendRequest = useCheckLogin(() => {
     console.log('已经登录, 发请求');
-    trackEventHandler(EVENTS_MAP['首页-自定义事件'], {
+    trackEventHandler(ANALYSIS_EVENTS['首页-自定义事件'], {
       frame: 'Taro',
       version: '2.12.3',
     });
