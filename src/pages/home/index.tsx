@@ -6,7 +6,7 @@ import { AccountState, AccountDispatch } from '@/reducers/account/types';
 import { gotoPage, PATH_CONFIG } from '@/router';
 import { useCheckLogin, useTabbar } from '@/hooks';
 import { trackEventHandler } from '@/utils';
-import ANALYSIS_EVENTS from '@/constants/analysis-events';
+import ANALYSIS_EVENTS from '@/analysis/events';
 import './index.scss';
 
 
