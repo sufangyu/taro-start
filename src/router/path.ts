@@ -27,6 +27,8 @@ export default {
     list: '/pages/started/list/index',
     result: '/pages/started/result/index',
     actionsheet: '/pages/started/actionsheet/index',
+    eventsList: '/pages/started/events/list/index',
+    eventsDetail: '/pages/started/events/detail/index',
     subPages: '/sub-pages/debug/env/index',
   },
 

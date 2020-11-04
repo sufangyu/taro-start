@@ -24,6 +24,7 @@ const Index: FC = () => {
     { label: '列表', path: PATH_CONFIG.started.list },
     { label: '结果展示', path: PATH_CONFIG.started.result },
     { label: 'ActionSheet', path: PATH_CONFIG.started.actionsheet },
+    { label: 'Event Bus', path: PATH_CONFIG.started.eventsList },
     { label: '分包示例', path: PATH_CONFIG.started.subPages },
   ]);
 
