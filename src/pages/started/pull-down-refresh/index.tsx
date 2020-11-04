@@ -1,15 +1,15 @@
 import { FC } from '@tarojs/taro';
 import { View, Text } from '@tarojs/components';
-import { Topic } from '@/models/test';
-import { getTopics } from '@/api/test';
+import { List } from '@/models/test';
+import { getList } from '@/api/test';
 import { useList } from '@/hooks';
 
 import './index.scss';
 
 const Index: FC = () => {
-  const { list } = useList<Topic>({
+  const { list } = useList<List>({
     initSize: 10,
-    fetch: getTopics,
+    fetch: getList,
   });
 
   return (

@@ -1,8 +1,8 @@
 import Taro, { FC, useState } from '@tarojs/taro';
 import { View, Button } from '@tarojs/components';
 import { useList } from '@/hooks';
-import { Topic } from '@/models/test';
-import { getTopics } from '@/api/test';
+import { List } from '@/models/test';
+import { getList } from '@/api/test';
 
 import './index.scss';
 
@@ -15,14 +15,15 @@ const Index: FC = () => {
   const {
     list,
     loading,
+    isLasted,
     pagination,
     onSearch,
     getListNext,
-  } = useList<Topic>({
+  } = useList<List>({
     initPage: 1,
-    initSize: 20,
+    initSize: 10,
     query,
-    fetch: getTopics,
+    fetch: getList,
   });
 
   return (
@@ -42,7 +43,8 @@ const Index: FC = () => {
 
           onSearch(nextQuery);
         }}
-      >参数更改
+      >
+        参数更改
       </Button>
       <Button
         onClick={() => {
@@ -55,12 +57,14 @@ const Index: FC = () => {
         list.map((item, index) => {
           const key = `item - ${index}`;
           return (
-            <View className="topic-item" key={key}>
+            <View className="list-item" key={key}>
               {item.title}
             </View>
           );
         })
       }
+
+      {isLasted && <View className="data-lasted">没有更多数据了</View>}
     </View>
   );
 };

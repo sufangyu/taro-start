@@ -36,7 +36,8 @@
     "create:comp": "node scripts/component",
     "docs:dev": "vuepress dev docs",
     "docs:build": "vuepress build docs",
-    "deploy": "node deploy.js"
+    "deploy": "node deploy.js",
+    "mock": "mocker ./mock"
   },
   "author": "",
   "license": "MIT",
@@ -98,6 +99,8 @@
     "husky": "^3.0.9",
     "lint-staged": "^9.4.2",
     "miniprogram-ci": "^1.0.24",
+    "mocker-api": "2.6.0",
+    "mockjs": "^1.1.0",
     "nodemon": "^1.19.4",
     "npm-run-all": "^4.1.5",
     "stylelint": "^9.3.0",

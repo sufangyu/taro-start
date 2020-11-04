@@ -105,7 +105,7 @@ const CustomTabBar: SFC = () => {
             </CoverView>
             {
               item.type && ['badge', 'dot'].includes(item.type)
-              && <CoverView className={item.type}>{ item.type === 'badge' ? item.badgeText : '' }</CoverView>
+              && <CoverView className={item.type}>{item.type === 'badge' ? item.badgeText : ''}</CoverView>
             }
           </CoverView>
         );
