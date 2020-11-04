@@ -1,8 +1,9 @@
-import { FC } from '@tarojs/taro';
+import { FC, useRouter, useDidShow } from '@tarojs/taro';
 import { View, Button } from '@tarojs/components';
 import {
   getList, postFn, putFn, deleteFn,
 } from '@/api/test';
+import { Query } from '@/router/types';
 
 const Index: FC = () => {
   // 获取列表
@@ -12,6 +13,12 @@ const Index: FC = () => {
       console.log(`ID: ${item.id}, 标题: ${item.title}, 创建时间: ${item.createdAt}`);
     });
   };
+
+
+  const { name = '', age = '' } = useRouter().params as any as Query;
+  useDidShow(() => {
+    console.log(`姓名: ${name}, 年龄: ${age}`);
+  });
 
   return (
     <View className="container">

@@ -1,33 +1,21 @@
 import Taro from '@tarojs/taro';
 import PATH_CONFIG from './path';
+import { Query } from './types';
 
 
 interface Page {
-  /**
-   * 页面路径
-   */
+  /** 页面路径 */
   url: string;
-
-  /**
-   * 查询参数
-   */
-  query? : object;
-
-  /**
-   * 页面跳转方式
-   */
+  /** 查询参数 */
+  query? : Query | object;
+  /** 页面跳转方式 */
   mode? : 'push' | 'replace';
 }
 
 interface CurrentPage {
-  /**
-   * 路由地址
-   */
+  /** 路由地址 */
   route: string;
-
-  /**
-   * 页面参数
-   */
+  /** 页面参数 */
   options: object;
 }
 
@@ -129,7 +117,7 @@ export function gotoPage(options: Page = { url: '', query: {}, mode: 'push' }): 
     const key = MODE_MAP[mode || 'push'];
     Taro[key]({
       url: fullpath,
-    }).catch((error) => {
+    }).catch((error: { errMsg: string; } | undefined) => {
       errorDeal(error);
     });
   }

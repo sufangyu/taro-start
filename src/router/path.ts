@@ -1,19 +1,13 @@
 export default {
-  /**
-   * 账号
-   */
+  /** 账号 */
   account: {
     login: '/pages/account/login/index',
   },
 
-  /**
-   * 首页
-   */
+  /** 首页 */
   home: '/pages/home/index',
 
-  /**
-   * 入门教程
-   */
+  /** 入门教程 */
   started: {
     stateProps: '/pages/started/state-props/index',
     event: '/pages/started/event/index',
@@ -32,9 +26,7 @@ export default {
     subPages: '/sub-pages/debug/env/index',
   },
 
-  /**
-   * 调试
-   */
+  /** 调试 */
   debug: {
     env: '/sub-pages/debug/env/index',
   },

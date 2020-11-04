@@ -22,10 +22,10 @@ const Index: FC = () => {
         type="primary"
         onClick={() => {
           gotoPage({
-            url: `${PATH_CONFIG.started.request}?age=18`,
+            url: PATH_CONFIG.started.request,
             query: {
               name: '张三疯',
-              age: 28,
+              age: 45,
             },
           });
         }}
