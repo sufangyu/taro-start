@@ -1,7 +1,7 @@
 import Taro from '@tarojs/taro';
 import { API_BASE_MAP } from '@/config';
 import {
-  Request, PromiseResponse, SuccessData, ErrorData, ProxyResponse,
+  Request, ResponsePromise, Response, ErrorData, ProxyResponse,
 } from './type';
 
 
@@ -43,17 +43,17 @@ const interceptors = {
      * @param {*} resolve 成功处理函数
      * @param {*} reject 失败处理函数
      * @param {*} options 参数
-     * @returns {PromiseResponse<T>}
+     * @returns {ResponsePromise<T>}
      */
     resolve<T=any>(
       res: ProxyResponse, resolve: any, reject: any, options: Request,
-    ): PromiseResponse<T> {
+    ): ResponsePromise<T> {
       if (options.loading) {
         Taro.hideLoading();
       }
 
       const { data, statusCode } = res;
-      const { success, error_msg: errorMsg } = data as SuccessData;
+      const { success, message } = data as Response;
 
       // 请求出错
       if (statusCode !== 200) {
@@ -81,7 +81,7 @@ const interceptors = {
       }
 
       // 请求成功, 业务处理失败
-      return this.error(errorMsg, data, reject, options);
+      return this.error(message, data, reject, options);
     },
 
     /**

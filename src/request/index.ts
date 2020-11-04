@@ -1,9 +1,9 @@
 import Taro from '@tarojs/taro';
 import mergeWith from 'lodash-es/mergeWith';
 import interceptors from './interceptors';
-import { Request, PromiseResponse, Method } from './type';
+import { Request, ResponsePromise, Method } from './type';
 
-export { Request, PromiseResponse, Method };
+export { Request, ResponsePromise, Method };
 
 
 // 请求默认配置
@@ -24,7 +24,7 @@ const defaults: Request = {
  * @param {Request} options 请求配置参数
  * @returns {Promise<object>}
  */
-function request<T>(options: Request): PromiseResponse<T> {
+function request<T>(options: Request): ResponsePromise<T> {
   const mergeOptions = mergeWith({}, defaults, options);
   interceptors.request(mergeOptions);
 
@@ -46,9 +46,9 @@ const http = {
    *
    * @template T
    * @param {Request} options
-   * @returns {PromiseResponse<T>}
+   * @returns {ResponsePromise<T>}
    */
-  get<T=any>(options: Request): PromiseResponse<T> {
+  get<T=any>(options: Request): ResponsePromise<T> {
     return request<T>(options);
   },
 
@@ -57,9 +57,9 @@ const http = {
    *
    * @template T
    * @param {Request} options
-   * @returns {PromiseResponse<T>}
+   * @returns {ResponsePromise<T>}
    */
-  post<T=any>(options: Request): PromiseResponse<T> {
+  post<T=any>(options: Request): ResponsePromise<T> {
     return request(Object.assign({}, { method: 'POST' }, options));
   },
 
@@ -68,20 +68,20 @@ const http = {
    *
    * @template T
    * @param {Request} options
-   * @returns {PromiseResponse<T>}
+   * @returns {ResponsePromise<T>}
    */
-  put<T=any>(options: Request): PromiseResponse<T> {
+  put<T=any>(options: Request): ResponsePromise<T> {
     return request(Object.assign({}, { method: 'PUT' }, options));
   },
 
   /**
-   * DELECT 请求
+   * DELETE 请求
    *
    * @template T
    * @param {Request} options
-   * @returns {PromiseResponse<T>}
+   * @returns {ResponsePromise<T>}
    */
-  delete<T=any>(options: Request): PromiseResponse<T> {
+  delete<T=any>(options: Request): ResponsePromise<T> {
     return request(Object.assign({}, { method: 'DELETE' }, options));
   },
 
@@ -90,9 +90,9 @@ const http = {
    *
    * @template T
    * @param {Request} options
-   * @returns {PromiseResponse<T>}
+   * @returns {ResponsePromise<T>}
    */
-  base<T=any>(options: Request): PromiseResponse<T> {
+  base<T=any>(options: Request): ResponsePromise<T> {
     return request(options);
   },
 };
