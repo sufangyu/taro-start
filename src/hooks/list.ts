@@ -20,13 +20,14 @@ interface UseList{
 export default function useList<D>({
   initPage = 1,
   initSize = 10,
-  listKey = 'data',
+  listKey = 'list',
   enablePullDownRefresh = true,
   query = {},
   fetch = () => {},
 }: UseList) {
   const [loading, setLoading] = useState(false);
   const [isRefresh, setIsRefresh] = useState(false);
+  const [isLasted, setIsLasted] = useState(false);
   const [pagination, setPagination] = useState({
     page: initPage,
     size: initSize,
@@ -35,7 +36,6 @@ export default function useList<D>({
   const [listQuery, setListQuery] = useState({
     ...query,
     ...pagination,
-    limit: pagination.size,
   });
   const [list, setList] = useState<D[]>([]);
 
@@ -45,7 +45,7 @@ export default function useList<D>({
    *
    */
   async function getList() {
-    if (loading) {
+    if (loading || isLasted) {
       return;
     }
 
@@ -54,16 +54,22 @@ export default function useList<D>({
     };
     // 删除不必要的参数
     // @ts-ignore
-    delete fetchQuery.size;
-    // @ts-ignore
     delete fetchQuery.total;
 
     setLoading(true);
     try {
-      const res = await fetch(fetchQuery);
-      const data = res[listKey] || [];
-      const listData = isRefresh ? data : list.concat(data);
+      const { data } = await fetch(fetchQuery);
+      const curData = data[listKey] || [];
+      const listData = isRefresh ? curData : list.concat(curData);
       setList(listData);
+      setPagination((prevPagination) => ({
+        ...prevPagination,
+        total: data?.total || 0,
+      }));
+
+      // 判断是否是最后一页
+      const { page, pages } = data;
+      setIsLasted(page >= pages);
     } catch (err) {
       // 请求失败, 回设页码
       setPagination((prevPagination) => ({
@@ -100,16 +106,21 @@ export default function useList<D>({
   /**
    * 搜索
    *
-   * @param {*} [nextQuery={}]
+   * @param {*} [nextQuery={}] 下一次的查询条件
+   * @param {boolean} [isRemovePrevQuery=false] 是否移除初始化搜索条件
    */
-  function onSearch(nextQuery: any = {}) {
+  function onSearch(nextQuery: any = {}, isRemovePrevQuery: boolean = false) {
+    setIsLasted(false);
     setIsRefresh(true);
-    setListQuery((prevQuery) => ({
-      ...prevQuery,
-      ...nextQuery,
-      page: initPage,
-      size: initSize,
-    }));
+    setListQuery((prevQuery) => {
+      const prevQueryResult = isRemovePrevQuery ? {} : prevQuery;
+      return {
+        ...prevQueryResult,
+        ...nextQuery,
+        page: initPage,
+        size: initSize,
+      };
+    });
     setPagination((prevState) => ({
       ...prevState,
       page: initPage,
@@ -123,6 +134,10 @@ export default function useList<D>({
    *
    */
   function getListNext() {
+    if (loading || isLasted) {
+      return;
+    }
+
     const nextPage = pagination.page + 1;
     onPageChange({
       page: nextPage,
@@ -133,7 +148,7 @@ export default function useList<D>({
   useEffect(() => {
     getList();
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [listQuery]);
+  }, [listQuery, fetch]);
 
 
   // 上拉加载下一页
@@ -148,7 +163,9 @@ export default function useList<D>({
       return;
     }
 
+    // setList([]);
     setIsRefresh(true);
+    setIsLasted(false);
     onPageChange({
       page: initPage,
       size: initSize,
@@ -158,6 +175,7 @@ export default function useList<D>({
 
   return {
     loading,
+    isLasted,
     list,
     pagination,
     getList,
