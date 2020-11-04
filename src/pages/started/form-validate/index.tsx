@@ -1,6 +1,6 @@
 import Taro, { FC } from '@tarojs/taro';
 import {
-  View, Input, Label, Button,
+  View, Input, Label, Button, Picker,
 } from '@tarojs/components';
 import { useInput } from '@/hooks';
 import Verification from '@/utils/verification';
@@ -13,6 +13,7 @@ const Index: FC = () => {
     password: '',
     mobile: '',
     age: '',
+    address: [],
   });
 
   function handleSubmit() {
@@ -95,6 +96,20 @@ const Index: FC = () => {
             });
           }}
         />
+      </View>
+
+      <View className="form-item">
+        <Label>地址：</Label>
+        <Picker
+          value={others.address}
+          mode="region"
+          onChange={(e) => {
+            const { value } = e.detail;
+            setOthers(value, 'address');
+          }}
+        >
+          <View>{others.address.length === 0 ? '选择地址' : others.address.join()}</View>
+        </Picker>
       </View>
 
       <View className="form-actions">

@@ -11,7 +11,24 @@ function useInput<S>(initialState: S): [S, (e: any, key?: string, validator?: Fu
    * @param {Function} [validator] 特殊处理的函数, 需 return 处理后的值
    * @returns
    */
-  function handleInput(e: { detail: { value: any; }; }, key?: string, validator?: Function) {
+  function handleInput(e: any, key?: string, validator?: Function) {
+    // 直接整个属性赋值
+    if (!e.detail && !key) {
+      return setVal((prevVal) => ({
+        ...prevVal,
+        ...e,
+      }));
+    }
+
+    // 直接单个属性赋值
+    if (!e.detail && key) {
+      setVal((prevVal) => ({
+        ...prevVal,
+        [key]: e,
+      }));
+      return e;
+    }
+
     let { value } = e.detail;
     value = value.trim();
     // 处理特殊限制
