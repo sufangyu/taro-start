@@ -6,4 +6,6 @@ export { default as useList } from './list';
 
 export { default as useGeocoder } from './geocoder';
 
+export { default as useEvents } from './events';
+
 export { default as useTabbar } from './tabbar';
