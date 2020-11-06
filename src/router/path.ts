@@ -23,6 +23,7 @@ export default {
     actionsheet: '/pages/started/actionsheet/index',
     eventsList: '/pages/started/events/list/index',
     eventsDetail: '/pages/started/events/detail/index',
+    format: '/pages/started/format/index',
     subPages: '/sub-pages/debug/env/index',
   },
 
