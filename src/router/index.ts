@@ -1,13 +1,13 @@
 import Taro from '@tarojs/taro';
 import PATH_CONFIG from './path';
-import { Query } from './types';
+import { RootQuery } from './types';
 
 
 interface Page {
   /** 页面路径 */
   url: string;
   /** 查询参数 */
-  query? : Query | object;
+  query? : RootQuery | object;
   /** 页面跳转方式 */
   mode? : 'push' | 'replace';
 }
@@ -47,7 +47,7 @@ const errorDeal = (error = { errMsg: '' }): void => {
 
 
 /**
- * 获取当前页面对象
+ * 获取页面对象
  *
  * @export
  * @param {number} [offset=0] 相对当前偏移页面数量
@@ -68,14 +68,14 @@ export function getCurrentPage(offset: number = 0): object {
 
 
 /**
- * 获取完整的路径
+ * 获取完整路径
  *
  * @export
  * @param {string} [url=''] 页面地址
  * @param {object} [query={}] 查询参数
  * @returns
  */
-export function getFullpath(url: string = '', query: object = {}) {
+export function getFullpath(url: string = '', query: { [key: string]: any; } = {}) {
   if (JSON.stringify(query) === '{}') {
     return url;
   }
@@ -128,7 +128,7 @@ export function gotoPage(options: Page = { url: '', query: {}, mode: 'push' }): 
  * 返回之前页面
  *
  * @export
- * @param {number} delta 返回页面的个数
+ * @param {number} delta 页面 History 列表中的相对位置
  */
 export function navigateBack(delta: number = 1): void {
   Taro.navigateBack({ delta });
