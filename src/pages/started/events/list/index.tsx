@@ -1,6 +1,6 @@
 import Taro, { FC, useState } from '@tarojs/taro';
 import { View, Button } from '@tarojs/components';
-import { REFRESH_LIST, RefreshListCallback } from '@/events';
+import { EventBubs, RefreshListCallback } from '@/events';
 import { gotoPage, PATH_CONFIG } from '@/router';
 import { useEvents } from '@/hooks';
 import './index.scss';
@@ -11,7 +11,7 @@ const Index: FC = () => {
     name: '张三疯',
     age: 18,
   });
-  useEvents<RefreshListCallback>(REFRESH_LIST, (args) => {
+  useEvents<RefreshListCallback>(EventBubs.刷新列表, (args) => {
     console.log('设置用户信息', args);
     setPerson((prevState) => ({
       ...prevState,
