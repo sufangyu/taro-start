@@ -3,7 +3,7 @@ import { View, Button } from '@tarojs/components';
 import {
   getList, postFn, putFn, deleteFn,
 } from '@/api/test';
-import { Query } from '@/router/types';
+import { RootQuery } from '@/router/types';
 
 const Index: FC = () => {
   // 获取列表
@@ -15,7 +15,7 @@ const Index: FC = () => {
   };
 
 
-  const { name = '', age = '' } = useRouter().params as any as Query;
+  const { name = '', age = '' } = useRouter().params as any as RootQuery;
   useDidShow(() => {
     console.log(`姓名: ${name}, 年龄: ${age}`);
   });

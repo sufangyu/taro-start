@@ -5,3 +5,12 @@ export interface Query {
   /** 年龄 */
   age: string;
 }
+
+
+export interface Query2 {
+  /** 操作类型 */
+  action: 'CREATE' | 'EDIT';
+}
+
+
+export interface RootQuery extends Query, Query2 {}
