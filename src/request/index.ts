@@ -24,9 +24,13 @@ const defaults: Request = {
  * @param {Request} options 请求配置参数
  * @returns {Promise<object>}
  */
-function request<T>(options: Request): ResponsePromise<T> {
+function request<T>(options: Request): ResponsePromise<T> | boolean {
   const mergeOptions = mergeWith({}, defaults, options);
-  interceptors.request(mergeOptions);
+  const requestRes = interceptors.request(mergeOptions);
+
+  if (!requestRes) {
+    return false;
+  }
 
   return new Promise((resolve, reject) => {
     Taro

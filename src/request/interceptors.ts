@@ -4,6 +4,12 @@ import {
   Request, ResponsePromise, Response, ErrorData, ProxyResponse,
 } from './type';
 
+const pending = {};
+
+const getRequestIdentify = (options: Request) => {
+  return `${options.method}-${options.url}-${JSON.stringify(options.data)}`;
+};
+
 
 // 请求、响应拦截器
 const interceptors = {
@@ -27,10 +33,19 @@ const interceptors = {
       options.url = `${API_BASE}${url}`;
     }
 
+    // 处理重复请求
+    const key = getRequestIdentify(options);
+    if (pending[key]) {
+      return false;
+    }
+
+    pending[key] = true;
+
     // 显示 loading
     if (loading) {
       Taro.showLoading({ title: loadingText, mask: true });
     }
+    return true;
   },
 
   // 响应拦截
@@ -75,6 +90,10 @@ const interceptors = {
         return this.error(`${statusCode}-${errMsg}`, data, reject, options);
       }
 
+      // 删除本次请求的标识符
+      const key = getRequestIdentify(options);
+      delete pending[key];
+
       // 请求 & 业务处理成功
       if (success) {
         return resolve(data);
@@ -93,6 +112,11 @@ const interceptors = {
      */
     reject(error: ErrorData, reject: any, options: Request): Promise<any> {
       Taro.hideLoading();
+
+      // 删除本次请求的标识符
+      const key = getRequestIdentify(options);
+      delete pending[key];
+
       return this.error(error.errMsg, error, reject, options);
     },
 
