@@ -1,0 +1,110 @@
+$default-bg: #ffffff;
+$default-border: #dcdfe6;
+$primary: #5677fc;
+$primary-bg: #5677fc;
+$primary-border: #5677fc;
+$seconde: #909399;
+$seconde-bg: #909399;
+$seconde-border: #909399;
+
+// 行高
+$default-height: 64px;
+$medium-height: 56px;
+$small-height: 48px;
+$mini-height: 38px;
+// 字号
+$default-font-size: 32px;
+$medium-font-size: 28px;
+$small-font-size: 24px;
+$mini-font-size: 20px;
+
+
+.button {
+  box-sizing: border-box;
+  padding: 0 40px;
+  border-radius: 4px;
+  display: inline-block;
+  vertical-align: middle;
+  color: #606266;
+  font-size: $default-font-size;
+  border: 1PX solid $default-border;
+  background-color: $default-bg;
+  height: $default-height;
+  line-height: $default-height;
+
+  &.round {
+    border-radius: $default-height / 2;
+  }
+
+  &.plain {
+    background: #f4f4f5;
+    border-color: #d3d4d6;
+  }
+
+  &.block {
+    width: 100%;
+    padding: 0;
+  }
+
+  &.medium {
+    padding: 0 34px;
+    height: $medium-height;
+    line-height: $medium-height;
+    font-size: $medium-font-size;
+  }
+  &.small {
+    padding: 0 30px;
+    height: $small-height;
+    line-height: $small-height;
+    font-size: $small-font-size;
+  }
+  &.mini {
+    padding: 0 20px;
+    height: $mini-height;
+    line-height: $mini-height;
+    font-size: $mini-font-size;
+  }
+
+  &.disabled {
+    opacity: 0.5;
+  }
+
+  &-primary {
+    color: #fff;
+    border: 1PX solid $primary-border;
+    background-color: $primary-bg;
+
+    &.plain {
+      color: $primary;
+      background: #ecf5ff;
+      border-color: #b3d8ff;
+    }
+  }
+
+  &-seconde {
+    color: #fff;
+    border: 1PX solid $seconde-border;
+    background-color: $seconde-bg;
+
+
+    &.plain {
+      color: $seconde;
+      background: #f4f4f5;
+      border-color: #d3d4d6;
+    }
+  }
+  
+  button {
+    padding: 0;
+    color: inherit;
+    background-color: transparent;
+    height: inherit;
+    line-height: inherit;
+    border-radius: inherit;
+    font-size: inherit;
+
+    &::after {
+      border: none;
+    }
+  }
+}
