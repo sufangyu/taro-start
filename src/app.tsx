@@ -40,6 +40,7 @@ class App extends Component {
       'pages/started/events/list/index',
       'pages/started/events/detail/index',
       'pages/started/format/index',
+      'pages/started/button/index',
     ],
     subPackages: [
       {

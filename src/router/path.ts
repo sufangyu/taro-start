@@ -10,6 +10,7 @@ export default {
   /** 入门教程 */
   started: {
     stateProps: '/pages/started/state-props/index',
+    button: '/pages/started/button/index',
     event: '/pages/started/event/index',
     request: '/pages/started/request/index',
     navigation: '/pages/started/navigation/index',

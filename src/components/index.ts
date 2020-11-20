@@ -1,5 +1,7 @@
 export { default as DebugEnv } from './debug-env';
 
+export { default as MsButton } from './button';
+
 export { default as ButtonCountDown } from './button-count-down';
 
 export { default as ImagePicker } from './image-picker';

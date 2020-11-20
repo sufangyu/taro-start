@@ -1,0 +1,25 @@
+.container {
+  padding: 30px;
+}
+
+.button-group {
+  margin-bottom: 40px;
+
+  .title {
+    margin-bottom: 15px;
+    font-weight: 500;
+    font-size: 32px;
+  }
+
+  view + view {
+    margin-top: 10px;
+  }
+
+  ms-button {
+    margin-right: 20px;
+    
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+}

@@ -13,6 +13,7 @@ type Page = {
 const Index: FC = () => {
   const [menus] = useState<Page[]>([
     { label: 'State & Props', path: PATH_CONFIG.started.stateProps },
+    { label: '按钮', path: PATH_CONFIG.started.button },
     { label: '事件处理', path: PATH_CONFIG.started.event },
     { label: '网络请求', path: PATH_CONFIG.started.request },
     { label: '页面跳转', path: PATH_CONFIG.started.navigation },
