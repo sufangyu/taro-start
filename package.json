@@ -29,7 +29,9 @@
     "lintstyle": "stylelint **/*.{css,scss} --syntax scss",
     "lintstyle:fix": "stylelint **/*.{css,scss} --syntax scss --fix",
     "lintstyle:watch": "nodemon --watch src --ext .css,.scss --exec npm run lintstyle",
-    "lint:all": "run-p lint:watch lintstyle:watch",
+    "ls-lint": "ls-lint",
+    "ls-lint:watch": "nodemon --watch src --exec npm run ls-lint",
+    "lint:all": "run-p lint:watch lintstyle:watch ls-lint:watch",
     "commit": "git cz",
     "precommit": "lint-staged",
     "create:page": "node scripts/page",
@@ -66,6 +68,7 @@
   "devDependencies": {
     "@commitlint/cli": "^8.2.0",
     "@commitlint/config-conventional": "^8.2.0",
+    "@ls-lint/ls-lint": "^1.9.2",
     "@tarojs/cli": "2.2.11",
     "@tarojs/mini-runner": "2.2.11",
     "@tarojs/plugin-babel": "2.2.11",
@@ -120,6 +123,10 @@
     ],
     "src/**/*.{css,scss}": [
       "npm run lintstyle:fix",
+      "git add"
+    ],
+    "src/**/*": [
+      "npm run ls-lint",
       "git add"
     ]
   },

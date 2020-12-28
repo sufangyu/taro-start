@@ -1862,6 +1862,11 @@
   resolved "https://registry.yarnpkg.com/@leejim/wxml-parser/-/wxml-parser-0.1.1.tgz#69ed483e10c86128f2977bbb646953c11a06b8c5"
   integrity sha512-sL8ZGo9xtiUF5ij4ABxIdHeGPHJNZJm8t8IXMj+DO20/e9dq3prLvIAMHEN7rOmxBs/eM4g6Kjv0niE6lcddsQ==
 
+"@ls-lint/ls-lint@^1.9.2":
+  version "1.9.2"
+  resolved "https://registry.yarnpkg.com/@ls-lint/ls-lint/-/ls-lint-1.9.2.tgz#689f1f4c06072823a726802ba167340efcefe19c"
+  integrity sha512-sugEjWjSSy9OHF6t1ZBLZCAROj52cZthB9dIePmzZzzMwmWwy3qAEMSdJheHeS1FOwDZI7Ipm1H/bWgzJNnSAw==
+
 "@marionebl/sander@^0.6.0":
   version "0.6.1"
   resolved "https://registry.yarnpkg.com/@marionebl/sander/-/sander-0.6.1.tgz#1958965874f24bc51be48875feb50d642fc41f7b"

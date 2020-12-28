@@ -1,0 +1,20 @@
+# 文件命名校验规则. https://ls-lint.org
+#
+# kebab-case | camelCase | PascalCase
+
+ls:
+  .js: kebabcase | pointcase
+  .ts: kebabcase | pointcase
+  .d.ts: kebabcase | pointcase
+  .tsx: kebabcase | pointcase
+  .css: kebabcase | pointcase
+  .scss: kebabcase | pointcase
+  .json: kebabcase | pointcase
+
+ignore:
+  - dist
+  - test
+  - docs
+  - node_modules
+  - .git
+  - .cz-config.js
